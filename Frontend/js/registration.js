@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+   
     var form = document.getElementById("registrationForm")
     form.addEventListener("submit", event =>{
         event.preventDefault()
@@ -16,7 +16,7 @@ function validateForm(){
     var fname = document.registrationForm.fname.value.trim()
     var lname = document.registrationForm.lname.value.trim()
     var streetname= document.registrationForm.streetname.value.trim()
-    var streetnr = document.registrationForm.streetnr.value.trim()
+    var streetnr = document.registrationForm.streetnumber.value.trim()
     var zip = document.registrationForm.zip.value.trim()
     var location = document.registrationForm.location.value.trim()
     var country = document.registrationForm.country.value.trim()
@@ -24,10 +24,9 @@ function validateForm(){
     var email = document.registrationForm.email.value.trim()
     var pw = document.registrationForm.pw.value.trim()
     var pw2 = document.registrationForm.pw2.value.trim()
-
-
+    
     //defining errorMessage variables with default value
-    var fnameErr = lnameErr = streetnErr = streetnrErr = zipErr = locErr = counErr = userErr = emailErr = pwErr = pw2Err = true 
+    var fnameErr = lnameErr = streetnErr = streetnrErr = zipErr = locErr = counErr = userErr = emailErr = pwErr = true 
 
     //validate first name
     if(fname == ""){
@@ -64,32 +63,93 @@ function validateForm(){
 
     //validate street name
     if(streetname == ""){
-        printError("streetnErr", "streetn", "Please enter your streetname")
+        printError("streetnErr", "streetname", "Please enter your streetname")
+    }else{
+        var regex = /^[a-zA-Z\s]+$/
+        if(regex.test(lname) === false){
+            printError("streetnErr", "streetname", "Please enter valid streetname")
+            //add error class for input field
+        }else{
+            printError("streetnErr", "streetname", "")
+            streetnErr = false
+            //add success class for input field
+        }
     }
     
     //validate streetnr
     if(streetnr == ""){
-        printError("streetnrErr", "streetnr", "Please enter your streetnumber")
+        printError("streetnrErr", "streetnumber", "Please enter your streetnumber")
+    }else{
+        var regex = /^[0-9]*$/
+        if(regex.test(lname) === false){
+            printError("streetnrErr", "streetnumber", "Please enter valid streetnumber")
+            //add error class for input field
+        }else{
+            printError("streetnrErr", "streetnumber", "")
+            streetnrErr = false
+            //add success class for input field
+        }
     }
 
     //validate zip
     if(zip == ""){
         printError("zipErr", "zip", "Please enter your zip code")
+    }else{
+        var regex = /^[0-9]*$/
+        if(regex.test(lname) === false){
+            printError("zipErr", "zip", "Please enter valid zip code")
+            //add error class for input field
+        }else{
+            printError("zipErr", "zip", "")
+            zipErr = false
+            //add success class for input field
+        }
     }
+
 
     //validate location
     if(location == ""){
         printError("locErr", "location", "Please enter your location")
+    }else{
+        var regex = /^[a-zA-Z\s]+$/
+        if(regex.test(lname) === false){
+            printError("locErr", "location", "Please enter valid location")
+            //add error class for input field
+        }else{
+            printError("locErr", "location", "")
+            locErr = false
+            //add success class for input field
+        }
     }
 
     //validate country
     if(country == ""){
         printError("counErr", "country", "Please enter your country")
+    }else{
+        var regex = /^[a-zA-Z\s]+$/
+        if(regex.test(lname) === false){
+            printError("counErr", "country", "Please enter valid country")
+            //add error class for input field
+        }else{
+            printError("counErr", "country", "")
+            counErr = false
+            //add success class for input field
+        }
     }
     
     //validate usern
     if(usern == ""){
         printError("userErr", "username", "Please enter your username")
+    }else{
+        var regex = /^[a-zA-Z\s]+$/
+        if(regex.test(lname) === false){
+            printError("userErr", "username", "Please enter valid username")
+            //add error class for input field
+        }else{
+            printError("userErr", "username", "")
+            userErr = false
+            //add success class for input field
+        }
     }
 
     //validate email
@@ -109,22 +169,35 @@ function validateForm(){
         }
     }
 
+    
+
     //validate pw
-    if(pw == ""){
+    if(pw == "" || pw2 == ""){
         printError("pwErr", "pw", "Please enter your password")
+        
     }else{
+        // wenn beide befüllt dann error zurücksetzen
+        printError("pwErr", "pw", "")
         //var regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8, 20}$/
         var regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/ // at least 1 lower case, 1 upper case, 1 number, white space not allowed
         if(regex.test(pw) === false){
-            console.log(regex.test(pw))
-            printError("pwErr", "pw", "Please enter valid password (min 8 characters)")
+            
+            printError("pwErr", "pw", "Please enter valid password")
         }else{
             printError("pwErr", "pw", "")
-            //add success class
             
+            if(pw != pw2){
+                printError("pwErr", "pw", "Passwords don't match")
+            }else{
+                printError("pwErr", "pw", "")
+                
+                //add success class
+            }
             
         }
     }
+
+    
 
 
 }
@@ -132,15 +205,25 @@ function validateForm(){
 //function to display error messages
 function printError(elemErrId, elemInputId, message){
     document.getElementById(elemErrId).innerHTML = message
-    //document.getElementById(elemInputId).style.borderColor = "red"
-    //elemInputId.className = "form-controll error"
+    
+    if(message == ""){
+        document.getElementById(elemInputId).style.borderColor = "green"
+        if(elemInputId = pw){
+            document.getElementById("pw2").style.borderColor = "green"
+        }
+    }else{
+        document.getElementById(elemInputId).style.borderColor = "red"
+        
+        if(elemInputId = pw){
+            
+            document.getElementById("pw2").style.borderColor = "red"
+        }
+        
+    }
 }
 
-/*function addSuccess(input){
-    input.className = "form-controll success"
-}*/
-
-
+// funktionen für eingabefelder ausarbeiten, auch logic folder
+// ajax call in logic, utility klasse
 /*function sendForm(){
     $.ajax({
         
