@@ -140,7 +140,8 @@ function printError(elemErrId, elemInputId, message){
     input.className = "form-controll success"
 }*/
 
-
+// funktionen für eingabefelder ausarbeiten, auch logic folder
+// ajax call in logic, utility klasse
 /*function sendForm(){
     $.ajax({
         
