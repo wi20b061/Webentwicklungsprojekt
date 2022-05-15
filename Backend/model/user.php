@@ -41,11 +41,23 @@ class User{
     function get_streetname(){
         return $this->streetname;
     }
+    function get_streetnr(){
+        return $this->streetnr;
+    }
     function get_zip(){
         return $this->streetnr;
     }
     function get_location(){
-        return $this->salutation;
+        return $this->location;
+    }
+    function get_username(){
+        return $this->username;
+    }
+    function get_email(){
+        return $this->email;
+    }
+    function get_pw(){
+        return $this->pw;
     }
     
 }
