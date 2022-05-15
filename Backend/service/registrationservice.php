@@ -1,9 +1,10 @@
 <?php
 
-include_once "model/user.php";
-require_once('dbaccess.php');
-
 /**** COMMUNICATION WITH DB ****/
+
+include_once "model/user.php";
+//include_once "../db/dbaccess.php";
+require_once ('../db/dbaccess.php');
 
 $db_obj = new mysqli($host, $user, $password, $database);
   if ($db_obj->connect_error) {
