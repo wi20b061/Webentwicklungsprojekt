@@ -3,7 +3,7 @@
 include_once "model/user.php";
 include_once "service/registrationservice.php";
 
-class RegistrationApi{
+class Api{
     private $registrationService;
 
     public function __construct(){

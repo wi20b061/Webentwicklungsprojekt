@@ -1,13 +1,13 @@
 <?php
 
-include("registrationapi.php");
+include("api.php");
 
 $method = "";
 
 isset($_POST["method"]) ? $method = $_POST["method"] : false;
 
-$registrationapi = new RegistrationApi();
-$result = $registrationapi->processRequest($method);
+$api = new Api();
+$result = $api->processRequest($method);
 if($result == null){
     response("POST", 400, null);
 }else{
