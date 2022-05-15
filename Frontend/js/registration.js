@@ -6,7 +6,7 @@ $(document).ready(function(){
         var isValid = validateForm()
         if(isValid){
             // result an ajax.js weiter senden ? 
-            var user = [salutaion, fname, lname, streetname, streetnr, zip, location, country, usern, email, pw]
+            var user = [salutation, fname, lname, streetname, streetnr, zip, location, country, usern, email, pw]
             sendData("registration", user)
         }
     })
