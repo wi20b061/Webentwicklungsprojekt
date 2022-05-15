@@ -6,7 +6,7 @@ $(document).ready(function(){
         var isValid = validateForm()
         if(isValid){
             // result an ajax.js weiter senden ? 
-            var user = [fname, lname, streetname, streetnr, zip, location, country, usern, email, pw]
+            var user = [salutaion, fname, lname, streetname, streetnr, zip, location, country, usern, email, pw]
             sendData("registration", user)
         }
     })
@@ -16,6 +16,7 @@ $(document).ready(function(){
 function validateForm(){
     
     // retrieving values of form elements
+    var salutation = document.registrationForm.salutation.value
     var fname = document.registrationForm.fname.value.trim()
     var lname = document.registrationForm.lname.value.trim()
     var streetname= document.registrationForm.streetname.value.trim()
@@ -229,12 +230,12 @@ function printError(elemErrId, elemInputId, message){
 // funktionen für eingabefelder ausarbeiten, auch logic folder
 
 // ajax function in ajax.js auslagern
-function sendData(methodToExecute, fname, lname, streetname, streetnumber, zip, location, country, username, pw){
+function sendData(methodToExecute, salutation, fname, lname, streetname, streetnumber, zip, location, country, username, pw){
     $.ajax({
         type: "POST",
         url: "",
         cache: false,
-        data: {method: methodToExecute, fname: fname, lname: lname, streetname: streetname, 
+        data: {method: methodToExecute, salutation: salutaion, fname: fname, lname: lname, streetname: streetname, 
                 streetnr: streetnumber, zip: zip, location: location, country: country, username: username, 
                 password: pw},
         dataType: "json",
