@@ -3,11 +3,14 @@ $(document).ready(function(){
     var form = document.getElementById("registrationForm")
     form.addEventListener("submit", event =>{
         event.preventDefault()
-        validateForm()
+        var isValid = validateForm()
+        if(isValid){
+            // result an ajax.js weiter senden ? 
+            var user = [fname, lname, streetname, streetnr, zip, location, country, usern, email, pw]
+            sendData("registration", user)
+        }
     })
 })  
-
-// einfache validierung für frontend
 
 // function to validate form input
 function validateForm(){
@@ -31,33 +34,32 @@ function validateForm(){
     //validate first name
     if(fname == ""){
         printError("fnameErr", "fname", "Please enter your first name")
-        //add error class for input field
+        
     }else{
         var regex = /^[a-zA-Z\s]+$/
         if(regex.test(fname) === false){
             printError("fnameErr", "fname", "Please enter valid first name")
-            //add error class for input field
+           
         }else{
             printError("fnameErr", "fname", "")
             fnameErr = false
-            //add success class for input field
-            //addSuccess(fname)
+            
         }
     }
 
     //validate last name
     if(lname == ""){
         printError("lnameErr", "lname", "Please enter your last name")
-        //add error class for input field
+        
     }else{
         var regex = /^[a-zA-Z\s]+$/
         if(regex.test(lname) === false){
             printError("lnameErr", "lname", "Please enter valid last name")
-            //add error class for input field
+            
         }else{
             printError("lnameErr", "lname", "")
             lnameErr = false
-            //add success class for input field
+            
         }
     }
 
@@ -66,13 +68,13 @@ function validateForm(){
         printError("streetnErr", "streetname", "Please enter your streetname")
     }else{
         var regex = /^[a-zA-Z\s]+$/
-        if(regex.test(lname) === false){
+        if(regex.test(streetname) === false){
             printError("streetnErr", "streetname", "Please enter valid streetname")
-            //add error class for input field
+            
         }else{
             printError("streetnErr", "streetname", "")
             streetnErr = false
-            //add success class for input field
+            
         }
     }
     
@@ -81,13 +83,13 @@ function validateForm(){
         printError("streetnrErr", "streetnumber", "Please enter your streetnumber")
     }else{
         var regex = /^[0-9]*$/
-        if(regex.test(lname) === false){
+        if(regex.test(streetnr) === false){
             printError("streetnrErr", "streetnumber", "Please enter valid streetnumber")
-            //add error class for input field
+            
         }else{
             printError("streetnrErr", "streetnumber", "")
             streetnrErr = false
-            //add success class for input field
+            
         }
     }
 
@@ -96,13 +98,13 @@ function validateForm(){
         printError("zipErr", "zip", "Please enter your zip code")
     }else{
         var regex = /^[0-9]*$/
-        if(regex.test(lname) === false){
+        if(regex.test(zip) === false){
             printError("zipErr", "zip", "Please enter valid zip code")
-            //add error class for input field
+            
         }else{
             printError("zipErr", "zip", "")
             zipErr = false
-            //add success class for input field
+            
         }
     }
 
@@ -112,13 +114,13 @@ function validateForm(){
         printError("locErr", "location", "Please enter your location")
     }else{
         var regex = /^[a-zA-Z\s]+$/
-        if(regex.test(lname) === false){
+        if(regex.test(location) === false){
             printError("locErr", "location", "Please enter valid location")
-            //add error class for input field
+            
         }else{
             printError("locErr", "location", "")
             locErr = false
-            //add success class for input field
+            
         }
     }
 
@@ -127,13 +129,13 @@ function validateForm(){
         printError("counErr", "country", "Please enter your country")
     }else{
         var regex = /^[a-zA-Z\s]+$/
-        if(regex.test(lname) === false){
+        if(regex.test(country) === false){
             printError("counErr", "country", "Please enter valid country")
-            //add error class for input field
+            
         }else{
             printError("counErr", "country", "")
             counErr = false
-            //add success class for input field
+            
         }
     }
     
@@ -142,13 +144,13 @@ function validateForm(){
         printError("userErr", "username", "Please enter your username")
     }else{
         var regex = /^[a-zA-Z\s]+$/
-        if(regex.test(lname) === false){
+        if(regex.test(usern) === false){
             printError("userErr", "username", "Please enter valid username")
-            //add error class for input field
+            
         }else{
             printError("userErr", "username", "")
             userErr = false
-            //add success class for input field
+            
         }
     }
 
@@ -164,7 +166,6 @@ function validateForm(){
         }else{
             printError("emailErr", "email", "")
             emailErr = false
-            //add success class for input field
 
         }
     }
@@ -191,14 +192,17 @@ function validateForm(){
             }else{
                 printError("pwErr", "pw", "")
                 
-                //add success class
             }
             
         }
     }
 
     
-
+    if((fnameErr || lnameErr || streetnErr || streetnrErr || zipErr || locErr || counErr || userErr || emailErr || pwErr) == false){
+        return false
+    }else{
+        return true
+    }
 
 }
 
@@ -223,9 +227,20 @@ function printError(elemErrId, elemInputId, message){
 }
 
 // funktionen für eingabefelder ausarbeiten, auch logic folder
-// ajax call in logic, utility klasse
-/*function sendForm(){
+
+// ajax function in ajax.js auslagern
+function sendData(methodToExecute, fname, lname, streetname, streetnumber, zip, location, country, username, pw){
     $.ajax({
+        type: "POST",
+        url: "",
+        cache: false,
+        data: {method: methodToExecute, fname: fname, lname: lname, streetname: streetname, 
+                streetnr: streetnumber, zip: zip, location: location, country: country, username: username, 
+                password: pw},
+        dataType: "json",
+        success: function (response) { 
+           
+        },
         
     })
-}*/
+}
