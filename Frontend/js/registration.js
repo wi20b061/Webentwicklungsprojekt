@@ -239,8 +239,9 @@ function sendData(methodToExecute, salutation, fname, lname, streetname, streetn
         success: function (response) { 
            console.log("success")
         },
-        error: function(response){
-            console.log("error")
+        error: function(xhr){
+            console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            
         }
     })
 }
