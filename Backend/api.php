@@ -25,6 +25,8 @@ class Api{
     private function processRegistration(){
         //fetch data from posted body
         $data = json_decode(file_get_contents('php://input'));
+
+        echo $data->salutation;
         
         /***VALIDIERUNG ****/
         //Validierung ob alle Felder befüllt sind und übergeben wurden (evtl mit Schleife verschönern)
@@ -47,6 +49,20 @@ class Api{
         $this->success(201, $result);
 
     }
+
+    /** format error (with headers) and exit
+     * @param int $code HTTP response code (4xx or 5xx)
+     * @param array $headers
+     * @param string $msg 
+     */
+    private function error(int $code, array $headers, $msg) {
+        http_response_code($code);
+        foreach ($headers as $hdr) {
+            header($hdr);
+        }    
+        echo ($msg);
+        exit;
+    }  
 }
 
 ?>

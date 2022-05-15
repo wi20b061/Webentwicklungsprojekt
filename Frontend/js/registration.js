@@ -233,8 +233,8 @@ function sendData(methodToExecute, salutation, fname, lname, streetname, streetn
         url: "../../Backend/ServiceHandler.php",
         cache: false,
         data: {method: methodToExecute, salutation: salutation, fname: fname, lname: lname, streetname: streetname, 
-                streetnr: streetnumber, zip: zip, location: location, country: country, username: username, 
-                password: pw},
+                streetnr: streetnumber, zip: zip, location: location, country: country, email: email, username: username, 
+                pw: pw},
         dataType: "json",
         success: function (response) { 
            console.log("success")

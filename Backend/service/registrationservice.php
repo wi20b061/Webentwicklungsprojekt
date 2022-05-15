@@ -4,7 +4,11 @@
 
 include_once "model/user.php";
 //include_once "../db/dbaccess.php";
-require_once ('../db/dbaccess.php');
+//require_once ('../db/dbaccess.php');
+$host ="localhost";
+$user ="filara";
+$password= "filara";
+$database = "webentwicklungsprojekt";
 
 $db_obj = new mysqli($host, $user, $password, $database);
   if ($db_obj->connect_error) {
