@@ -3,12 +3,8 @@ $(document).ready(function(){
     var form = document.getElementById("registrationForm")
     form.addEventListener("submit", event =>{
         event.preventDefault()
-        var isValid = validateForm()
-        if(isValid){
-            // result an ajax.js weiter senden ? 
-            var user = [salutation, fname, lname, streetname, streetnr, zip, location, country, usern, email, pw]
-            sendData("registration", user)
-        }
+        validateForm()
+                
     })
 })  
 
@@ -16,7 +12,8 @@ $(document).ready(function(){
 function validateForm(){
     
     // retrieving values of form elements
-    var salutation = document.registrationForm.salutation.value
+    var select = document.getElementById('salutation');
+    var salutation = select.options[select.selectedIndex].value
     var fname = document.registrationForm.fname.value.trim()
     var lname = document.registrationForm.lname.value.trim()
     var streetname= document.registrationForm.streetname.value.trim()
@@ -202,7 +199,7 @@ function validateForm(){
     if((fnameErr || lnameErr || streetnErr || streetnrErr || zipErr || locErr || counErr || userErr || emailErr || pwErr) == false){
         return false
     }else{
-        return true
+        sendData("registration", salutation, fname, lname, streetname, streetnr, zip, location, country, usern, email, pw)
     }
 
 }
@@ -235,7 +232,7 @@ function sendData(methodToExecute, salutation, fname, lname, streetname, streetn
         type: "POST",
         url: "",
         cache: false,
-        data: {method: methodToExecute, salutation: salutaion, fname: fname, lname: lname, streetname: streetname, 
+        data: {method: methodToExecute, salutation: salutation, fname: fname, lname: lname, streetname: streetname, 
                 streetnr: streetnumber, zip: zip, location: location, country: country, username: username, 
                 password: pw},
         dataType: "json",
