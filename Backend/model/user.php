@@ -25,6 +25,7 @@ class User{
         $this->streetnr         = $streetnr;
         $this->zip              = $zip;
         $this->location         = $location;
+        $this->country          = $country;
         $this->username         = $username;
         $this->email            = $email;
         $this->pw               = $pw;
@@ -45,10 +46,13 @@ class User{
         return $this->streetnr;
     }
     function get_zip(){
-        return $this->streetnr;
+        return $this->zip;
     }
     function get_location(){
         return $this->location;
+    }
+    function get_country(){
+        return $this->country;
     }
     function get_username(){
         return $this->username;
