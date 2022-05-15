@@ -230,15 +230,17 @@ function printError(elemErrId, elemInputId, message){
 function sendData(methodToExecute, salutation, fname, lname, streetname, streetnumber, zip, location, country, username, pw){
     $.ajax({
         type: "POST",
-        url: "",
+        url: "../../Backend/ServiceHandler.php",
         cache: false,
         data: {method: methodToExecute, salutation: salutation, fname: fname, lname: lname, streetname: streetname, 
                 streetnr: streetnumber, zip: zip, location: location, country: country, username: username, 
                 password: pw},
         dataType: "json",
         success: function (response) { 
-           
+           console.log("success")
         },
-        
+        error: function(response){
+            console.log("error")
+        }
     })
 }

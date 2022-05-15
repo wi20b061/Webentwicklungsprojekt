@@ -4,6 +4,7 @@ include("api.php");
 
 $method = "";
 
+echo $_POST["method"];
 isset($_POST["method"]) ? $method = $_POST["method"] : false;
 
 $api = new Api();
