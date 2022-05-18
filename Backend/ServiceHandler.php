@@ -1,6 +1,7 @@
 <?php
 
 include("api.php");
+require_once ('db/dbaccess.php');
 
 $method = "";
 //$data = json_decode(file_get_contents('php://input'));

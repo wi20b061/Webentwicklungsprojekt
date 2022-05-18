@@ -4,7 +4,6 @@
 
 include_once "model/user.php";
 //include_once "../db/dbaccess.php";
-//require_once ('../db/dbaccess.php');
 
 class RegistrationService{
 
@@ -24,18 +23,18 @@ class RegistrationService{
     //Save the user
     public function save(User $user1){
         //DB connection
-        $host ="localhost";
+        /*$host ="localhost";
         $user ="filara";
         $password= "filara";
-        $database = "webentwicklungsprojekt";
-        
-        $db_obj = new mysqli($host, $user, $password, $database);
+        $database = "webentwicklungsprojekt";*/
+        var_dump(HOST);
+        $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
           if ($db_obj->connect_error) {
               echo "Collection failed!";
               exit();
           }
 
-        $salutation     = $user1->get_username();
+        $salutation     = $user1->get_salutation();
         $fname          = $user1->get_fname();
         $lname          = $user1->get_lname();
         $streetname     = $user1->get_streetname();
@@ -82,6 +81,7 @@ class RegistrationService{
 
         echo "<br>Username in DB: " . $exists . "<br>";
         
+        //password hashen
 
         if(!empty($exists)){
             //fehlermeldung zurück schicken - username gibt es bereits

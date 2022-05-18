@@ -1,6 +1,5 @@
 <?php
-$host ="localhost";
-$user ="filara";
-$password= "filara";
-$database = "webentwicklungsprojekt";
-?>
+define("HOST", "localhost");
+define("USER", "filara");
+define("PASSWORD", "filara");
+define("DATABASE", "webentwicklungsprojekt");
