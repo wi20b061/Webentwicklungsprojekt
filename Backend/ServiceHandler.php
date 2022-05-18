@@ -3,8 +3,10 @@
 include("api.php");
 
 $method = "";
+//$data = json_decode(file_get_contents('php://input'));
+//echo "method is: " . $data->method; //method wird ausgeben (für Testing)
 
-echo $_POST["method"]; //method wird ausgeben (für Testing)
+echo "method is: " . $_POST["method"]; //method wird ausgeben (für Testing)
 isset($_POST["method"]) ? $method = $_POST["method"] : false;
 
 $api = new Api();
