@@ -33,23 +33,9 @@ class Api{
         echo $data->salutation;
         */
         /***VALIDIERUNG ****/
-        /*
-        //Validierung ob alle Felder befüllt sind und übergeben wurden (evtl mit Schleife verschönern)
-        if(!isset($data->salutation) || !isset($data->fname) || !isset($data->lname) || !isset($data->streetname) || !isset($data->streetnr) || !isset($data->zip)
-        || !isset($data->location) || !isset($data->country) || !isset($data->username) || !isset($data->email) || !isset($data->pw) ||
-        empty($data->salutation) || empty($data->fname) || empty($data->lname) || empty($data->streetname) || empty($data->streetnr) || empty($data->zip)
-        || empty($data->location) || empty($data->country) || empty($data->username) || empty($data->email) || empty($data->pw)){
-            $this->error(400, [], "Bad Request - salutation, fname, lname, streetname, streetnr, zip, location, country, username, email, pw are required!");
-        }
         //hier fehlt noch weitere Validierung
 
-        //create new user
-        $user = new User($data->salutation, $data->fname, $data->lname, $data->streetname, $data->streetnr,
-                        $data->zip, $data->location, $data->country, $data->username, $data->email, $data->pw);
-        if(($result = $this->registrationService->save($user)) === false){
-            $this->error(400, [], "Bad Request - error saving user");
-        }
-        */
+        
         echo "<br>Salutation is: " .$_POST["salutation"];
         if(!isset($_POST["salutation"]) || !isset($_POST["fname"]) || !isset($_POST["lname"]) || !isset($_POST["streetname"]) || !isset($_POST["streetnr"]) || !isset($_POST["zip"])
         || !isset($_POST["location"]) || !isset($_POST["country"]) || !isset($_POST["username"]) || !isset($_POST["email"]) || !isset($_POST["pw"]) ||
@@ -57,7 +43,33 @@ class Api{
         || empty($_POST["location"]) || empty($_POST["country"]) || empty($_POST["username"]) || empty($_POST["email"]) || empty($_POST["pw"])){
             $this->error(400, [], "Bad Request - salutation, fname, lname, streetname, streetnr, zip, location, country, username, email, pw are required!");
         }
+        $salutation = test_input($_POST["salutation"], "s");
+
+
+
         //hier fehlt noch weitere Validierung
+
+        //Test der Einzelnen Eingaben (s = String, i = Integer)
+        function test_input($data, $type){
+            $data = trim($data);
+            $data = stripslashes($data);
+            if($type == "s"){
+                $data = test_string($data);
+                //&error message
+            }else if($type == "i"){
+                $data = test_int($data);
+            }
+            return $data;
+        }
+        function test_string($data){
+            
+            return $data;
+        }
+        function test_int($data){
+            
+            
+            return $data;
+        }
 
         //create new user
         $user = new User($_POST["salutation"], $_POST["fname"], $_POST["lname"], $_POST["streetname"],$_POST["streetnr"],
