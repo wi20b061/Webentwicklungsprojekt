@@ -1,6 +1,6 @@
 <?php
 
-include("api.php");
+include_once "api.php";
 require_once ('db/dbaccess.php');
 
 $method = "";
