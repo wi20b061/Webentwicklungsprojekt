@@ -29,10 +29,10 @@ class RegistrationService{
         $database = "webentwicklungsprojekt";*/
         var_dump(HOST);
         $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
-          if ($db_obj->connect_error) {
-              echo "Collection failed!";
-              exit();
-          }
+        if ($db_obj->connect_error) {
+            echo "Collection failed!";
+            exit();
+        }
 
         $salutation     = $user1->get_salutation();
         $fname          = $user1->get_fname();

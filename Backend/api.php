@@ -2,6 +2,8 @@
 
 include_once "model/user.php";
 include_once "service/registrationservice.php";
+include_once "service/loginservice.php";
+
 
 
 class Api{
@@ -9,6 +11,7 @@ class Api{
 
     public function __construct(){
         $this->registrationService = new RegistrationService();
+        $this->loginService = new LoginService();
     }
 
     //switch request method
@@ -17,12 +20,33 @@ class Api{
             case "registration":
                 $result = $this->processRegistration();
                 break;
+            case "login":
+                $result = $this->processLogin();
+                break;
             default:
                 $result = null;
         }
         return $result;
     }
 
+    /***** LOGIN ******/
+    private function processLogin(){
+        if(!isset($_POST["username"]) || !isset($_POST["pw"]) || empty($_POST["username"]) || empty($_POST["pw"])){
+            $this->error(400, [], "Bad Request - username & pw are required!");
+        }
+
+        //Validation
+        $username =     $this->test_input($_POST["username"], "u");
+        $pw =           $_POST["pw"];
+
+        if(!$result = $this->loginService->login($username, $pw)){
+            $this->error(401, [], "Bad Request - username and pw dont match");
+        }
+        $this->success(201, $result);
+
+    }
+
+    /***** REGISTRATION ******/
     private function processRegistration(){
         //fetch data from posted body
         //!!Note that php://input is not available for requests specifying a Content-Type: multipart/form-data header 
@@ -38,7 +62,7 @@ class Api{
             $this->error(400, [], "Bad Request - salutation, fname, lname, streetname, streetnr, zip, location, country, username, email, pw are required!");
         }
 
-        //valitation
+        //Valitation
         $salutation =   $_POST["salutation"];
         $fname =        $this->test_input($_POST["fname"], "s");
         $lname =        $this->test_input($_POST["lname"], "s");
@@ -52,7 +76,7 @@ class Api{
         $pw =           $this->test_input($_POST["pw"], "pw");      
 
         //create new user
-        $user = new User($salutation, $fname, $lname, $streetname,$streetnr,$zip,$location,$country, $username,$email, $pw);
+        $user = new User($salutation, $fname, $lname, $streetname, $streetnr, $zip, $location, $country, $username, $email, $pw);
         
         $result = $this->registrationService->save($user);
         if($result == "username exists"){
