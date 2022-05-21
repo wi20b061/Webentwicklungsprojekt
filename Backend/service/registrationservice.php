@@ -3,7 +3,6 @@
 /**** COMMUNICATION WITH DB ****/
 
 include_once "model/user.php";
-//include_once "../db/dbaccess.php";
 
 class RegistrationService{
 
@@ -49,8 +48,6 @@ class RegistrationService{
 
         //DB BEFEHLE FÜR SPÄTER:
         /*
-        //TESTING
-        //Überprüfung ob auslesen aus der DB funktioniert (read only) - erfolgreich!
         $sql = "SELECT fname, lname, username FROM user";
         
         $result = $db_obj->query($sql);
@@ -62,7 +59,6 @@ class RegistrationService{
         }else{
             echo "0 results";
         }
-
         */
         //Überprüfung ob Username schon vergeben ist
         $sql = "SELECT username FROM user WHERE username = ?";

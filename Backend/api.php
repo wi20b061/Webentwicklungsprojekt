@@ -3,6 +3,8 @@
 include_once "model/user.php";
 include_once "service/registrationservice.php";
 include_once "service/loginservice.php";
+include_once "service/productservice.php";
+include_once "service/orderservice.php";
 
 
 
@@ -12,6 +14,8 @@ class Api{
     public function __construct(){
         $this->registrationService = new RegistrationService();
         $this->loginService = new LoginService();
+        $this->productService = new ProductService();
+        $this->orderService = new OrderService();
     }
 
     //switch request method
@@ -23,10 +27,52 @@ class Api{
             case "login":
                 $result = $this->processLogin();
                 break;
+            case "products":
+                $result = $this->processProducts();
+                break;
+            case "order":
+                $result = $this->processOrder();
+                break;
             default:
                 $result = null;
         }
         return $result;
+    }
+    /***** ORDER ******/
+    private function processOrder(){
+        /*neue Bestellung erstellen und Waren in Warenkorb hinzufügen*/
+        //Benötigte Infos: userID, productID, quantity
+        //1.) Prüfen ob für diese Person salesheader (mit done = 0) existiert
+        //2.) Wenn nicht -> neuen sales Header anlegen, ansonsten zum current hinzufügen
+        //neue salesline hinzufügen
+        
+        //VALIDATION
+        if(!isset($_POST["userID"]) || !isset($_POST["productID"]) || !isset($_POST["quantity"]) || 
+        empty($_POST["userID"]) ||empty($_POST["productID"]) || empty($_POST["quantity"])){
+            $this->error(400, [], "Bad Request - userID, productID, quantity are required!");
+        }
+        $userID =       $this->test_input($_POST["userID"], "i");
+        $productID =    $this->test_input($_POST["productID"], "i");
+        $quantity =     $this->test_input($_POST["quantity"], "i");
+        
+        return $this->orderService->addProduct($userID, $productID, $quantity);
+    }
+
+    /***** PRODUCTS ******/
+    private function processProducts(){ //request says what to do
+        if(!isset($_POST["request"]) || empty($_POST["request"]) ){
+            $this->error(400, [], "Bad Request - request type is required!");
+        }
+        echo "\nrequest is: " . $_POST["request"];
+        //get all Products
+        if($_POST["request"] == "allProducts"){
+            $products = $this->productService->getAllProducts();
+            return $products;
+        }
+
+        //get Product with specific id?
+
+
     }
 
     /***** LOGIN ******/
