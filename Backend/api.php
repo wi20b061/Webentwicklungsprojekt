@@ -31,7 +31,6 @@ class Api{
         /*$data = json_decode(file_get_contents('php://input'));*/
         
         /***VALIDIERUNG ****/      
-        echo "<br>Salutation is: " .$_POST["salutation"]; //TESTING
         if(!isset($_POST["salutation"]) || !isset($_POST["fname"]) || !isset($_POST["lname"]) || !isset($_POST["streetname"]) || !isset($_POST["streetnr"]) || !isset($_POST["zip"])
         || !isset($_POST["location"]) || !isset($_POST["country"]) || !isset($_POST["username"]) || !isset($_POST["email"]) || !isset($_POST["pw"]) ||
         empty($_POST["salutation"]) || empty($_POST["fname"]) || empty($_POST["lname"]) || empty($_POST["streetname"]) || empty($_POST["streetnr"]) || empty($_POST["zip"])
@@ -54,8 +53,6 @@ class Api{
 
         //create new user
         $user = new User($salutation, $fname, $lname, $streetname,$streetnr,$zip,$location,$country, $username,$email, $pw);
-        
-        echo "<br>The username is: ". $user->get_username() ."<br>"; //TESTING
         
         $result = $this->registrationService->save($user);
         if($result == "username exists"){
@@ -92,31 +89,31 @@ class Api{
 
     private function test_string($data){
         if(!preg_match("/^[a-zA-Z\s]+$/", $data)){
-            $this->error(402, [], "Bad Request - invalid string"); 
+            $this->error(402, [], "<br>Bad Request - invalid input: text"); 
         }
         return $data;
     }
     private function test_int($data){
         if(!preg_match("/^\d+$/",$data)){  
-            $this->error(402, [], "Bad Request - invalid integer"); 
+            $this->error(402, [], "<br>Bad Request - invalid input: integer"); 
         }
         return $data;          
     }
     private function test_email($data){
         if(!filter_var($data, FILTER_VALIDATE_EMAIL)){
-            $this->error(402, [], "Bad Request - invalid email"); 
+            $this->error(402, [], "<br>Bad Request - invalid input: email"); 
         }
         return $data;          
     }
     private function test_username($data){
         if(!preg_match("/^[a-zA-Z0-9\s]+$/",$data)){
-            $this->error(402, [], "Bad Request - invalid username"); 
+            $this->error(402, [], "<br>Bad Request - invalid input: username"); 
         }
         return $data;          
     }
     private function test_pw($pw){
         if(!preg_match("/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/",$pw)){
-            $this->error(402, [], "Bad Request - invalid password"); 
+            $this->error(402, [], "<br>Bad Request - invalid input: password"); 
         }
         $pw = password_hash($pw, PASSWORD_DEFAULT);
         return $pw;          

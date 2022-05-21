@@ -45,7 +45,7 @@ class RegistrationService{
         $username       = $user1->get_username();
         $email          = $user1->get_email();
         $pw             = $user1->get_pw();
-        echo $username; //TESTING
+        $active         = 1;
 
         //DB BEFEHLE FÜR SPÄTER:
         /*
@@ -63,8 +63,6 @@ class RegistrationService{
             echo "0 results";
         }
 
-        //TESTING
-        //Überprüfung ob auslesen aus der DB funktioniert mit prepared Statements - erfolgreich!
         */
         //Überprüfung ob Username schon vergeben ist
         $sql = "SELECT username FROM user WHERE username = ?";
@@ -78,21 +76,18 @@ class RegistrationService{
         $stmt->fetch();
         //close statement
         $stmt->close();
-
-        echo "<br>Username in DB: " . $exists . "<br>";
         
         //password hashen
-
         if(!empty($exists)){
             //fehlermeldung zurück schicken - username gibt es bereits
             return "username exists";
         }else{
-            $sql = "INSERT INTO user (salutation, fname, lname, streetName, streetNr, zip, `location`, country, email, username, `password`)
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO user (salutation, fname, lname, streetName, streetNr, zip, `location`, country, email, username, `password`, active)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $db_obj->prepare($sql);
-            $stmt->bind_param("ssssiisssss", $salutation, $fname, $lname,
+            $stmt->bind_param("ssssiisssssi", $salutation, $fname, $lname,
                             $streetname,$streetnr,$zip,$location,
-                            $country,$email,$username,$pw);
+                            $country,$email,$username,$pw, $active);
             if($stmt->execute()){
                 return "executed";
             }
