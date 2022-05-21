@@ -1,16 +1,25 @@
+
+
 $(document).ready(function(){
    
     var form = document.getElementById("registrationForm")
     form.addEventListener("submit", event =>{
+        console.log("1. submit event")
+
         event.preventDefault()
+        
         validateForm()
-                
+        
+        
     })
+
 })  
+
 
 // function to validate form input
 function validateForm(){
     
+    console.log("2. validateForm")
     // retrieving values of form elements
     var select = document.getElementById('salutation');
     var salutation = select.options[select.selectedIndex].value
@@ -28,7 +37,7 @@ function validateForm(){
     
     //defining errorMessage variables with default value
     var fnameErr = lnameErr = streetnErr = streetnrErr = zipErr = locErr = counErr = userErr = emailErr = pwErr = true 
-
+    var errors = true
     //validate first name
     if(fname == ""){
         printError("fnameErr", "fname", "Please enter your first name")
@@ -189,19 +198,19 @@ function validateForm(){
                 printError("pwErr", "pw", "Passwords don't match")
             }else{
                 printError("pwErr", "pw", "")
-                
+                pwErr = false
             }
             
         }
     }
 
+    console.log(fnameErr , lnameErr , streetnErr , streetnrErr , zipErr , locErr , counErr , userErr , emailErr , pwErr)
     
-    if((fnameErr || lnameErr || streetnErr || streetnrErr || zipErr || locErr || counErr || userErr || emailErr || pwErr) == false){
-        return false
-    }else{
+    if(fnameErr== false && lnameErr== false && streetnErr== false && streetnrErr== false && zipErr== false && locErr== false && counErr== false && userErr== false && emailErr== false && pwErr == false){
+        console.log("3. has error is false")
         sendData("registration", salutation, fname, lname, streetname, streetnr, zip, location, country, usern, email, pw)
+        
     }
-
 }
 
 //function to display error messages
@@ -228,6 +237,8 @@ function printError(elemErrId, elemInputId, message){
 
 // ajax function in ajax.js auslagern
 function sendData(methodToExecute, salutation, fname, lname, streetname, streetnumber, zip, location, country, username, pw){
+    console.log("vor ajax call")
+    
     $.ajax({
         type: "POST",
         url: "../../Backend/ServiceHandler.php",
@@ -236,12 +247,24 @@ function sendData(methodToExecute, salutation, fname, lname, streetname, streetn
                 streetnr: streetnumber, zip: zip, location: location, country: country, email: email, username: username, 
                 pw: pw},
         dataType: "json",
+        beforeSend: function(){
+            console.log("befor Send ajax call")
+        },
         success: function (response) { 
-           console.log("success")
+
+           console.log("ajax call success")
         },
         error: function(xhr){
+            console.log("ajax call error")
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
             
+        },
+        complete: function(){
+            console.log("ajax call completed")
         }
+
     })
+
+    console.log("nach ajax call")
+    return
 }
