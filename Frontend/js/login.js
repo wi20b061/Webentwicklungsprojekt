@@ -57,11 +57,24 @@ function sendData(methodToExecute, username, pw){
         cache: false,
         data: {method: methodToExecute, username: username, password: pw},
         dataType: "json",
-        success: function (response) {
-
+        beforeSend: function(){
+            console.log("befor Send ajax call")
         },
-        complete: function (xhr, textStatus){
+        success: function (response) { 
 
+           console.log("ajax call success")
+        },
+        error: function(xhr){
+            console.log("ajax call error")
+            console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            
+        },
+        complete: function(){
+            console.log("ajax call completed")
         }
+
     })
+
+    console.log("nach ajax call")
+    return
 }
