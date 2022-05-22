@@ -13,7 +13,7 @@
     <div class="container-fluid mt-1 mb-1 bg-white">
         <header>
             <?php
-                //include('nav.php')
+                include('nav.php')
             ?>
         </header>
         <main class="p-3">
