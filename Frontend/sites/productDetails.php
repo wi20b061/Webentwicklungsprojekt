@@ -11,12 +11,12 @@
 
 <body class="pt-1 pb-1 ps-5 pe-5 bg-dark">
     <div class="container-fluid mt-1 mb-1 bg-white">
-    <header>
-        <?php
-            //include('nav.php')
-        ?>
-    </header>
-    <main class="p-3">
+        <header>
+            <?php
+                //include('nav.php')
+            ?>
+        </header>
+        <main class="p-3">
             <?php
                 require_once ('../../Backend/db/dbaccess.php');
 
@@ -66,9 +66,9 @@
                 }?>
                 
             </div>
-
-            
-
+                
         </main>
+        <?php include("footer.php")?>
+    </div>
 </body>
 </html>
