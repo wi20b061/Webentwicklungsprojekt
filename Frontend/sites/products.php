@@ -7,7 +7,7 @@
     <title>Products</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="style.css"></script>
+    <script src="../style/style.css"></script>
 
 </head>
 <body class="pt-1 pb-1 ps-5 pe-5">
@@ -37,7 +37,7 @@
         </header>
         <main class="p-3">
             <?php
-                require_once ('Backend/db/dbaccess.php');
+                require_once ('../../Backend/db/dbaccess.php');
 
                 $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
                 if ($db_obj->connect_error) {
@@ -65,9 +65,12 @@
                         <?php
                             $colCount++;
                         
-                            echo '<img class="img-fluid mx-auto d-block" src="' .$img . '">';
+                            
+                            echo '<img class="img-fluid mx-auto d-block border" src="' .$img . '">';
+                            echo '<div class="">';
                             echo '<strong>' . $name . '</strong><br>';
                             echo number_format($price, 2, ",", ".") . '€<br>';
+                            echo '</div>';
 
                         ?>
                         
