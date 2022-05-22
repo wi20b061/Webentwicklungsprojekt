@@ -11,7 +11,7 @@
 <body class="container-fluid pt-3 pb-3">
     <header>
         <?php
-            include('nav.php')
+            //include('nav.php')
         ?>
     </header>
     <main>

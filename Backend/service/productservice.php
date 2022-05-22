@@ -8,7 +8,7 @@ class ProductService{
             echo "Collection failed!";
             exit();
         }
-        $sql = "SELECT * FROM products";
+        $sql = "SELECT * FROM product";
         
         $stmt = $db_obj->query($sql);
         $i=0;
