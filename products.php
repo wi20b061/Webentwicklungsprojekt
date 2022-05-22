@@ -37,9 +37,9 @@
         </header>
         <main class="p-3">
             <?php
-                require_once ('dbaccess.php');
+                require_once ('Backend/db/dbaccess.php');
 
-                $db_obj = new mysqli($host, $user, $password, $database);
+                $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
                 if ($db_obj->connect_error) {
                     echo "Connection Error: " . $db_obj->connect_error;
                     exit();
@@ -48,7 +48,7 @@
                 $sql = "SELECT * FROM product";
                 $stmt = $db_obj->prepare($sql);
                 $stmt->execute();
-                $stmt->bind_result($id, $name, $details, $price, $img);
+                $stmt->bind_result($id, $name, $img, $type, $price);
             
                 $colCount = 0;
                 ?>
