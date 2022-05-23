@@ -8,13 +8,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body class="container-fluid pt-3 pb-3">
+<body class="">
     <header>
         <?php
             include('nav.php')
         ?>
     </header>
-    <main>
+    <main class="pt-1 pb-1 ps-5 pe-5">
 
     </main>
 </body>

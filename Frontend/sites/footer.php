@@ -1,8 +1,12 @@
-<footer class=" pb-2 pt-3 ms-5 me-5 mt-5 border-top"> 
+<footer class="mt-4 mb-4"> 
 
-    <div class="d-flex justify-content-center">
-        <a class="text-secondary p-2" href="imprint.php">Imprint</a>   
-        <a class="text-secondary p-2" href="help.php">Help</a>
+    <div class="row justify-content-center mb-3">
+        <div class="col-auto">
+            <a class="text-secondary" href="imprint.php">Imprint</a>   
+        </div>
+        <div class="col-auto">
+            <a class="text-secondary" href="help.php">Help</a>
+        </div>
     </div>
     <span class="text-muted">© 2021 Company, Fiona Kumhofer, Felix Engelmaier, Lara Roth</span>
 

@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">    
 </head>
 
-<body class="pt-1 pb-1 ps-5 pe-5 bg-dark">
-    <div class="container-fluid mt-1 mb-1 bg-white">
+<body class="">
+    <div class="container-fluid bg-white">
         <header>
             <?php
                 include('nav.php')
             ?>
         </header>
-        <main class="p-3">
+        <main class="pt-1 pb-1 ps-5 pe-5">
             <?php
                 require_once ('../../Backend/db/dbaccess.php');
 

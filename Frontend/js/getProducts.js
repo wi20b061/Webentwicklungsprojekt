@@ -2,6 +2,13 @@
 
 $(document).ready(function(){
    
+    //später in ajax call success function schreiben und hier weglöschen
+    // Name des Produktes soll bei mouseover event underlined werden
+    $("product").mouseenter(function(){
+        $("productName").css("text-decoration", "underline")
+    
+    })
+
     $.ajax({
         type: "POST",
         url: "../../Backend/ServiceHandler.php",
@@ -9,8 +16,7 @@ $(document).ready(function(){
         data: {method: "products", request: "allProducts"},
         dataType: "json",
         success: function (response) { 
-            console.log(response)
-           console.log("ajax call success")
+            
         },
         error: function(xhr){
             console.log("ajax call error")
