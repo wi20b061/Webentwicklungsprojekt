@@ -38,8 +38,16 @@ class ProductService{
         $stmt = $db_obj->prepare($sql);
         $stmt->bind_param("i", $productID);
         $stmt->execute();
-
-        //fertig machen!
-
+        $stmt->bind_result($productID, $name, $desc, $img, $type, $price);
+        $stmt->fetch();
+        $stmt->close();
+        if($productID == null){
+            return null;
+        }
+        $product = new Product($productID, $name, $desc, $img, $type, $price);
+        //close the connection
+        $db_obj->close();
+        
+        return $product;
     }
 }

@@ -78,6 +78,9 @@ class Api{
         if($_POST["productsrequest"] == "productById" && isset($_POST["productID"]) && !empty($_POST["productID"])){
             $productID = $this->test_input($_POST["productID"], "i");
             $product = $this->productService->getProductById($productID);
+            if($product == null){
+                $this->error(400, [], "Bad Request - productID does not exist");
+            }
             return $product;
         }
     }
