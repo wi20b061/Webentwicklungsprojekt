@@ -16,11 +16,12 @@ class Api{
     }
 
     //switch request method
-    public function processRequest($method, $request){
+    public function processRequest($method){
         if(!($method == "POST" || $method == "GET" || $method == "DELETE")){
             $this->error(405, ["Allow: GET, POST, DELETE"], "Method not allowed - only GET, POST, DELETE");
         }
         if($method == "POST"){
+            isset($_POST["request"]) ? $request = $_POST["request"] : false;
             switch($request){
                 case "registration":
                     $result = $this->processRegistration();
@@ -38,7 +39,9 @@ class Api{
                     $result = null;
             }
         }else if($method == "GET"){
-            //code
+            if(isset($_GET["productID"])){
+                $result = $this->getProductByID();
+            }
         }
         return $result;
     }
@@ -73,16 +76,19 @@ class Api{
             $products = $this->productService->getAllProducts();
             return $products;
         }
+    }
 
-        //get Product with specific id
-        if($_POST["productsrequest"] == "productById" && isset($_POST["productID"]) && !empty($_POST["productID"])){
-            $productID = $this->test_input($_POST["productID"], "i");
-            $product = $this->productService->getProductById($productID);
-            if($product == null){
-                $this->error(400, [], "Bad Request - productID does not exist");
-            }
-            return $product;
+    private function getProductByID(){
+        if(empty($_GET["productID"])){
+            $this->error(400, [], "Bad Request - productID is empty"); 
         }
+        $productID = $this->test_input($_GET["productID"], "i");
+        $product = $this->productService->getProductById($productID);
+        if($product == null){
+            $this->error(400, [], "Bad Request - productID does not exist");
+        }
+        return $product;
+
     }
 
     /***** LOGIN ******/
