@@ -3,19 +3,19 @@
 include_once "api.php";
 require_once ('db/dbaccess.php');
 
-$method = "";
 //$data = json_decode(file_get_contents('php://input'));
 //echo "method is: " . $data->method; //method wird ausgeben (für Testing)
 
-echo "method is: " . $_POST["method"]; //TESTING
-isset($_POST["method"]) ? $method = $_POST["method"] : false;
+isset($_SERVER['REQUEST_METHOD']) ? $method = $_SERVER['REQUEST_METHOD'] : false;
+isset($_POST["request"]) ? $request = $_POST["request"] : false;
 
 $api = new Api();
-$result = $api->processRequest($method);
+
+$result = $api->processRequest($method, $request);
 if($result == null){
-    response("POST", 400, null);
+    response($method, 400, null);
 }else{
-    response("POST", 200, $result);
+    response($method, 200, $result);
 }
 
 //aus bsp kopiert
@@ -24,6 +24,10 @@ function response($method, $httpStatus, $data)
     header('Content-Type: application/json');
     switch ($method) {
         case "POST":
+            http_response_code($httpStatus);
+            echo (json_encode($data));
+            break;
+        case "GET": //What different outputs can be here??
             http_response_code($httpStatus);
             echo (json_encode($data));
             break;

@@ -21,7 +21,7 @@ class ProductService{
         $products = array();
         if($result = $db_obj->query($sql)){
             while($row = $result ->fetch_row()){
-                $products[$i] = new Product($row[0], $row[1], $row[2], $row[3], $row[4]);
+                $products[$i] = new Product($row[0], $row[1], $row[2], $row[3], $row[4], $row[5]);
                 $i++;
             }
         }
