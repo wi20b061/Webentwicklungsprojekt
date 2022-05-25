@@ -29,7 +29,7 @@
                 $sql = "SELECT * FROM product WHERE productID = 1";
                 $stmt = $db_obj->prepare($sql);
                 $stmt->execute();
-                $stmt->bind_result($id, $name, $img, $type, $price);
+                $stmt->bind_result($id, $name, $description, $img, $type, $price);
             
                 
                 ?>
@@ -52,14 +52,14 @@
                                 </div>
                                 <div class="col-5 border">
                             <?php
-                                echo '<h2>'.number_format($price, 2, ",", ".") . '€</h2>';    
+                                echo  '<p class="text-muted" style="">'.number_format($price, 2, ",", ".") . '€</p>';    
                             ?>
                                 </div>
                             </div>
                             <?php
-                                echo '<p>Productdetails here<p><br>';
+                                echo '<p>'.$description.'<p><br>';
                             ?>
-                            <button type="button" class="btn btn-dark">Add to cart <i class="bi bi-basket-fill ms-1" style='font-size: 1.5rem; color: white;'></i></button>
+                            <button type="button" class="btn btn-dark" style='background-color: #365370;'>Add to cart <i class="bi bi-basket-fill ms-1" style='font-size: 1.5rem; color: white;'></i></button>
                         </div>
                         <?php
 

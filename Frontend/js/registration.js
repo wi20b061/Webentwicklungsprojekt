@@ -240,6 +240,7 @@ function sendData(methodToExecute, salutation, fname, lname, streetname, streetn
     console.log("vor ajax call")
     
     $.ajax({
+        
         type: "POST",
         url: "../../Backend/ServiceHandler.php",
         cache: false,
