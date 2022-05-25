@@ -6,10 +6,7 @@ include_once "service/loginservice.php";
 include_once "service/productservice.php";
 include_once "service/orderservice.php";
 
-
-
 class Api{
-    private $registrationService;
 
     public function __construct(){
         $this->registrationService = new RegistrationService();
@@ -19,25 +16,33 @@ class Api{
     }
 
     //switch request method
-    public function processRequest($method){
-        switch($method){
-            case "registration":
-                $result = $this->processRegistration();
-                break;
-            case "login":
-                $result = $this->processLogin();
-                break;
-            case "products":
-                $result = $this->processProducts();
-                break;
-            case "order":
-                $result = $this->processOrder();
-                break;
-            default:
-                $result = null;
+    public function processRequest($method, $request){
+        if(!($method == "POST" || $method == "GET" || $method == "DELETE")){
+            $this->error(405, ["Allow: GET, POST, DELETE"], "Method not allowed - only GET, POST, DELETE");
+        }
+        if($method == "POST"){
+            switch($request){
+                case "registration":
+                    $result = $this->processRegistration();
+                    break;
+                case "login":
+                    $result = $this->processLogin();
+                    break;
+                case "products":
+                    $result = $this->processProducts();
+                    break;
+                case "order":
+                    $result = $this->processOrder();
+                    break;
+                default:
+                    $result = null;
+            }
+        }else if($method == "GET"){
+            //code
         }
         return $result;
     }
+
     /***** ORDER ******/
     private function processOrder(){
         /*neue Bestellung erstellen und Waren in Warenkorb hinzufügen*/
@@ -60,19 +65,21 @@ class Api{
 
     /***** PRODUCTS ******/
     private function processProducts(){ //request says what to do
-        if(!isset($_POST["request"]) || empty($_POST["request"]) ){
-            $this->error(400, [], "Bad Request - request type is required!");
+        if(!isset($_POST["productsrequest"]) || empty($_POST["productsrequest"]) ){
+            $this->error(400, [], "Bad Request - products request type is required!");
         }
-        echo "\nrequest is: " . $_POST["request"];
         //get all Products
-        if($_POST["request"] == "allProducts"){
+        if($_POST["productsrequest"] == "allProducts"){
             $products = $this->productService->getAllProducts();
             return $products;
         }
 
-        //get Product with specific id?
-
-
+        //get Product with specific id
+        if($_POST["productsrequest"] == "productById" && isset($_POST["productID"]) && !empty($_POST["productID"])){
+            $productID = $this->test_input($_POST["productID"], "i");
+            $product = $this->productService->getProductById($productID);
+            return $product;
+        }
     }
 
     /***** LOGIN ******/

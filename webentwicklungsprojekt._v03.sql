@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 08. Mai 2022 um 16:23
+-- Erstellungszeit: 25. Mai 2022 um 12:23
 -- Server-Version: 10.4.21-MariaDB
 -- PHP-Version: 7.3.31
 
@@ -24,25 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `products`
+-- Tabellenstruktur für Tabelle `product`
 --
 
-CREATE TABLE `products` (
+CREATE TABLE `product` (
   `productID` int(11) NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `description` varchar(1000) CHARACTER SET utf8 NOT NULL,
   `img` varchar(255) CHARACTER SET utf8 NOT NULL,
   `type` varchar(255) CHARACTER SET utf8 NOT NULL,
   `price` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Daten für Tabelle `products`
+-- Daten für Tabelle `product`
 --
 
-INSERT INTO `products` (`productID`, `name`, `img`, `type`, `price`) VALUES
-(1, 'Bookshelf', '../productpictures/bookshelf.png', 'Shelf', 156.98),
-(2, 'Round Table', '../productpictures/roundtable.png', 'Table', 298),
-(3, 'Relax Chair', '../productpictures/relaxchair.png', 'Chair', 198);
+INSERT INTO `product` (`productID`, `name`, `description`, `img`, `type`, `price`) VALUES
+(1, 'Bookshelf', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', '../productpictures/bookshelf.png', 'Shelf', 156.98),
+(2, 'Round Table', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', '../productpictures/roundtable.png', 'Table', 298),
+(3, 'Relax Chair', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', '../productpictures/relaxchair.png', 'Chair', 198);
 
 -- --------------------------------------------------------
 
@@ -62,8 +63,9 @@ CREATE TABLE `salesheader` (
 --
 
 INSERT INTO `salesheader` (`salesID`, `customerID`, `done`, `orderDate`) VALUES
-(1, 1, 0, '0000-00-00'),
-(2, 1, 1, '2022-05-01');
+(1, 14, 0, '0000-00-00'),
+(2, 14, 1, '2022-05-01'),
+(6, 16, 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -86,15 +88,17 @@ INSERT INTO `salesline` (`saleslineID`, `productID`, `quantity`, `salesheaderID`
 (1, 1, 2, 1),
 (2, 3, 1, 1),
 (3, 2, 1, 1),
-(4, 3, 3, 2);
+(4, 3, 3, 2),
+(5, 1, 3, 1),
+(6, 1, 3, 6);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `users`
+-- Tabellenstruktur für Tabelle `user`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `userID` int(11) NOT NULL,
   `salutation` varchar(255) CHARACTER SET utf8 NOT NULL,
   `fname` varchar(255) CHARACTER SET utf8 NOT NULL,
@@ -113,12 +117,14 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Daten für Tabelle `users`
+-- Daten für Tabelle `user`
 --
 
-INSERT INTO `users` (`userID`, `salutation`, `fname`, `lname`, `streetName`, `streetNr`, `zip`, `location`, `country`, `email`, `username`, `password`, `paymentOption`, `active`, `adminUser`) VALUES
-(1, 'Mrs.', 'Luisa', 'Müller', 'Andtstraße', 22, 1120, 'Wien', 'AT', 'luisa22@gmail.com', 'luisa', '1234', '', 1, 0),
-(2, 'Mrs.', 'Admin', 'Admin', 'Kleine Straße', 10, 1220, 'Wien', 'AT', 'admin@gmail.com', 'admin', '1234', '', 1, 1);
+INSERT INTO `user` (`userID`, `salutation`, `fname`, `lname`, `streetName`, `streetNr`, `zip`, `location`, `country`, `email`, `username`, `password`, `paymentOption`, `active`, `adminUser`) VALUES
+(2, 'Mrs.', 'Admin', 'Admin', 'Kleine Straße', 10, 1220, 'Wien', 'AT', 'admin@gmail.com', 'admin2', 'Password123', '', 0, 1),
+(14, 'Mr.', 'Marcus', 'Pendragon', 'FakeStreet', 33, 1200, 'Wien', 'AT', 'marcus@gmail.com', 'marc', '$2y$10$TNOKgc4A/K/b1ygAo8odCOk2yqpC37DL9MPxytdHy1jrHFYcELKy.', '', 1, 0),
+(15, 'Mrs.', 'Luisa', 'Mueller', 'Andtstrasse', 22, 1120, 'Wien', 'AT', 'luisa22@gmail.com', 'luisa', '$2y$10$FjUSNh2dOxIDZnI4QJNSbu68HbK6SSZSa/Y3x4wvUHv6RUcBHlkY.', '', 1, 0),
+(16, 'Mrs.', 'Admin', 'Admin', 'Kleine Strasse', 10, 1220, 'Wien', 'AT', 'admin@gmail.com', 'admin', '$2y$10$fLgcvWCLoqpEmZ/r9xx07eu8faezMpYGRkRrmZyHwyPMTNdRaNbaa', '', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -141,18 +147,18 @@ CREATE TABLE `voucher` (
 --
 
 INSERT INTO `voucher` (`voucherID`, `voucherCode`, `creationDate`, `expireDate`, `value`, `redeemed`, `userID`) VALUES
-(1, '2d5fr', '2022-05-08', '2022-06-25', 50, 0, 1),
-(2, '1s5wo', '2022-05-08', '2022-05-04', 100, 1, 1),
-(3, '4sd7e', '2022-05-08', '2022-05-01', 10, 0, 1);
+(1, '2d5fr', '2022-05-08', '2022-06-25', 50, 0, 14),
+(2, '1s5wo', '2022-05-08', '2022-05-04', 100, 1, 14),
+(3, '4sd7e', '2022-05-08', '2022-05-01', 10, 0, 16);
 
 --
 -- Indizes der exportierten Tabellen
 --
 
 --
--- Indizes für die Tabelle `products`
+-- Indizes für die Tabelle `product`
 --
-ALTER TABLE `products`
+ALTER TABLE `product`
   ADD PRIMARY KEY (`productID`);
 
 --
@@ -171,9 +177,9 @@ ALTER TABLE `salesline`
   ADD KEY `salesheaderID_fk` (`salesheaderID`);
 
 --
--- Indizes für die Tabelle `users`
+-- Indizes für die Tabelle `user`
 --
-ALTER TABLE `users`
+ALTER TABLE `user`
   ADD PRIMARY KEY (`userID`);
 
 --
@@ -188,28 +194,28 @@ ALTER TABLE `voucher`
 --
 
 --
--- AUTO_INCREMENT für Tabelle `products`
+-- AUTO_INCREMENT für Tabelle `product`
 --
-ALTER TABLE `products`
+ALTER TABLE `product`
   MODIFY `productID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT für Tabelle `salesheader`
 --
 ALTER TABLE `salesheader`
-  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT für Tabelle `salesline`
 --
 ALTER TABLE `salesline`
-  MODIFY `saleslineID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `saleslineID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT für Tabelle `users`
+-- AUTO_INCREMENT für Tabelle `user`
 --
-ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `user`
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT für Tabelle `voucher`
@@ -225,20 +231,20 @@ ALTER TABLE `voucher`
 -- Constraints der Tabelle `salesheader`
 --
 ALTER TABLE `salesheader`
-  ADD CONSTRAINT `userID_fk` FOREIGN KEY (`customerID`) REFERENCES `users` (`userID`);
+  ADD CONSTRAINT `userID_fk` FOREIGN KEY (`customerID`) REFERENCES `user` (`userID`);
 
 --
 -- Constraints der Tabelle `salesline`
 --
 ALTER TABLE `salesline`
-  ADD CONSTRAINT `productID_fk` FOREIGN KEY (`productID`) REFERENCES `products` (`productID`),
+  ADD CONSTRAINT `productID_fk` FOREIGN KEY (`productID`) REFERENCES `product` (`productID`),
   ADD CONSTRAINT `salesheaderID_fk` FOREIGN KEY (`salesheaderID`) REFERENCES `salesheader` (`salesID`);
 
 --
 -- Constraints der Tabelle `voucher`
 --
 ALTER TABLE `voucher`
-  ADD CONSTRAINT `fk_userID` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
+  ADD CONSTRAINT `fk_userID` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
