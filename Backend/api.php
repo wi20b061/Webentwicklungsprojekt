@@ -70,7 +70,12 @@ class Api{
             return $products;
         }
 
-        //get Product with specific id?
+        //get Product with specific id
+        if($_POST["request"] == "productById" && isset($_POST["productID"]) && !empty($_POST["productID"])){
+            $productID = $this->test_input($_POST["productID"], "i");
+            $product = $this->productService->getProductById($productID);
+            return $product;
+        }
 
 
     }

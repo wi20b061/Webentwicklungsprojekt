@@ -2,12 +2,18 @@
 include_once "model/product.php";
 
 class ProductService{
-    public function getAllProducts(){
+    public function dbConnection(){
         $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
         if ($db_obj->connect_error) {
             echo "Collection failed!";
             exit();
         }
+        return $db_obj;
+    }
+
+
+    public function getAllProducts(){
+        $db_obj = $this->dbConnection();
         $sql = "SELECT * FROM product";
         
         $stmt = $db_obj->query($sql);
@@ -23,5 +29,17 @@ class ProductService{
         $db_obj->close();
 
         return $products;
+    }
+
+    public function getProductById($productID){
+        $db_obj = $this->dbConnection();
+        
+        $sql = "SELECT * FROM product WHERE productID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $productID);
+        $stmt->execute();
+
+        //fertig machen!
+
     }
 }
