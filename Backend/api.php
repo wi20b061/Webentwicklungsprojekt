@@ -42,6 +42,9 @@ class Api{
             if(isset($_GET["productID"])){
                 $result = $this->getProductByID();
             }
+            if(isset($_GET["userID"]) && isset($_GET["request"]) && $_GET["request"] == "cart"){
+                $result = $this->getShoppinCart();
+            }
         }
         return $result;
     }
@@ -65,6 +68,16 @@ class Api{
         
         return $this->orderService->addProduct($userID, $productID, $quantity);
     }
+    //get the shopping cart of a customer
+    private function getShoppinCart(){
+        if(empty($_GET["userID"])){
+            $this->error(400, [], "Bad Request - userID is empty"); 
+        }
+        $userID = $this->test_input($_GET["userID"], "i");
+        return $this->orderService->getCart($userID); //List of products in Cart & sumprice of order
+
+    }
+
 
     /***** PRODUCTS ******/
     private function processProducts(){ //request says what to do
@@ -77,7 +90,7 @@ class Api{
             return $products;
         }
     }
-
+    //get product-details by the ID
     private function getProductByID(){
         if(empty($_GET["productID"])){
             $this->error(400, [], "Bad Request - productID is empty"); 

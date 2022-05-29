@@ -2,6 +2,8 @@
 include_once "model/product.php";
 
 class ProductService{
+
+    //Connection to Database
     public function dbConnection(){
         $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
         if ($db_obj->connect_error) {
@@ -15,8 +17,6 @@ class ProductService{
     public function getAllProducts(){
         $db_obj = $this->dbConnection();
         $sql = "SELECT * FROM product";
-        
-        $stmt = $db_obj->query($sql);
         $i=0;
         $products = array();
         if($result = $db_obj->query($sql)){
