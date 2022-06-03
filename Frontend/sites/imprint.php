@@ -12,9 +12,8 @@
 </head>
 <body class="">
     <div class="container-fluid bg-white">
-        <header>
-        <?php include("nav.php")?>
-        
+        <header class="sticky-top">
+            <?php include("nav.php")?>
         </header>
         <main class="pt-1 pb-1 ps-5 pe-5"> 
 

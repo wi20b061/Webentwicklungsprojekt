@@ -9,13 +9,16 @@
 </head>
 
 <body class="">
-    <header>
-        <?php
-            include('nav.php')
-        ?>
-    </header>
-    <main class="pt-1 pb-1 ps-5 pe-5">
+    <div class="container-fluid bg-white">
+        <header class="sticky-top">
+            <?php
+                include('nav.php')
+            ?>
+        </header>
+        <main class="pt-1 pb-1 ps-5 pe-5">
 
-    </main>
+        </main>
+        <?php include("footer.php")?>
+    </div>
 </body>
 </html>

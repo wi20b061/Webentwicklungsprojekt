@@ -13,97 +13,99 @@
     <script src="../js/getProducts.js"></script>
 
 </head>
-<body class="container-fluid bg-white">
+<body class="">
+    <div class="container-fluid bg-white">
     
-    <header class="sticky-top">
-        <?php include("nav.php")?>
-        <div class="row justify-content-end">
-            <!--Suchfeld-->
-            <div class="col">
-                <input name="search" id="search" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Search">
+        <header class="sticky-top bg-white">
+            <?php include("nav.php")?>
+            <div class="row justify-content-end">
+                <!--Suchfeld-->
+                <div class="col">
+                    <input name="search" id="search" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Search">
+                </div>
+                <!--Kategoriefilter - Default 1. Produktkategorie--> 
+                <!-- DROPDOWN IS NOT WORKING because Popper package not installed-->
+                <div class="col-auto text-end">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" style="background-color: #365370;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Kategories
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Table</a></li>
+                            <li><a class="dropdown-item" href="#">Shelf</a></li>
+                            <li><a class="dropdown-item" href="#">Chair</a></li>
+                        </ul>
+                    </div>
+                </div>    
             </div>
-            <!--Kategoriefilter - Default 1. Produktkategorie--> 
-            <!-- DROPDOWN IS NOT WORKING because Popper package not installed-->
-            <div class="col-auto text-end">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" style="background-color: #365370;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        Kategories
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Table</a></li>
-                        <li><a class="dropdown-item" href="#">Shelf</a></li>
-                        <li><a class="dropdown-item" href="#">Chair</a></li>
-                    </ul>
-                </div>
-            </div>    
-        </div>
-    </header>
+            <h2 class="display-6">Categorie hier anzeigen</h2>
+        </header>
 
-    <main class="pt-2">
-        <?php
-            require_once ('../../Backend/db/dbaccess.php');
-
-            $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
-            if ($db_obj->connect_error) {
-                echo "Connection Error: " . $db_obj->connect_error;
-                exit();
-            }
-
-            $sql = "SELECT * FROM product";
-            $stmt = $db_obj->prepare($sql);
-            $stmt->execute();
-            $stmt->bind_result($id, $name, $description, $img, $type, $price);
-        
-            $colCount = 0;
-            ?>
-
-        <div class="row ps-2 pe-2">
-
+        <main class="pt-1 pb-1 ps-5 pe-5 mt-1">
             <?php
-            while ($stmt->fetch()) {
-            ?>
-                
-                
-                    <div class="col m-2 border-bottom" id="product">
-                        
-                    <?php
-                        $colCount++;
-                    
-                        
-                        echo '<img class="img-fluid mx-auto d-block " src="' .$img . '">';
-                        echo '<div class="">';
-                        echo '<strong id="productName">' . $name . '</strong><br>';
-                        echo number_format($price, 2, ",", ".") . '€<br>';
-                        echo '</div>';
+                require_once ('../../Backend/db/dbaccess.php');
 
-                    ?>
-                    
-                </div>
-                
+                $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
+                if ($db_obj->connect_error) {
+                    echo "Connection Error: " . $db_obj->connect_error;
+                    exit();
+                }
 
-            <?php
+                $sql = "SELECT * FROM product";
+                $stmt = $db_obj->prepare($sql);
+                $stmt->execute();
+                $stmt->bind_result($id, $name, $description, $img, $type, $price);
+            
+                $colCount = 0;
+                ?>
 
-                    if($colCount == 4){ // Reihe abschließen?>
-                        
-                        </div>
-                        <div class="row">
-                    <?php                 
-                    }
+            <div class="row ps-2 pe-2">
 
-                    
+                <?php
+                while ($stmt->fetch()) {
                 ?>
                     
-                    <?php
-                }
-            ?>
-            <!--Reihe finally abschließen-->
-            </div>
+                    
+                        <div class="col m-2 border-bottom" id="product">
+                            
+                        <?php
+                            $colCount++;
+                        
+                            
+                            echo '<img class="img-fluid mx-auto d-block " src="' .$img . '">';
+                            echo '<div class="">';
+                            echo '<strong id="productName">' . $name . '</strong><br>';
+                            echo number_format($price, 2, ",", ".") . '€<br>';
+                            echo '</div>';
 
-        
+                        ?>
+                        
+                    </div>
+                    
 
-    </main>
-    <?php include("footer.php")?>
-     
+                <?php
+
+                        if($colCount == 4){ // Reihe abschließen?>
+                            
+                            </div>
+                            <div class="row">
+                        <?php                 
+                        }
+
+                        
+                    ?>
+                        
+                        <?php
+                    }
+                ?>
+                <!--Reihe finally abschließen-->
+                </div>
+
+            
+
+        </main>
+        <?php include("footer.php")?>
+    </div>
 </body>
 
 </html>

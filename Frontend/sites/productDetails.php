@@ -11,7 +11,7 @@
 
 <body class="">
     <div class="container-fluid bg-white">
-        <header>
+        <header class="sticky-top">
             <?php
                 include('nav.php')
             ?>
