@@ -1,19 +1,31 @@
 <?php
 
+include_once "model/cartline.php";
+include_once "model/cart.php";
+include_once "service/productservice.php";
 
 class OrderService{
 
-    public function addProduct($userID, $productID, $quantity){
+    public function __construct(){
+        $this->productService = new ProductService(); 
+    }
+
+    //Connection to Database
+    public function dbConnection(){
         $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
         if ($db_obj->connect_error) {
             echo "Collection failed!";
             exit();
         }
+        return $db_obj;
+    }
+
+    public function addProduct($userID, $productID, $quantity){
+        $db_obj = $this->dbConnection();
         $salesID = $this->getSalesHeaderID($userID, $db_obj);
 
         if(empty($salesID)){
             //create new salesheader
-            echo "\nnew salesheader needed";
             $sql = "INSERT INTO salesheader (customerID, done) VALUES (?, ?)";
             $stmt = $db_obj->prepare($sql);
             $done = 0;
@@ -22,7 +34,6 @@ class OrderService{
 
             $salesID = $this->getSalesHeaderID($userID, $db_obj);
         }
-        echo "\nsalesHeaderID: " . $salesID;
         //create new salesLine with product
         $sql = "INSERT INTO salesline (productID, quantity, salesheaderID) VALUES (?, ?, ?)";
         $stmt = $db_obj->prepare($sql);
@@ -33,15 +44,39 @@ class OrderService{
         return false;
     }
 
-    public function deleteProduct($userID, $productID){
-        $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
-        if ($db_obj->connect_error) {
-            echo "Collection failed!";
-            exit();
-        }
-        $salesID = $this->getSalesHeaderID($userID, $db_obj);
-
+    //get shopping cart of user
+    public function getCart($userID){
+        $db_obj = $this->dbConnection();
+        $salesHeaderID = $this->getSalesHeaderID($userID, $db_obj);
         
+        $sql = "SELECT saleslineID, productID, quantity FROM salesline WHERE salesheaderID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+
+        $cartlineList = array();
+        $i = $sumprice = 0;
+        //if($result = $db_obj->query($sql)){
+        $result = $stmt->get_result();
+        while($row = $result->fetch_row()){
+            $curproduct = $this->productService->getProductById($row[1]);
+            //hier können auch noch mehr variablen ausgelesen werden für die Sales Line
+            $cartlineList[$i] = new Cartline($row[0], $row[1], $curproduct->get_name(), $row[2], $curproduct->get_productprice());
+            $sumprice += $curproduct->get_productprice() * $row[2];
+            $i++;
+        }
+        foreach ($cartlineList as $key => $value) {
+            echo "CartLine - Key: " . $key . " Value: " . $value;
+        }
+        $cart = new Cart($salesHeaderID, $userID, $cartlineList, $sumprice);
+        //close the connection
+        $db_obj->close();
+        return $cart;
+    }
+
+    public function deleteProduct($userID, $productID){
+        $db_obj = $this->dbConnection();
+        $salesID = $this->getSalesHeaderID($userID, $db_obj);  
     }
     
     //to get current sales header (warenkorb) of this user
@@ -49,7 +84,7 @@ class OrderService{
         $sql = "SELECT salesID FROM salesheader WHERE customerID = ? AND done = 0";
         
         $stmt = $db_obj->prepare($sql);
-        $stmt->bind_param("s", $userID);
+        $stmt->bind_param("i", $userID);
         $stmt->execute();
         $stmt->bind_result($salesID);
         $stmt->fetch();
@@ -58,4 +93,5 @@ class OrderService{
 
         return $salesID;
     }
+
 }

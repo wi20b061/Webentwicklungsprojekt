@@ -7,11 +7,10 @@ require_once ('db/dbaccess.php');
 //echo "method is: " . $data->method; //method wird ausgeben (für Testing)
 
 isset($_SERVER['REQUEST_METHOD']) ? $method = $_SERVER['REQUEST_METHOD'] : false;
-isset($_POST["request"]) ? $request = $_POST["request"] : false;
 
 $api = new Api();
 
-$result = $api->processRequest($method, $request);
+$result = $api->processRequest($method);
 if($result == null){
     response($method, 400, null);
 }else{
