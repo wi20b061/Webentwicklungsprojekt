@@ -17,35 +17,49 @@
             <?php include("nav.php")?>
         </header>
         <main class="pt-1 pb-1 ps-5 pe-5">
+
+            <h2 class="display-6 mb-3">Log in to your Profile</h2>
             <!--onSubmit="validateForm()"   -> nicht verwendet, da sobald die validierung abgeschlossen ist die errormessages verschwinden-->
             <!-- type="" auf text setzen und required weggegeben, da wir die validierung komplett selbst mit js implementieren-->
-            <form id="LoginForm" method="post" name="LoginForm">
-                <label class="form-label" for="enterLoginInformation">Please Enter Your Login Informations</label>
+            <form  id="LoginForm" method="post" name="LoginForm">
+                
+            
 
-
-                <div class="col">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" placeholder="Enter Username" class="form-control" id="username" name="username">
-                    <div class="text-danger" id="userErr" name="userErr"></div>
+                <div class="row mt-1">
+                    <div class="col">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username">
+                        <div class="text-danger" id="userErr" name="userErr"></div>
+                    </div>
                 </div>
 
 
-                <div class="col">
-                    <label for="pw" class="form-label">Password</label>
-                    <input type="password" class="form-control" placeholder="Enter Password" id="pw" name="pw">
-                    <div class="text-danger" id="pwErr" name="pwErr"></div>
+                <div class="row mt-1">
+                    <div class="col">
+                        <label for="pw" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="pw" name="pw">
+                        <div class="text-danger" id="pwErr" name="pwErr"></div>
+                    </div>
                 </div>
 
+                <div class="row mt-1 justify-content-end">
+                    <div class="col-auto">
+                        <button class="btn text-white mt-2 mb-2" type="submit" name="submit" id="submit" style="background-color: #365370;">Submit</button>
+                    </div>
 
-                <button class="btn btn-primary mt-2 mb-2" type="submit" name="submit" id="submit">Submit</button>
-                <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
+                    <div class="col pt-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" style="background-color: #365370;" checked>
+                            <label class="form-check-label" for="flexCheckChecked">Remember me</label>
+                        </div>
+                    </div>
 
-                <div class="col">
-                    <span class="psw">Forgot <a href="#">password?</a></span>
+
+
+                    <div class="col-auto text-end">
+                        <span class="psw">Forgot <a href="#">password?</a></span>
+                    </div>
                 </div>
-
 
             </form>
         </main>

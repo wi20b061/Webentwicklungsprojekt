@@ -18,9 +18,10 @@
             <?php include("nav.php")?>
         </header>
         <main class="pt-1 pb-1 ps-5 pe-5 mt-2">
+            <h2 class="display-6 mb-3">Create a Filara Profile</h2>
         <!--onSubmit="validateForm()"   -> nicht verwendet, da sobald die validierung abgeschlossen ist die errormessages verschwinden-->
         <!-- type="" auf text setzen und required weggegeben, da wir die validierung komplett selbst mit js implementieren-->
-            <form  id="registrationForm" method="post" name="registrationForm" enctype="multipart/form-data">
+            <form  id="registrationForm" method="post" name="registrationForm" >
                 <label class="form-label" for="salutation" >Salutation</label>
                 <select class="form-select" id="salutation" name="salutation">
                     <option value="mr">Mr.</option>
@@ -31,12 +32,12 @@
                 <div class="row mt-1">
                     <div class="col">
                         <label for="fname" class="form-label">Firstname</label>
-                        <input type="text"id="fname" name="fname" class="form-control">
+                        <input type="text"id="fname" name="fname" class="form-control" >
                         <div class="text-danger " id="fnameErr" name="fnameErr"></div>
                     </div>
                     <div class="col">
                         <label for="lname" class="form-label">Lastname</label>
-                        <input type="text" id="lname" name="lname" class="form-control">
+                        <input type="text" id="lname" name="lname" class="form-control" >
                         <!--div container for error message-->
                         <div class="text-danger" id="lnameErr" name="lnameErr"></div>
                     </div>
@@ -45,12 +46,12 @@
                 <div class="row mt-1">
                     <div class="col">
                         <label for="streetname" class="form-label">Streetname</label>
-                        <input type="text" class="form-control" id="streetname" name="streetname">
+                        <input type="text" class="form-control" id="streetname" name="streetname" >
                         <div class="text-danger" id="streetnErr" name="streetnErr"></div>
                     </div>
                     <div class="col">
                         <label for="streetnr" class="form-label">Streetnumber</label>
-                        <input type="text" class="form-control" id="streetnumber" name="streetnumber">
+                        <input type="text" class="form-control" id="streetnumber" name="streetnumber" >
                         <div class="text-danger" id="streetnrErr" name="streetnrErr"></div>
                     </div>
                 </div>
@@ -58,25 +59,25 @@
                 <div class="row mt-1">
                     <div class="col">
                         <label for="zip" class="form-label">Zip Code</label>
-                        <input type="text" class="form-control" id="zip" name="zip">
+                        <input type="text" class="form-control" id="zip" name="zip" >
                         <div class="text-danger" id="zipErr" name="zipErr"></div>
                     </div>
                         <div class="col">
                         <label for="location" class="form-label">Location</label>
-                        <input type="text" class="form-control" id="location" name="location">
+                        <input type="text" class="form-control" id="location" name="location" >
                         <div class="text-danger" id="locErr" name="locErr"></div>
                     </div>
                 </div>
 
                 <label for="country" class="form-label mt-1">Country</label>
-                <input type="text" class="form-control" id="country" name="country">
+                <input type="text" class="form-control" id="country" name="country" >
                 <div class="text-danger" id="counErr" name="counErr"></div>
 
 
                 <div class="row mt-1">
                     <div class="col">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username">
+                        <input type="text" class="form-control" id="username" name="username" >
                         <div class="text-danger" id="userErr" name="userErr"></div>
                     </div>
                     <div class="col">
@@ -98,7 +99,7 @@
                 </div>
                 <div class="text-danger" id="pwErr" name="pwErr"></div>
             
-                <button class="btn btn-primary mt-2 mb-2" type="submit" name="submit" id="submit">Submit</button>
+                <button class="btn text-white mt-2 mb-2" type="submit" name="submit" id="submit" style="background-color: #365370;">Submit</button>
                 <button class="btn btn-secondary mt-2 mb-2" type="reset" name="reset">Reset</button>
 
             </form>

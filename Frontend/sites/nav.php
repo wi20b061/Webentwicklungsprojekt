@@ -3,7 +3,7 @@
 ?>
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light  sticky-top mb-2" style="background-color: #F0F2E6">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img src="../../Frontend/pictures/FILARA.png" alt="" width="100" height="65" class="d-inline-block align-text-top">
@@ -33,8 +33,8 @@
           }
             //Sollte User nicht eingeloggt sein, werden ihm nur Register und Login angezeigt.
           else{
-            echo "<li class='nav-item mt-1'><a class='nav-link' href='registration.html'>Register</a></li>";
-            echo "<li class='nav-item mt-1'><a class='nav-link' href='login.html'>Login</a></li>";
+            echo "<li class='nav-item mt-1'><a class='nav-link' href='registration.php'>Register</a></li>";
+            echo "<li class='nav-item mt-1'><a class='nav-link' href='login.php'>Login</a></li>";
             echo "<li class='nav-item ms-4'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
           }
           ?>

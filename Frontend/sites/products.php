@@ -16,7 +16,7 @@
 <body class="">
     <div class="container-fluid bg-white">
     
-        <header class="sticky-top bg-white">
+        <header class="sticky-top" >
             <?php include("nav.php")?>
             <div class="row justify-content-end">
                 <!--Suchfeld-->
@@ -24,10 +24,10 @@
                     <input name="search" id="search" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Search">
                 </div>
                 <!--Kategoriefilter - Default 1. Produktkategorie--> 
-                <!-- DROPDOWN IS NOT WORKING because Popper package not installed-->
+                
                 <div class="col-auto text-end">
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" style="background-color: #365370;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn text-white dropdown-toggle" style="background-color: #365370;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             Kategories
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
