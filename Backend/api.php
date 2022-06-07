@@ -45,6 +45,9 @@ class Api{
             if(isset($_GET["userID"]) && isset($_GET["request"]) && $_GET["request"] == "cart"){
                 $result = $this->getShoppinCart();
             }
+            if(isset($_GET["products"])){
+                $result = $this->getAllProducts();
+            }
         }
         return $result;
     }
@@ -84,11 +87,11 @@ class Api{
         if(!isset($_POST["productsrequest"]) || empty($_POST["productsrequest"]) ){
             $this->error(400, [], "Bad Request - products request type is required!");
         }
-        //get all Products
+        /*//get all Products
         if($_POST["productsrequest"] == "allProducts"){
             $products = $this->productService->getAllProducts();
             return $products;
-        }
+        }*/
     }
     //get product-details by the ID
     private function getProductByID(){
@@ -101,7 +104,11 @@ class Api{
             $this->error(400, [], "Bad Request - productID does not exist");
         }
         return $product;
-
+    }
+    //get all products
+    private function getAllProducts(){
+        $products = $this->productService->getAllProducts();
+        return $products;
     }
 
     /***** LOGIN ******/
