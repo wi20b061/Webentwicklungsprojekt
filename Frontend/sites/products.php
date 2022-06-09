@@ -42,66 +42,11 @@
         </header>
 
         <main class="pt-1 pb-1 ps-5 pe-5 mt-1">
-            <?php
-                require_once ('../../Backend/db/dbaccess.php');
-
-                $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
-                if ($db_obj->connect_error) {
-                    echo "Connection Error: " . $db_obj->connect_error;
-                    exit();
-                }
-
-                $sql = "SELECT * FROM product";
-                $stmt = $db_obj->prepare($sql);
-                $stmt->execute();
-                $stmt->bind_result($id, $name, $description, $img, $type, $price);
             
-                $colCount = 0;
-                ?>
 
-            <div class="row ps-2 pe-2">
-
-                <?php
-                while ($stmt->fetch()) {
-                ?>
-                    
-                    
-                        <div class="col m-2 border-bottom" id="product">
-                            
-                        <?php
-                            $colCount++;
-                        
-                            
-                            echo '<img class="img-fluid mx-auto d-block " src="' .$img . '">';
-                            echo '<div class="">';
-                            echo '<strong id="productName">' . $name . '</strong><br>';
-                            echo number_format($price, 2, ",", ".") . '€<br>';
-                            echo '</div>';
-
-                        ?>
-                        
-                    </div>
-                    
-
-                <?php
-
-                        if($colCount == 4){ // Reihe abschließen?>
-                            
-                            </div>
-                            <div class="row">
-                        <?php                 
-                        }
-
-                        
-                    ?>
-                        
-                        <?php
-                    }
-                ?>
-                <!--Reihe finally abschließen-->
-                </div>
-
-            
+            <div id="products">
+                
+            </div>
 
         </main>
         <?php include("footer.php")?>
