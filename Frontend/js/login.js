@@ -1,15 +1,20 @@
 $(document).ready(function () {
 
+    console.log("sup")
+
     var form = document.getElementById("LoginForm")
     form.addEventListener("submit", event => {
         event.preventDefault()
         validateForm()
+        
     })
 })
 
 function validateForm() {
+    console.log("validation")
     var username = document.LoginForm.username.value.trim()
     var pw = document.LoginForm.pw.value.trim()
+
 
     var userErr = pwErr = true
 
@@ -34,11 +39,16 @@ function validateForm() {
             //add error class for input field
         //}
         printError("pwErr", "pw", "")
-        userErr = false
+        pwErr = false
     }
 
     if(userErr == false && pwErr == false){
+        console.log("keine errors")
         sendData("login", username, pw)
+    }else{
+        console.log(userErr)
+        console.log("pw error: "+pwErr)
+        console.log(pw)
     }
 }
 
@@ -59,7 +69,7 @@ function sendData(methodToExecute, username, pw){
         type: "POST",
         url: "../../Backend/ServiceHandler.php",
         cache: false,
-        data: {method: methodToExecute, username: username, password: pw},
+        data: {request: methodToExecute, username: username, pw: pw},
         dataType: "json",
         beforeSend: function(){
             console.log("befor Send ajax call")
