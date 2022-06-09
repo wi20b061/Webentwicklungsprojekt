@@ -7,7 +7,7 @@ class Cart{
     public $cartlineList; //Array of Class Salesline
     public $sumprice;
     
-    public function __construct(int $salesheaderID, int $customerID, $cartlineList, int $sumprice){
+    public function __construct(int $salesheaderID, int $customerID, $cartlineList, float $sumprice){
         $this->salesheaderID    = $salesheaderID;
         $this->customerID       = $customerID;
         $this->cartlineList     = $cartlineList;
