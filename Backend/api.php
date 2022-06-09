@@ -209,12 +209,11 @@ class Api{
         }
         return $data;
     }
-    private function test_int($data){
-        $data = (int) $data;
+    private function test_int($data){     
         if(!preg_match("/^\d+$/",$data)){  
             $this->error(402, [], "<br>Bad Request - invalid input: integer"); 
         }
-        return strval($data);          
+        return $data;          
     }
     private function test_email($data){
         if(!filter_var($data, FILTER_VALIDATE_EMAIL)){
