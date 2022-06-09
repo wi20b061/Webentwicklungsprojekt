@@ -51,18 +51,18 @@ class OrderService{
         
         $sql = "SELECT saleslineID, productID, quantity FROM salesline WHERE salesheaderID = ?";
         $stmt = $db_obj->prepare($sql);
-        $stmt->bind_param("i", $userID);
+        $stmt->bind_param("i", $salesHeaderID);
         $stmt->execute();
-
         $cartlineList = array();
         $i = $sumprice = 0;
         //if($result = $db_obj->query($sql)){
-        $result = $stmt->get_result();
+        $result = $stmt->get_result(); //hier ist das Problem!
         while($row = $result->fetch_row()){
+            echo "this is " . $row[0];
             $curproduct = $this->productService->getProductById($row[1]);
             //hier können auch noch mehr variablen ausgelesen werden für die Sales Line
-            $cartlineList[$i] = new Cartline($row[0], $row[1], $curproduct->get_name(), $row[2], $curproduct->get_productprice());
-            $sumprice += $curproduct->get_productprice() * $row[2];
+            $cartlineList[$i] = new Cartline($row[0], $row[1], $curproduct->get_name(), $row[2], $curproduct->get_price());
+            $sumprice += $curproduct->get_price() * $row[2];
             $i++;
         }
         foreach ($cartlineList as $key => $value) {
