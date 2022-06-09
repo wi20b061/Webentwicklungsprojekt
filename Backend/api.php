@@ -59,17 +59,32 @@ class Api{
         //1.) Prüfen ob für diese Person salesheader (mit done = 0) existiert
         //2.) Wenn nicht -> neuen sales Header anlegen, ansonsten zum current hinzufügen
         //neue salesline hinzufügen
-        
-        //VALIDATION
-        if(!isset($_POST["userID"]) || !isset($_POST["productID"]) || !isset($_POST["quantity"]) || 
-        empty($_POST["userID"]) ||empty($_POST["productID"]) || empty($_POST["quantity"])){
-            $this->error(400, [], "Bad Request - userID, productID, quantity are required!");
+        if(!isset($_POST["orderRequest"]) || empty($_POST["orderRequest"])){
+            $this->error(400, [], "Bad Request - orderRequest-type required!");
         }
-        $userID =       $this->test_input($_POST["userID"], "i");
-        $productID =    $this->test_input($_POST["productID"], "i");
-        $quantity =     $this->test_input($_POST["quantity"], "i");
-        
-        return $this->orderService->addProduct($userID, $productID, $quantity);
+        //add new product to cart
+        if($_POST["orderRequest"] == "addProduct"){
+            //VALIDATION
+            if(!isset($_POST["userID"]) || !isset($_POST["productID"]) || !isset($_POST["quantity"]) || 
+            empty($_POST["userID"]) ||empty($_POST["productID"]) || empty($_POST["quantity"])){
+                $this->error(400, [], "Bad Request - userID, productID, quantity are required!");
+            }
+            $userID =       $this->test_input($_POST["userID"], "i");
+            $productID =    $this->test_input($_POST["productID"], "i");
+            $quantity =     $this->test_input($_POST["quantity"], "i");
+            
+            return $this->orderService->addProduct($userID, $productID, $quantity);
+        }
+        //update quantiy of a product in the cart
+        if($_POST["orderRequest"] == "updateQty"){
+            if(!isset($_POST["newQty"]) || !isset($_POST["salesLineID"]) || 
+            empty($_POST["newQty"]) ||empty($_POST["salesLineID"])){
+                $this->error(400, [], "Bad Request - newQty, salesLineID are required!");
+            }
+            $newQty =       $this->test_input($_POST["newQty"], "i");
+            $salesLineID =    $this->test_input($_POST["salesLineID"], "i");
+            return $this->orderService->updateProductQty($newQty, $salesLineID);
+        }
     }
     //get the shopping cart of a customer
     private function getShoppinCart(){
@@ -78,20 +93,15 @@ class Api{
         }
         $userID = $this->test_input($_GET["userID"], "i");
         return $this->orderService->getCart($userID); //List of products in Cart & sumprice of order
-
     }
 
-
     /***** PRODUCTS ******/
+    //NOT DONE! - do we need POST Requests for products?
     private function processProducts(){ //request says what to do
         if(!isset($_POST["productsrequest"]) || empty($_POST["productsrequest"]) ){
             $this->error(400, [], "Bad Request - products request type is required!");
         }
-        /*//get all Products
-        if($_POST["productsrequest"] == "allProducts"){
-            $products = $this->productService->getAllProducts();
-            return $products;
-        }*/
+        //possible post requests
     }
     //get product-details by the ID
     private function getProductByID(){

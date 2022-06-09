@@ -25,7 +25,7 @@ class OrderService{
         $db_obj = $this->dbConnection();
         $salesID = $this->getSalesHeaderID($userID, $db_obj);
 
-        //if customer doesn't have a shopping cart yet, create a new one
+        //if customer doesn't have a shopping cart yet, create new one
         if(empty($salesID)){
             //create new salesheader
             $sql = "INSERT INTO salesheader (customerID, done) VALUES (?, ?)";
@@ -36,7 +36,25 @@ class OrderService{
             $salesID = $this->getSalesHeaderID($userID, $db_obj);
         }
         //check if product is already in shopping cart of this customer
-        
+        $sql = "SELECT saleslineID, quantity FROM salesline WHERE productID = ? AND salesheaderID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("ii", $productID, $salesID);
+        $stmt->execute();
+        $stmt->bind_result($salesLineID, $productqty);
+        $stmt->fetch();
+        $stmt->close();
+
+        //increase qty of existing product in cart
+        if(!empty($salesLineID)){
+            $newqty = $productqty + $quantity;
+            $sql = "UPDATE salesline SET quantity = ? WHERE saleslineID = ?";
+            $stmt = $db_obj->prepare($sql);
+            $stmt->bind_param("ii", $newqty, $salesLineID);
+            if($stmt->execute()){
+                return true;
+            }
+            return false;
+        }
 
         //create new salesLine with product
         $sql = "INSERT INTO salesline (productID, quantity, salesheaderID) VALUES (?, ?, ?)";
@@ -48,6 +66,7 @@ class OrderService{
         return false;
     }
 
+    
     //get shopping cart of user
     public function getCart($userID){
         $db_obj = $this->dbConnection();
@@ -75,9 +94,22 @@ class OrderService{
         return $cart;
     }
 
+    //delete product from cart - NOT DONE!
     public function deleteProduct($userID, $productID){
         $db_obj = $this->dbConnection();
         $salesID = $this->getSalesHeaderID($userID, $db_obj);  
+    }
+
+    //change qty of product in cart 
+    public function updateProductQty($newQty, $salesLineID){
+        $db_obj = $this->dbConnection();
+        $sql = "UPDATE salesline SET quantity = ? WHERE saleslineID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("ii", $newQty, $salesLineID);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
     }
     
     //to get current sales header (warenkorb) of this user
