@@ -15,7 +15,6 @@ class LoginService{
         $stmt->execute();
         $stmt->bind_result($usernameDB, $pwDB);
         $stmt->fetch();
-        echo "<br>Username: " . $usernameDB . "<br>Password: " . $pwDB. "<br>";
         
         if(!empty($pwDB) && password_verify($pw, $pwDB)){
             return true;
