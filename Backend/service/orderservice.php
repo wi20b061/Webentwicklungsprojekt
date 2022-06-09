@@ -20,10 +20,12 @@ class OrderService{
         return $db_obj;
     }
 
+    //add product to shooping cart
     public function addProduct($userID, $productID, $quantity){
         $db_obj = $this->dbConnection();
         $salesID = $this->getSalesHeaderID($userID, $db_obj);
 
+        //if customer doesn't have a shopping cart yet, create a new one
         if(empty($salesID)){
             //create new salesheader
             $sql = "INSERT INTO salesheader (customerID, done) VALUES (?, ?)";
@@ -31,9 +33,11 @@ class OrderService{
             $done = 0;
             $stmt->bind_param("ii", $userID, $done);
             $stmt->execute();
-
             $salesID = $this->getSalesHeaderID($userID, $db_obj);
         }
+        //check if product is already in shopping cart of this customer
+        
+
         //create new salesLine with product
         $sql = "INSERT INTO salesline (productID, quantity, salesheaderID) VALUES (?, ?, ?)";
         $stmt = $db_obj->prepare($sql);
@@ -58,16 +62,13 @@ class OrderService{
         //if($result = $db_obj->query($sql)){
         $result = $stmt->get_result(); //hier ist das Problem!
         while($row = $result->fetch_row()){
-            echo "this is " . $row[0];
             $curproduct = $this->productService->getProductById($row[1]);
             //hier können auch noch mehr variablen ausgelesen werden für die Sales Line
             $cartlineList[$i] = new Cartline($row[0], $row[1], $curproduct->get_name(), $row[2], $curproduct->get_price());
             $sumprice += $curproduct->get_price() * $row[2];
             $i++;
         }
-        foreach ($cartlineList as $key => $value) {
-            echo "CartLine - Key: " . $key . " Value: " . $value;
-        }
+    
         $cart = new Cart($salesHeaderID, $userID, $cartlineList, $sumprice);
         //close the connection
         $db_obj->close();
