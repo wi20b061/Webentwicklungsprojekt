@@ -14,7 +14,7 @@ function validateForm() {
     var userErr = pwErr = true
 
     //validate usern
-    if (usern == "") {
+    if (username == "") {
         printError("userErr", "username", "Please enter your username")
     } else {
         //if (todo Datenbankabgleichung === false) {
@@ -36,6 +36,10 @@ function validateForm() {
         printError("pwErr", "pw", "")
         userErr = false
     }
+
+    if(userErr == false && pwErr == false){
+        sendData("login", username, pw)
+    }
 }
 
 function printError(elemErrId, elemInputId, message){
@@ -53,7 +57,7 @@ function printError(elemErrId, elemInputId, message){
 function sendData(methodToExecute, username, pw){
     $.ajax({
         type: "POST",
-        url: "",
+        url: "../../Backend/ServiceHandler.php",
         cache: false,
         data: {method: methodToExecute, username: username, password: pw},
         dataType: "json",

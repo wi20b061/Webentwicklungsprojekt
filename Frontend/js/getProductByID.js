@@ -1,10 +1,9 @@
 $(document).ready(function(){
    
     $.ajax({
-        type: "POST",
-        url: "../../Backend/ServiceHandler.php",
+        type: "GET",
+        url: "../../Backend/ServiceHandler.php?productID=1",
         cache: false,
-        data: {method: "products", request: "id" /*hier die id des produktes mit übergeben*/ },
         dataType: "json",
         success: function (response) { 
             console.log(response)

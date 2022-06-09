@@ -10,10 +10,9 @@ $(document).ready(function(){
     })
 
     $.ajax({
-        type: "POST",
-        url: "../../Backend/ServiceHandler.php",
+        type: "GET",
+        url: "../../Backend/ServiceHandler.php?products",
         cache: false,
-        data: {method: "products", request: "allProducts"},
         dataType: "json",
         success: function (response) { 
             
