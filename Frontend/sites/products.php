@@ -16,7 +16,7 @@
 <body class="">
     <div class="container-fluid bg-white">
     
-        <header class="sticky-top" >
+        <header class="sticky-top bg-white" >
             <?php include("nav.php")?>
             <div class="row justify-content-end">
                 <!--Suchfeld-->
