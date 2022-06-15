@@ -37,7 +37,7 @@
           
             echo "<li class='nav-item mt-1'><a class='nav-link' href='registration.php'>Register</a></li>";
             echo "<li class='nav-item mt-1'><a class='nav-link' href='login.php'>Login</a></li>";
-            echo "<li class='nav-item ms-4'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
+            echo "<li class='nav-item ms-4' id='shoppingCart'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
             echo "<li class='nav-item ms-1'><div class='' id='productCount' style='color: #365370; font-weight: bold;'>0</div></li>";
 
           }
@@ -53,3 +53,5 @@
     </div>
   </div>
 </nav>
+
+<script src="../js/shoppingCart.js"></script>

@@ -37,7 +37,7 @@
 
             <div class="row mt-3">
                 <div class="col-4 border-end">
-                    <h3 class="display-6">Hello <span class="badge" style="background-color: #365370;">Username<span></h3>
+                    <h1 class="display-6">Hello <span class="badge" style="background-color: #365370;">Username<span></h1>
 
                     <div class="">
                         <!--onclick hinzufügen, dann wird im div #content der inhalt geladen-->

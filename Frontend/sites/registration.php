@@ -18,7 +18,7 @@
             <?php include("nav.php")?>
         </header>
         <main class="pt-1 pb-1 ps-5 pe-5 mt-2">
-            <h2 class="display-6 mb-3">Create a Filara Profile</h2>
+            <h1 class="display-6 mb-3">Create a Filara Profile</h1>
         <!--onSubmit="validateForm()"   -> nicht verwendet, da sobald die validierung abgeschlossen ist die errormessages verschwinden-->
         <!-- type="" auf text setzen und required weggegeben, da wir die validierung komplett selbst mit js implementieren-->
             <form  id="registrationForm" method="post" name="registrationForm" >

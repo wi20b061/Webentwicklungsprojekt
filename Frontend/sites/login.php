@@ -20,7 +20,7 @@
         </header>
         <main class="pt-1 pb-1 ps-5 pe-5">
 
-            <h2 class="display-6 mb-3">Log in to your Profile</h2>
+            <h1 class="display-6 mb-3">Log in to your Profile</h1>
             
             <!-- type="" auf text setzen und required weggegeben, da wir die validierung komplett selbst mit js implementieren-->
             <form  id="LoginForm" method="post" name="LoginForm">
