@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-    console.log("sup")
-
     var form = document.getElementById("LoginForm")
     form.addEventListener("submit", event => {
         event.preventDefault()
@@ -71,9 +69,6 @@ function sendData(methodToExecute, username, pw){
         cache: false,
         data: {request: methodToExecute, username: username, pw: pw},
         dataType: "json",
-        beforeSend: function(){
-            console.log("befor Send ajax call")
-        },
         success: function (response) { 
 
            console.log("ajax call success")
@@ -82,11 +77,7 @@ function sendData(methodToExecute, username, pw){
             console.log("ajax call error")
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
             
-        },
-        complete: function(){
-            console.log("ajax call completed")
         }
-
     })
 
     console.log("nach ajax call")

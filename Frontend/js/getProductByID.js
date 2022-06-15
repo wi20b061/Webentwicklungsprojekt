@@ -1,16 +1,20 @@
 $(document).ready(function(){
 
-    var productID = getUrlVars();
-    console.log(productID)
-   
+    //getting the productID from the url
+    var productID = getUrlVars()["productID"];
+    
     $.ajax({
         type: "GET",
-        url: "../../Backend/ServiceHandler.php?productID="+ productID[0].toString(),
+        url: "../../Backend/ServiceHandler.php?productID=" +productID , //productID="+ productID[0]
         cache: false,
         dataType: "json",
         success: function (response) { 
             console.log(response)
-           console.log("ajax call success")
+            $('#img').append('<img class="img-fluid mx-auto d-block " src="' + response.path + '">')
+            $('#name').append('<h1 class="display-6">' +response.name +'</h1>')
+            $('#price').append('<p class="text-muted" >'+ response.price.toFixed(2) +'€</p>')
+            $('#description').append('<p>'+ response.description +'</p>')
+            $('#addToCart').append('<button type="button" class="btn btn-dark" style="background-color: #365370;">Add to cart <i class="bi bi-basket-fill ms-1" style="font-size: 1.5rem; color: white;"></i></button>')
         },
         error: function(xhr){
             console.log("ajax call error")

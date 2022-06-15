@@ -19,56 +19,19 @@
             ?>
         </header>
         <main class="pt-1 pb-1 ps-5 pe-5">
-            <?php
-                require_once ('../../Backend/db/dbaccess.php');
-
-                $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
-                if ($db_obj->connect_error) {
-                    echo "Connection Error: " . $db_obj->connect_error;
-                    exit();
-                }
-
-                $sql = "SELECT * FROM product WHERE productID = 1";
-                $stmt = $db_obj->prepare($sql);
-                $stmt->execute();
-                $stmt->bind_result($id, $name, $description, $img, $type, $price);
-            
-                
-                ?>
-
-            <div class="border row">
-                <?php
-                while ($stmt->fetch()) {
-                ?>
-                        <div class="col-8 border"> 
-                            <?php
-                                echo '<img class="img-fluid mx-auto d-block border" src="' .$img . '">';     
-                            ?>
-                        </div>
-                        <div class="col-4 p-4 border">
-                            <div class="row">
-                                <div class="col-7 border">
-                            <?php
-                                echo '<h1 class="display-6">' . $name . '</h1><br>';
-                            ?>
-                                </div>
-                                <div class="col-5 border">
-                            <?php
-                                echo  '<p class="text-muted" style="">'.number_format($price, 2, ",", ".") . '€</p>';    
-                            ?>
-                                </div>
-                            </div>
-                            <?php
-                                echo '<p>'.$description.'<p><br>';
-                            ?>
-                            <button type="button" class="btn btn-dark" style='background-color: #365370;'>Add to cart <i class="bi bi-basket-fill ms-1" style='font-size: 1.5rem; color: white;'></i></button>
-                        </div>
-                        <?php
-
-                }?>
-                
-            </div>
-                
+            <div class="row mt-3">
+                <div class="col">
+                    <div id="img"></div>
+                </div>
+                <div class="col">
+                    <div class="row"> 
+                        <div class="col" id="name"></div>
+                        <div class="col display-6" id="price"></div>
+                    </div>
+                    <div class="row" id="description"></div>
+                    <div class="row" id="addToCart"></div>
+                </div>
+            </div>   
         </main>
         <?php include("footer.php")?>
     </div>

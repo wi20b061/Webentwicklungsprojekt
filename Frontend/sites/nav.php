@@ -30,13 +30,16 @@
             //die Produkte und beim „Einkaufen“ soll der User nie die Seite verlassen
             //müssen.
             echo "<li class='nav-item mt-1'><a class='nav-link' href='profile.php'>Profile</a></li>";
-            echo "<li class='nav-item ms-4'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
+            
           }
             //Sollte User nicht eingeloggt sein, werden ihm nur Register und Login angezeigt.
           else{
           
             echo "<li class='nav-item mt-1'><a class='nav-link' href='registration.php'>Register</a></li>";
             echo "<li class='nav-item mt-1'><a class='nav-link' href='login.php'>Login</a></li>";
+            echo "<li class='nav-item ms-4'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
+            echo "<li class='nav-item ms-1'><div class='' id='productCount' style='color: #365370; font-weight: bold;'>0</div></li>";
+
           }
           ?>
         </ul>

@@ -28,22 +28,24 @@
                 <div class="col-auto text-end">
                     <div class="dropdown">
                         <button class="btn text-white dropdown-toggle" style="background-color: #365370;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Kategories
+                            Categories
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Table</a></li>
-                            <li><a class="dropdown-item" href="#">Shelf</a></li>
-                            <li><a class="dropdown-item" href="#">Chair</a></li>
+                            <li class="dropdown-item">Tables</li>
+                            <li class="dropdown-item">Shelfs</li>
+                            <li class="dropdown-item">Chairs</li>
+                            <li class="dropdown-item">Plants</li>
                         </ul>
                     </div>
-                </div>    
+                </div>
+                
             </div>
-            <h2 class="display-6">Categorie hier anzeigen</h2>
+            
         </header>
 
         <main class="pt-1 pb-1 ps-5 pe-5 mt-1">
             
-
+            
             <div id="products">
                 
             </div>

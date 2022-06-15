@@ -186,8 +186,8 @@ function validateForm(){
     }else{
         // wenn beide befüllt dann error zurücksetzen
         printError("pwErr", "pw", "")
-        //var regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8, 20}$/
-        var regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[äÄöÖüÜß])(?=.{8,})/ // at least 1 lower case, 1 upper case, 1 number, white space not allowed
+        //var regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$)(?=.*[äÄöÖüÜß]).{8, 20}$/
+        var regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/ // at least 1 lower case, 1 upper case, 1 number, white space not allowed
         if(regex.test(pw) === false){
             
             printError("pwErr", "pw", "Please enter valid password")
