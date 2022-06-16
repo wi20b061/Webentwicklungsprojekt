@@ -2,9 +2,10 @@ $(document).ready(function(){
    
     loadUsers()
 
+
 })  
 
-function loadUsers(getMethod){
+function loadUsers(){
     $.ajax({
         type: "GET",
         url: "../../Backend/ServiceHandler.php?allUsers",
@@ -18,11 +19,11 @@ function loadUsers(getMethod){
             
             response.forEach(user => {
                 colCount += 1;
-                rows += "<div class='row border ps-2 pe-2'>"+user.userID+"<div class='col ps-5 pe-5'>"+user.fname+" "+user.lname+"<br>"+user.username+"<br>"+user.email+"</div><div class='col'>"+user.streetname+"<br>"+user.zip+" "+user.location+"<br>"+user.country+"</div><div class='col'><button class='btn text-white' style='background-color: #365370;' type='link'>Orders</button></div></div>";
+                rows += "<div class='row border p-2'>"+user.userID+"<div class='col ps-5 pe-5'>"+user.fname+" "+user.lname+"<br>"+user.username+"<br>"+user.email+"</div><div class='col'>"+user.streetname+"<br>"+user.zip+" "+user.location+"<br>"+user.country+"</div><div class='col'><button class='btn text-white loadOrders' onclick='loadOrders("+ user.userID +")' style='background-color: #365370;' type='link'>Orders</button></div></div>";
             });
            
             $('#userList').append(rows)
-
+            
 
            
         },
@@ -30,4 +31,9 @@ function loadUsers(getMethod){
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);   
         },
     })
+}
+
+function loadOrders(userID){
+
+    window.location.assign('../sites/orders.php?userID=' + userID)
 }
