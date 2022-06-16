@@ -4,23 +4,25 @@ $(document).ready(function(){
 
 })  
 
-function loadProducts(getMethod){
+function loadUsers(getMethod){
     $.ajax({
         type: "GET",
-        url: "../../Backend/ServiceHandler.php?user",
+        url: "../../Backend/ServiceHandler.php?allUsers",
         cache: false,
         dataType: "json",
         success: function (response) { 
             console.log(response)
 
             var rows = ""
+            var colCount
             
             response.forEach(user => {
                 colCount += 1;
-                rows += "<div class='row border ps-2 pe-2'>User ID<div class='col ps-5 pe-5'>Fname Lname<br>Username<br>test@email.com</div><div class='col'>Teststraße 3<br>1130 Wien<br>Austria</div><div class='col'><button class='btn text-white' style='background-color: #365370;' type='link'>Orders</button></div></div>";
+                rows += "<div class='row border ps-2 pe-2'>"+user.userID+"<div class='col ps-5 pe-5'>"+user.fname+" "+user.lname+"<br>"+user.username+"<br>"+user.email+"</div><div class='col'>"+user.streetname+"<br>"+user.zip+" "+user.location+"<br>"+user.country+"</div><div class='col'><button class='btn text-white' style='background-color: #365370;' type='link'>Orders</button></div></div>";
             });
            
             $('#userList').append(rows)
+
 
            
         },
