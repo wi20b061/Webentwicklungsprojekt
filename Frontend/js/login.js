@@ -1,12 +1,6 @@
 $(document).ready(function () {
 
-    //var form = document.getElementById("LoginForm")
-    /*form.addEventListener("submit", event => {
-        event.preventDefault()
-        validateForm()
-        
-    })*/
-    console.log("grüß sie")
+    
 
     $('#submit').click(function(){
         validateForm()

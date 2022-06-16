@@ -2,14 +2,7 @@
 
 $(document).ready(function(){
    
-    /*var form = document.getElement)
-    form.addEventListener("submit", event =>{
-        console.log("1. submit event")
-
-        event.preventDefault()
-        
-        validateForm()   
-    })*/
+    
 
     $('#submit').click(function(){
         validateForm()

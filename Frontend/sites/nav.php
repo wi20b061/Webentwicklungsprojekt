@@ -1,4 +1,6 @@
-
+<?php
+  include_once('../../Backend/logic/session.php')
+?>
 
 
 <nav class="navbar navbar-expand-lg navbar-light  sticky-top mb-2" style="background-color: #F0F2E6">
@@ -35,18 +37,14 @@
           
             echo "<li class='nav-item mt-1'><a class='nav-link' href='registration.php'>Register</a></li>";
             echo "<li class='nav-item mt-1'><a class='nav-link' href='login.php'>Login</a></li>";
-            echo "<li class='nav-item ms-4' id='shoppingCart'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
-            echo "<li class='nav-item ms-1'><div class='' id='productCount' style='color: #365370; font-weight: bold;'>0</div></li>";
 
           }
+          echo "<li class='nav-item ms-4' id='shoppingCart'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
+          echo "<li class='nav-item ms-1'><div class='' id='productCount' style='color: #365370; font-weight: bold;'>0</div></li>";
+
           ?>
         </ul>
-        <?php
-        //Es wird hierbei geschaut ob der User eingeloggt ist mithilfe von Sessions, sollte er eingeloggt sein wird sein Name angezeigt.
-          if(isset($_SESSION["usersID"])){
-                echo "Hallo ". $_SESSION["username"];
-          }
-        ?>
+        
       </div>
     </div>
   </div>
