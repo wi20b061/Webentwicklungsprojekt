@@ -3,7 +3,7 @@
 /**User Model */
 
 class User{
-    //public $id; //gehört das hier rein?
+    public $userID;
     public $salutation;
     public $fname;
     public $lname;
@@ -73,6 +73,12 @@ class User{
     }
     function get_active(){
         return $this->active;
+    }
+    function set_userID($userID){
+        $this->userID = $userID;
+    }
+    function get_userID(){
+        return $this->userID;
     }
 }
 ?>

@@ -21,6 +21,7 @@ class UserService{
         if($result = $db_obj->query($sql)){
             while($row = $result ->fetch_row()){
                 $users[$i] = new User($row[1], $row[2], $row[3], $row[4], $row[5],$row[6],$row[7],$row[8],$row[9],$row[10],"", $row[12], $row[13]);
+                $users[$i]->set_userID($row[0]);
                 $i++;
             }
         }
@@ -28,4 +29,6 @@ class UserService{
         $db_obj->close();
         return $users;
     }
+
+
 }
