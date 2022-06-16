@@ -50,4 +50,24 @@ class ProductService{
         
         return $product;
     }
+
+    public function getSearchProducts($searchterm){
+        $db_obj = $this->dbConnection();
+        $sql = "SELECT * FROM `product` WHERE `name` LIKE ? OR `description` LIKE ? OR `type` LIKE ? LIMIT 0, 20;";
+        $stmt = $db_obj->prepare($sql);
+        $searchterm	= "%".$searchterm."%";
+        $stmt->bind_param("sss", $searchterm,$searchterm,$searchterm);
+        $stmt->execute();
+        $productList = array();
+        $i = 0;
+        $result = $stmt->get_result(); //hier ist das Problem!
+        while($row = $result->fetch_row()){
+            //hier können auch noch mehr variablen ausgelesen werden für die Sales Line
+            $productList[$i] = new Product($row[0], $row[1], $row[2],$row[3],$row[4],$row[5]);
+            $i++;
+        }
+        //close the connection
+        $db_obj->close();
+        return $productList;
+    }
 }

@@ -48,6 +48,9 @@ class Api{
             if(isset($_GET["products"])){
                 $result = $this->getAllProducts();
             }
+            if(isset($_GET["search"])){
+                $result = $this->search();
+            }
         }
         return $result;
     }
@@ -119,6 +122,12 @@ class Api{
     private function getAllProducts(){
         $products = $this->productService->getAllProducts();
         return $products;
+    }
+    //search products
+    private function search(){        
+        //if searchterm empty, alle Produkte zurück geben
+        $productList = $this->productService->getSearchProducts($_GET["search"]);
+        return $productList;
     }
 
     /***** LOGIN ******/
