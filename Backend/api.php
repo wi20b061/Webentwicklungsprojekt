@@ -37,6 +37,9 @@ class Api{
                 case "order":
                     $result = $this->processOrder();
                     break;
+                case "user":
+                    $result = $this->processUserRequests();
+                    break;
                 default:
                     $result = null;
             }
@@ -67,6 +70,17 @@ class Api{
     }
 
     /***** USER ******/
+
+    private function processUserRequests(){
+        if(!isset($_POST["userRequest"]) || empty($_POST["userRequest"])){
+            $this->error(400, [], "Bad Request - userRequest-type required!");
+        }
+        //add new product to cart
+        if($_POST["userRequest"] == "deactivateUser" && isset($_POST["userID"]) && !empty($_POST["userID"])){
+            $userID = $this->test_input($_POST["userID"], "i");
+            return $this->userService->deactivateUser($userID);
+        }
+    }
     private function getAllUsers(){
         $users = $this->userService->getAllUsers();
         return $users;
