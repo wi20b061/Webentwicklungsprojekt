@@ -1,11 +1,13 @@
 <?php
 
+include_once "logic/session.php";
 include_once "model/user.php";
 include_once "service/registrationservice.php";
 include_once "service/loginservice.php";
 include_once "service/productservice.php";
 include_once "service/orderservice.php";
 include_once "service/userservice.php";
+
 
 class Api{
 
@@ -44,7 +46,7 @@ class Api{
             if(isset($_GET["productID"])){
                 $result = $this->getProductByID();
             }
-            if(isset($_GET["userID"]) && isset($_GET["request"]) && $_GET["request"] == "cart"){
+            if(isset($_SESSION["userID"]) && isset($_GET["request"]) && $_GET["request"] == "cart"){
                 $result = $this->getShoppinCart();
             }
             if(isset($_GET["products"])){
@@ -91,11 +93,11 @@ class Api{
         //add new product to cart
         if($_POST["orderRequest"] == "addProduct"){
             //VALIDATION
-            if(!isset($_POST["userID"]) || !isset($_POST["productID"]) || !isset($_POST["quantity"]) || 
-            empty($_POST["userID"]) ||empty($_POST["productID"]) || empty($_POST["quantity"])){
+            if(!isset($_SESSION["userID"]) || !isset($_POST["productID"]) || !isset($_POST["quantity"]) || 
+            empty($_SESSION["userID"]) ||empty($_POST["productID"]) || empty($_POST["quantity"])){
                 $this->error(400, [], "Bad Request - userID, productID, quantity are required!");
             }
-            $userID =       $this->test_input($_POST["userID"], "i");
+            $userID =       $this->test_input($_SESSION["userID"], "i");
             $productID =    $this->test_input($_POST["productID"], "i");
             $quantity =     $this->test_input($_POST["quantity"], "i");
             
@@ -114,10 +116,10 @@ class Api{
     }
     //get the shopping cart of a customer
     private function getShoppinCart(){
-        if(empty($_GET["userID"])){
+        if(empty($_SESSION["userID"])){
             $this->error(400, [], "Bad Request - userID is empty"); 
         }
-        $userID = $this->test_input($_GET["userID"], "i");
+        $userID = $this->test_input($_SESSION["userID"], "i");
         return $this->orderService->getCart($userID); //List of products in Cart & sumprice of order
     }
 
