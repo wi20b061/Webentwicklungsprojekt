@@ -2,15 +2,17 @@
 
 $(document).ready(function(){
    
-    var form = document.getElementById("registrationForm")
+    /*var form = document.getElement)
     form.addEventListener("submit", event =>{
         console.log("1. submit event")
 
         event.preventDefault()
         
+        validateForm()   
+    })*/
+
+    $('#submit').click(function(){
         validateForm()
-        
-        
     })
 
 })  
@@ -23,17 +25,17 @@ function validateForm(){
     // retrieving values of form elements
     var select = document.getElementById('salutation');
     var salutation = select.options[select.selectedIndex].value
-    var fname = document.registrationForm.fname.value.trim()
-    var lname = document.registrationForm.lname.value.trim()
-    var streetname= document.registrationForm.streetname.value.trim()
-    var streetnr = document.registrationForm.streetnumber.value.trim()
-    var zip = document.registrationForm.zip.value.trim()
-    var location = document.registrationForm.location.value.trim()
-    var country = document.registrationForm.country.value.trim()
-    var usern = document.registrationForm.username.value.trim()
-    var email = document.registrationForm.email.value.trim()
-    var pw = document.registrationForm.pw.value.trim()
-    var pw2 = document.registrationForm.pw2.value.trim()
+    var fname = $('#fname').val().trim()
+    var lname = $('#lname').val().trim()
+    var streetname= $('#streetname').val().trim()
+    var streetnr = $('#streetnumber').val().trim()
+    var zip = $('#zip').val().trim()
+    var location = $('#location').val().trim()
+    var country = $('#country').val().trim()
+    var usern = $('#username').val().trim()
+    var email = $('#email').val().trim()
+    var pw = $('#pw').val().trim()
+    var pw2 = $('#pw2').val().trim()
     
     //defining errorMessage variables with default value
     var fnameErr = lnameErr = streetnErr = streetnrErr = zipErr = locErr = counErr = userErr = emailErr = pwErr = true 
@@ -233,24 +235,18 @@ function printError(elemErrId, elemInputId, message){
     }
 }
 
-// funktionen für eingabefelder ausarbeiten, auch logic folder
+function sendData(methodToExecute, salutation, fname, lname, streetname, streetnumber, zip, location, country, username, email, pw){
+    console.log("before code ajax")
 
-// ajax function in ajax.js auslagern
-function sendData(methodToExecute, salutation, fname, lname, streetname, streetnumber, zip, location, country, username, pw){
-    console.log("vor ajax call")
-    
     $.ajax({
         
         type: "POST",
         url: "../../Backend/ServiceHandler.php",
         cache: false,
-        data: {method: methodToExecute, salutation: salutation, fname: fname, lname: lname, streetname: streetname, 
+        data: {request: methodToExecute, salutation: salutation, fname: fname, lname: lname, streetname: streetname, 
                 streetnr: streetnumber, zip: zip, location: location, country: country, email: email, username: username, 
                 pw: pw},
         dataType: "json",
-        beforeSend: function(){
-            console.log("befor Send ajax call")
-        },
         success: function (response) { 
 
            console.log("ajax call success")
@@ -260,12 +256,14 @@ function sendData(methodToExecute, salutation, fname, lname, streetname, streetn
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
             
         },
-        complete: function(){
-            console.log("ajax call completed")
-        }
+        beforeSend: function(){
+            console.log("befor ajax call")
+        },
+        statusCode: {404: function() {
+                alert( "page not found" );
+        }}
+        
 
     })
 
-    console.log("nach ajax call")
-    return
 }

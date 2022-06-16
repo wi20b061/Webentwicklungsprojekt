@@ -9,8 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">    
-    <!--<script src="../js/registration.js"></script>-->
-
+    <script src="../js/registration.js"></script>
 </head>
 <body class="">
     <div class="container-fluid bg-white">
@@ -19,9 +18,8 @@
         </header>
         <main class="pt-1 pb-1 ps-5 pe-5 mt-2">
             <h1 class="display-6 mb-3">Create a Filara Profile</h1>
-        <!--onSubmit="validateForm()"   -> nicht verwendet, da sobald die validierung abgeschlossen ist die errormessages verschwinden-->
-        <!-- type="" auf text setzen und required weggegeben, da wir die validierung komplett selbst mit js implementieren-->
-            <form  id="registrationForm" method="post" name="registrationForm" >
+
+            <div  id="registrationForm"  name="registrationForm" >
                 <label class="form-label" for="salutation" >Salutation</label>
                 <select class="form-select" id="salutation" name="salutation">
                     <option value="mr">Mr.</option>
@@ -50,7 +48,7 @@
                         <div class="text-danger" id="streetnErr" name="streetnErr"></div>
                     </div>
                     <div class="col">
-                        <label for="streetnr" class="form-label">Streetnumber</label>
+                        <label for="streetnumber" class="form-label">Streetnumber</label>
                         <input type="text" class="form-control" id="streetnumber" name="streetnumber" >
                         <div class="text-danger" id="streetnrErr" name="streetnrErr"></div>
                     </div>
@@ -99,16 +97,13 @@
                 </div>
                 <div class="text-danger" id="pwErr" name="pwErr"></div>
             
-                <button class="btn text-white mt-2 mb-2" type="submit" name="submit" id="submit" style="background-color: #365370;">Submit</button>
+                <button class="btn text-white mt-2 mb-2"  name="submit" id="submit" style="background-color: #365370;">Submit</button>
                 <button class="btn btn-secondary mt-2 mb-2" type="reset" name="reset">Reset</button>
 
-            </form>
+            </div>
         </main>
         <?php include("footer.php")?>
     </div>
-
-    
-    <script src="../js/registration.js"></script>
 
 </body>
 </html>

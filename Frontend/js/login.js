@@ -1,17 +1,22 @@
 $(document).ready(function () {
 
-    var form = document.getElementById("LoginForm")
-    form.addEventListener("submit", event => {
+    //var form = document.getElementById("LoginForm")
+    /*form.addEventListener("submit", event => {
         event.preventDefault()
         validateForm()
         
+    })*/
+    console.log("grüß sie")
+
+    $('#submit').click(function(){
+        validateForm()
     })
 })
 
 function validateForm() {
     console.log("validation")
-    var username = document.LoginForm.username.value.trim()
-    var pw = document.LoginForm.pw.value.trim()
+    var username = $('#username').val().trim()
+    var pw = $('#pw').val().trim()
 
 
     var userErr = pwErr = true
@@ -80,6 +85,5 @@ function sendData(methodToExecute, username, pw){
         }
     })
 
-    console.log("nach ajax call")
-    return
+   
 }
