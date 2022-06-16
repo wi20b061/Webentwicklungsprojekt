@@ -42,23 +42,14 @@ class UserService{
     public function getOrdersByUserId($userID){
         $db_obj = $this->dbConnection();
         $salesHeaderIDs = $this->orderService->getSalesHeaderID($userID, $db_obj, 1);
-        //if(is_array($salesHeaderIDs)){
-            $orders = array();
-            for($i=0; $i < count($salesHeaderIDs); $i++){
-                $returnArr = $this->orderService->getCartlineList($salesHeaderIDs[$i]);
-                $curCartlineList = $returnArr[0];
-                $curSumprice = $returnArr[1];
-                $orderDate = $this->getOrderDate($salesHeaderIDs[$i]);
-                $orders[$i] = new Order($salesHeaderIDs[$i], $userID, $curCartlineList, $curSumprice, $orderDate);
-            }
-        /*}else{
-            $returnArr = $this->orderService->getCartlineList($salesHeaderIDs);
+        $orders = array();
+        for($i=0; $i < count($salesHeaderIDs); $i++){
+            $returnArr = $this->orderService->getCartlineList($salesHeaderIDs[$i]);
             $curCartlineList = $returnArr[0];
             $curSumprice = $returnArr[1];
-            $orderDate = $this->getOrderDate($salesHeaderIDs);
-            $orders = new Order($salesHeaderIDs, $userID, $curCartlineList, $curSumprice);
-        }*/
-            
+            $orderDate = $this->getOrderDate($salesHeaderIDs[$i]);
+            $orders[$i] = new Order($salesHeaderIDs[$i], $userID, $curCartlineList, $curSumprice, $orderDate);
+        }
         //close the connection
         $db_obj->close();
         return $orders;
