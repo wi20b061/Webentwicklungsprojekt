@@ -1,6 +1,4 @@
-<?php
-  session_start();
-?>
+
 
 
 <nav class="navbar navbar-expand-lg navbar-light  sticky-top mb-2" style="background-color: #F0F2E6">
