@@ -3,6 +3,7 @@
 $(document).ready(function () {
 
     loadProducts("products")
+    
     $('.dropdown-item').click(function () {
         var filter = $(this).text()
         console.log(filter)
@@ -23,6 +24,7 @@ function loadProducts(getMethod) {
         cache: false,
         dataType: "json",
         success: function (response) {
+            $('#products').empty()
             console.log(response)
             var colCount = 0;
 
@@ -88,6 +90,7 @@ function liveSearch(searchterm) {
             cache: false,
             dataType: "json",
             success: function (response) {
+                $('#products').empty()
                 console.log("search completed")
                 var colCount = 0;
 

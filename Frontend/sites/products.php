@@ -45,7 +45,6 @@
 
         <main class="pt-1 pb-1 ps-5 pe-5 mt-1">
             
-            
             <div id="products">
                 
             </div>

@@ -54,4 +54,4 @@
   </div>
 </nav>
 
-<script src="../js/shoppingCart.js"></script>
+<script src="../js/navCart.js"></script>
