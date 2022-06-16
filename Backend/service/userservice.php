@@ -21,6 +21,17 @@ class UserService{
         }
         return $db_obj;
     }
+    
+    public function deactivateUser($userID){
+        $db_obj = $this->dbConnection();
+        $sql = "UPDATE user SET active = 0 WHERE userID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $userID);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
 
     public function getAllUsers(){
         $db_obj = $this->dbConnection();

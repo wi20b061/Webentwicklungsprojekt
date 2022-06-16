@@ -1,5 +1,4 @@
 <?php
-
 include_once "logic/session.php";
 include_once "model/user.php";
 include_once "service/registrationservice.php";
@@ -7,7 +6,6 @@ include_once "service/loginservice.php";
 include_once "service/productservice.php";
 include_once "service/orderservice.php";
 include_once "service/userservice.php";
-
 
 class Api{
 
@@ -39,6 +37,9 @@ class Api{
                 case "order":
                     $result = $this->processOrder();
                     break;
+                case "user":
+                    $result = $this->processUserRequests();
+                    break;
                 default:
                     $result = null;
             }
@@ -61,11 +62,25 @@ class Api{
             if(isset($_GET["userID"]) && isset($_GET["request"]) && $_GET["request"] == "orders"){
                 $result = $this->getOrdersByUserId();
             }
+            if(isset($_GET["category"])){
+                $result = $this->getProductByType();
+            }
         }
         return $result;
     }
 
     /***** USER ******/
+
+    private function processUserRequests(){
+        if(!isset($_POST["userRequest"]) || empty($_POST["userRequest"])){
+            $this->error(400, [], "Bad Request - userRequest-type required!");
+        }
+        //add new product to cart
+        if($_POST["userRequest"] == "deactivateUser" && isset($_POST["userID"]) && !empty($_POST["userID"])){
+            $userID = $this->test_input($_POST["userID"], "i");
+            return $this->userService->deactivateUser($userID);
+        }
+    }
     private function getAllUsers(){
         $users = $this->userService->getAllUsers();
         return $users;
@@ -152,6 +167,16 @@ class Api{
     private function search(){        
         //if searchterm empty, alle Produkte zurück geben
         $productList = $this->productService->getSearchProducts($_GET["search"]);
+        return $productList;
+    }
+    //get all Products by a Type
+    private function getProductByType(){
+        if(empty($_GET["category"])){
+            $this->error(400, [], "Bad Request - category is required!");
+        }else if($_GET["category"] != "shelf" && $_GET["category"] != "table" && $_GET["category"] != "chair"){
+            $this->error(400, [], "Bad Request - category doesnt exist!");
+        }
+        $productList = $this->productService->getProductByType($_GET["category"]);
         return $productList;
     }
 
