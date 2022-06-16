@@ -72,10 +72,9 @@ class OrderService{
         $db_obj = $this->dbConnection();
         $salesHeaderID = $this->getSalesHeaderID($userID, $db_obj, 0);
         $returnArr = $this->getCartlineList($salesHeaderID);
-        $tmpcartlineList = $returnArr[0];
+        $cartlineList = $returnArr[0];
         $sumprice = $returnArr[1];
-        $cartlineList = $tmpcartlineList[0];
-        $cart = new Cart($salesHeaderID, $userID, $cartlineList, $sumprice);
+        $cart = new Cart($salesHeaderID[0], $userID, $cartlineList, $sumprice);
         //close the connection
         $db_obj->close();
         return $cart;
