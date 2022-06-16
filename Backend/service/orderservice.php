@@ -23,7 +23,7 @@ class OrderService{
     //add product to shooping cart
     public function addProduct($userID, $productID, $quantity){
         $db_obj = $this->dbConnection();
-        $salesID = $this->getSalesHeaderID($userID, $db_obj);
+        $salesID = $this->getSalesHeaderID($userID, $db_obj, 0);
 
         //if customer doesn't have a shopping cart yet, create new one
         if(empty($salesID)){
@@ -33,7 +33,7 @@ class OrderService{
             $done = 0;
             $stmt->bind_param("ii", $userID, $done);
             $stmt->execute();
-            $salesID = $this->getSalesHeaderID($userID, $db_obj);
+            $salesID = $this->getSalesHeaderID($userID, $db_obj, 0);
         }
         //check if product is already in shopping cart of this customer
         $sql = "SELECT saleslineID, quantity FROM salesline WHERE productID = ? AND salesheaderID = ?";
@@ -70,16 +70,24 @@ class OrderService{
     //get shopping cart of user
     public function getCart($userID){
         $db_obj = $this->dbConnection();
-        $salesHeaderID = $this->getSalesHeaderID($userID, $db_obj);
-        
+        $salesHeaderID = $this->getSalesHeaderID($userID, $db_obj, 0);
+        $returnArr = $this->getCartlineList($salesHeaderID);
+        $cartlineList = $returnArr[0];
+        $sumprice = $returnArr[1];
+        $cart = new Cart($salesHeaderID, $userID, $cartlineList, $sumprice);
+        //close the connection
+        $db_obj->close();
+        return $cart;
+    }
+    public function getCartlineList($salesHeaderID){
+        $db_obj = $this->dbConnection();
         $sql = "SELECT saleslineID, productID, quantity FROM salesline WHERE salesheaderID = ?";
         $stmt = $db_obj->prepare($sql);
         $stmt->bind_param("i", $salesHeaderID);
         $stmt->execute();
         $cartlineList = array();
         $i = $sumprice = 0;
-        //if($result = $db_obj->query($sql)){
-        $result = $stmt->get_result(); //hier ist das Problem!
+        $result = $stmt->get_result();
         while($row = $result->fetch_row()){
             $curproduct = $this->productService->getProductById($row[1]);
             //hier können auch noch mehr variablen ausgelesen werden für die Sales Line
@@ -87,17 +95,15 @@ class OrderService{
             $sumprice += $curproduct->get_price() * $row[2];
             $i++;
         }
-    
-        $cart = new Cart($salesHeaderID, $userID, $cartlineList, $sumprice);
-        //close the connection
-        $db_obj->close();
-        return $cart;
+        $returnArr[0] = $cartlineList;
+        $returnArr[1] = $sumprice;
+        return $returnArr;
     }
 
     //delete product from cart - NOT DONE!
     public function deleteProduct($userID, $productID){
         $db_obj = $this->dbConnection();
-        $salesID = $this->getSalesHeaderID($userID, $db_obj);  
+        $salesID = $this->getSalesHeaderID($userID, $db_obj,0);  
     }
 
     //change qty of product in cart 
@@ -113,18 +119,21 @@ class OrderService{
     }
     
     //to get current sales header (warenkorb) of this user
-    private function getSalesHeaderID($userID, $db_obj){
-        $sql = "SELECT salesID FROM salesheader WHERE customerID = ? AND done = 0";
-        
+    public function getSalesHeaderID($userID, $db_obj, $done){
+        $sql = "SELECT salesID FROM salesheader WHERE customerID = ? AND done = ?";
         $stmt = $db_obj->prepare($sql);
-        $stmt->bind_param("i", $userID);
+        $stmt->bind_param("ii", $userID, $done);
         $stmt->execute();
-        $stmt->bind_result($salesID);
-        $stmt->fetch();
+        $salesIDs = array();
+        $i = 0;
+        $result = $stmt->get_result();
+        while($row = $result->fetch_row()){
+            $salesIDs[$i] = $row[0];
+            $i++;
+        }
         //close statement
         $stmt->close();
-
-        return $salesID;
+        return $salesIDs;
     }
 
 }

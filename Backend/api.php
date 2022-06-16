@@ -56,6 +56,9 @@ class Api{
             if(isset($_GET["allUsers"])){
                 $result = $this->getAllUsers();
             }
+            if(isset($_GET["userID"]) && isset($_GET["request"]) && $_GET["request"] == "orders"){
+                $result = $this->getOrdersByUserId();
+            }
         }
         return $result;
     }
@@ -66,6 +69,15 @@ class Api{
         return $users;
     }
 
+    private function getOrdersByUserId(){
+        if(empty($_GET["userID"])){
+            $this->error(400, [], "Bad Request - userID is required!");
+        }
+        //validation of userID
+        $userID = $this->test_input($_GET["userID"], "i");
+        $orders = $this->userService->getOrdersByUserId($userID);
+        return $orders;
+    }
     /***** ORDER ******/
     private function processOrder(){
         /*neue Bestellung erstellen und Waren in Warenkorb hinzufügen*/
