@@ -5,6 +5,7 @@ include_once "service/registrationservice.php";
 include_once "service/loginservice.php";
 include_once "service/productservice.php";
 include_once "service/orderservice.php";
+include_once "service/userservice.php";
 
 class Api{
 
@@ -13,6 +14,7 @@ class Api{
         $this->loginService = new LoginService();
         $this->productService = new ProductService();
         $this->orderService = new OrderService();
+        $this->userService = new UserService();
     }
 
     //switch request method
@@ -51,8 +53,17 @@ class Api{
             if(isset($_GET["search"])){
                 $result = $this->search();
             }
+            if(isset($_GET["allUsers"])){
+                $result = $this->getAllUsers();
+            }
         }
         return $result;
+    }
+
+    /***** USER ******/
+    private function getAllUsers(){
+        $users = $this->userService->getAllUsers();
+        return $users;
     }
 
     /***** ORDER ******/
@@ -172,12 +183,12 @@ class Api{
         $zip =          $this->test_input($_POST["zip"], "i");
         $location =     $this->test_input($_POST["location"], "s");
         $country =      $this->test_input($_POST["country"], "s");
-        $username =     $this->test_input($_POST["username"], "u");
         $email =        $this->test_input($_POST["email"], "e");
+        $username =     $this->test_input($_POST["username"], "u");
         $pw =           $this->test_input($_POST["pw"], "pw");      
 
         //create new user
-        $user = new User($salutation, $fname, $lname, $streetname, $streetnr, $zip, $location, $country, $username, $email, $pw);
+        $user = new User($salutation, $fname, $lname, $streetname, $streetnr, $zip, $location, $country, $email, $username, $pw, "", 1);
         
         $result = $this->registrationService->save($user);
         if($result == "username exists"){

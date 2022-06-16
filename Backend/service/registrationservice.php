@@ -6,33 +6,13 @@ include_once "model/user.php";
 
 class RegistrationService{
 
-    /*public function connectDB(){
-        $host ="localhost";
-        $user ="filara";
-        $password= "filara";
-        $database = "webentwicklungsprojekt";
-        
-        $db_obj = new mysqli($host, $user, $password, $database);
-          if ($db_obj->connect_error) {
-              echo "Collection failed!";
-              exit();
-          }
-    }*/
-
     //Save the user
     public function save(User $user1){
-        //DB connection
-        /*$host ="localhost";
-        $user ="filara";
-        $password= "filara";
-        $database = "webentwicklungsprojekt";*/
-        var_dump(HOST);
         $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
         if ($db_obj->connect_error) {
             echo "Collection failed!";
             exit();
         }
-
         $salutation     = $user1->get_salutation();
         $fname          = $user1->get_fname();
         $lname          = $user1->get_lname();
@@ -44,22 +24,8 @@ class RegistrationService{
         $username       = $user1->get_username();
         $email          = $user1->get_email();
         $pw             = $user1->get_pw();
-        $active         = 1;
+        $active         = $user1->get_active();
 
-        //DB BEFEHLE FÜR SPÄTER:
-        /*
-        $sql = "SELECT fname, lname, username FROM user";
-        
-        $result = $db_obj->query($sql);
-        
-        if($result->num_rows > 0){
-            while($row = $result->fetch_assoc()){
-                echo "<br>Name: " . $row["fname"] . " ". $row["lname"] . " username: " . $row["username"];
-            }
-        }else{
-            echo "0 results";
-        }
-        */
         //Überprüfung ob Username schon vergeben ist
         $sql = "SELECT username FROM user WHERE username = ?";
         

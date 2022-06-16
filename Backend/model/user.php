@@ -12,12 +12,15 @@ class User{
     public $zip;
     public $location;
     public $country;
-    public $username;
     public $email;
+    public $username;
     public $pw;
+    public $paymentOption;
+    public $active;
 
     public function __construct(string $salutation, string $fname, string $lname,string $streetname, int $streetnr,
-                                int $zip, string $location, string $country, string $username, string $email, string $pw){
+                                int $zip, string $location, string $country, string $email, string $username, string $pw, 
+                                string $paymentOption, int $active){
         $this->salutation       = $salutation;
         $this->fname            = $fname;
         $this->lname            = $lname;
@@ -26,9 +29,11 @@ class User{
         $this->zip              = $zip;
         $this->location         = $location;
         $this->country          = $country;
-        $this->username         = $username;
         $this->email            = $email;
+        $this->username         = $username;
         $this->pw               = $pw;
+        $this->paymentOption    = $paymentOption;
+        $this->active           = $active;
     }
     function get_salutation(){
         return $this->salutation;
@@ -63,6 +68,11 @@ class User{
     function get_pw(){
         return $this->pw;
     }
-    
+    function get_paymentOption(){
+        return $this->paymentOption;
+    }
+    function get_active(){
+        return $this->active;
+    }
 }
 ?>
