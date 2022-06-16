@@ -10,6 +10,7 @@ $(document).ready(function(){
         loadProducts("category=" + filter.toLowerCase())
     })
 
+    $('#search').
 })  
 
 function loadProducts(getMethod){
@@ -75,4 +76,8 @@ function addToCart(productID){
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);   
         }
     })
+}
+
+function liveSearch(){
+    
 }
