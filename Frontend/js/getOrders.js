@@ -20,8 +20,9 @@ function loadOrders(userID){
 
             response.forEach(saleshead => {
                 rows+= "<div class='row'>"+ saleshead.salesheaderID +" "+ saleshead.customerID;
+                rows+= "<div class='row pe-5'>ID<div class='col ps-5 pe-5'>Product and ID</div><div class='col'>Quantity</div><div class='col'>Image</div></div>";
                 saleshead.cartlineList.forEach(cartline =>{
-                    rows+= " " + cartline.saleslineID + " " + cartline.productID + " " + cartline.productName;
+                    rows+= "<div class='row border p-2 '> "+cartline.saleslineID+"<div class='col ps-5 pe-5'>"+cartline.productName+" "+cartline.productID+"</div><div class='col'>"+cartline.quantity+"</div><div class='col'><img src='../../Frontend/productpictures/bookshelf.png' alt='Bookshelf' style='width:60px;height:60px;'></div></div>";
                 })
             });
 
