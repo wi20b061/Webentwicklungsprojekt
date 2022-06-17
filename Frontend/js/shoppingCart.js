@@ -34,6 +34,7 @@ function loadCart(){
             var ust = response.sumprice * 0.2
             $('#ust').empty()
             $('#ust').append(ust.toFixed(2))
+            $('#checkOut').append('<button type="button" onclick="checkOut()" class="btn btn-dark m-2" style="background-color: #365370;">Checkout <i class="bi bi-cart-check-fill ms-1" style="font-size: 1.5rem; color: white;"></i></button>')
         },
         error: function (xhr) {
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
@@ -80,4 +81,8 @@ function changeProductQty(saleslineID, newQty){
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
         }
     })
+}
+
+function checkOut(){
+    window.location.assign('../sites/checkout.php')
 }

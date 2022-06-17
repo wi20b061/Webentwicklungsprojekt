@@ -41,6 +41,7 @@
                         <div class="col text-muted">USt.</div>
                         <div class="col text-muted text-end" id="ust"></div> 
                     </div>
+                    <div class="row" id="checkOut"></div>
                 </div>
             </div>
         </main>
