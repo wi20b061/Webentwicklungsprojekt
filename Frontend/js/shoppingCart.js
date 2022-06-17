@@ -2,6 +2,7 @@ $(document).ready(function(){
    
     loadCart()
     
+    
 })  
 
 function loadCart(){
@@ -19,7 +20,7 @@ function loadCart(){
                 // ajax call to get product pic and description
                 loadProductDetails(item.productID)
                 var priceQty = item.productprice*item.quantity
-                rows += '<div class="row mt-3 border-bottom pb-2 me-1"><div class="col-md-3 img'+ item.productID +'"></div><div class="col-md">'+ item.productName +'<br><p class="text-muted details'+ item.productID +'"></p><p class="text-muted">'+ item.productprice +' /piece</p><br><i  class="bi bi-dash-circle" onclick="changeProductQty('+ salesheaderID+', '+ parseInt(item.quantity-1) +')"></i> '+ item.quantity +' <i  class="bi bi-plus-circle-fill" onclick="changeProductQty('+ salesheaderID+', '+ parseInt(item.quantity+1) +')"></i></div><div class="col-md-auto">'+ priceQty.toFixed(2) +'</div></div>';
+                rows += '<div class="row mt-3 border-bottom pb-2 me-1"><div class="col-md-3 img'+ item.productID +'"></div><div class="col-md">'+ item.productName +'<br><p class="text-muted details'+ item.productID +'"></p><p class="text-muted">'+ item.productprice +' /piece</p><br><i  class="bi bi-dash-circle" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity-1) +')"></i> '+ item.quantity +' <i  class="bi bi-plus-circle-fill" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity+1) +')"></i></div><div class="col-md-auto">'+ priceQty.toFixed(2) +'</div></div>';
                 
                     
                 
@@ -54,6 +55,7 @@ function loadProductDetails(productID){
 }
 
 function changeProductQty(saleslineID, newQty){
+    console.log('heyooo')
     $.ajax({
         type: "POST",
         url: "../../Backend/ServiceHandler.php",
@@ -64,8 +66,6 @@ function changeProductQty(saleslineID, newQty){
         success: function (response) {
             $('#cart').empty()
             loadCart()
-            console.log(response)
-            
         },
         error: function (xhr) {
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
