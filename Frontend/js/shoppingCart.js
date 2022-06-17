@@ -14,7 +14,6 @@ function loadCart(){
         success: function (response) {
             console.log(response)
             var rows =""
-            var salesheaderID = response.salesheaderID
             
             response.cartlineList.forEach(item=>{
                 // ajax call to get product pic and description
@@ -27,6 +26,10 @@ function loadCart(){
             })
             
             $('#cart').append(rows)
+            $('#subtotal').append(response.sumprice)
+            var totalExcl = response.sumprice
+            $('#totalExcl').append()
+            $('#ust').append()
         },
         error: function (xhr) {
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
