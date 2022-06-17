@@ -22,6 +22,15 @@
 
         <main class="pt-1 pb-1 ps-5 pe-5 mt-1">
             <h1 class="display-6">Shopping Cart</h1>
+
+            <div class="row m-4">
+                <div id="cart" class="col-md-8">
+
+                </div>
+                <div class="col-md-4 mt-3 border-start">
+                    <p style="font-weight: bold;">Order Summary</p>
+                </div>
+            </div>
         </main>
     </div>
 </body>

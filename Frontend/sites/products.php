@@ -28,13 +28,15 @@
                 <div class="col-auto text-end">
                     <div class="dropdown">
                         <button class="btn text-white dropdown-toggle" style="background-color: #365370;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Categories
+                            Category
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li class="dropdown-item">Tables</li>
-                            <li class="dropdown-item">Shelfs</li>
-                            <li class="dropdown-item">Chairs</li>
+                            <li class="dropdown-item">Table</li>
+                            <li class="dropdown-item">Shelf</li>
+                            <li class="dropdown-item">Chair</li>
+                            <li class="dropdown-item">Couch</li>
                             <li class="dropdown-item">Plants</li>
+                            <li class="dropdown-item">Decoration</li>
                         </ul>
                     </div>
                 </div>

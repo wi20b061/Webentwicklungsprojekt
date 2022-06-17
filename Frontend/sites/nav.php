@@ -1,6 +1,12 @@
 <?php
   include_once('../../Backend/logic/session.php')
+
 ?>
+
+<!--Session userID mittels Ajax call abfragen-->
+<script>
+  
+</script>
 
 
 <nav class="navbar navbar-expand-lg navbar-light  sticky-top mb-2" style="background-color: #F0F2E6">
