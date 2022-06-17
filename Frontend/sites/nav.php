@@ -24,12 +24,6 @@
           <li class="nav-item mt-1">
             <a class="nav-link" href="products.php">Products</a>
           </li>
-          <li class="nav-item mt-1">
-            <a class="nav-link" href="products.php"><?php echo $_SESSION['adminUser'] ?></a>
-          </li>
-          <li class="nav-item mt-1">
-            <a class="nav-link" href="products.php"><?php echo $_SESSION['userID'] ?></a>
-          </li>
           <?php
             //Überprüfung ob der User bereits eingeloggt ist, sollte das der fall sein, wird das if statement ausgeführt
             //und der User sieht die tickets, profile Page und den Logout button.
@@ -50,6 +44,12 @@
             echo "<li class='nav-item mt-1'><a class='nav-link' href='registration.php'>Register</a></li>";
             echo "<li class='nav-item mt-1'><a class='nav-link' href='login.php'>Login</a></li>";
 
+          }
+
+            //wenn der User ein Admin ist
+          if(isset($_SESSION["adminUser"])){
+            echo "<li class='nav-item mt-1'><a class='nav-link' href='userAdministration.php'>User Administration</a></li>";
+          
           }
           echo "<li class='nav-item ms-4' id='shoppingCart'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
           echo "<li class='nav-item ms-1'><div class='' id='productCount' style='color: #365370; font-weight: bold;'>0</div></li>";
