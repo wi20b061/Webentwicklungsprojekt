@@ -19,14 +19,13 @@ function loadOrders(userID){
             var rows= ""
 
             response.forEach(saleshead => {
-                rows+= "<div class='row'>"+ saleshead.salesheaderID +" "+ saleshead.customerID;
-                rows+= "<div class='row pe-5'>ID<div class='col ps-5 pe-5'>Product and ID</div><div class='col'>Quantity</div><div class='col'>Image</div></div>";
+                rows+= "<table class='table'><thead><tr><th scope='col'>Order ID</th><th scope='col'>Product and ID</th><th scope='col'>Quantity</th><th scope='col'>Image</th></tr></thead><tbody>";
                 saleshead.cartlineList.forEach(cartline =>{
-                    rows+= "<div class='row border p-2 '> "+cartline.saleslineID+"<div class='col ps-5 pe-5'>"+cartline.productName+" "+cartline.productID+"</div><div class='col'>"+cartline.quantity+"</div><div class='col'><img src='../../Frontend/productpictures/bookshelf.png' alt='Bookshelf' style='width:60px;height:60px;'></div></div>";
+                    rows+= "<tr><th scope='row'>"+cartline.saleslineID+"</th><td>"+cartline.productID+" "+cartline.productName+"</td><td>"+cartline.quantity+"</td><td><img src='../../Frontend/productpictures/bookshelf.p' alt='Bookshelf'></td></tr>";
                 })
             });
 
-            rows+= "</div>"
+            rows+= "</tbody></table>"
 
             $('#orders').append(rows)
            
