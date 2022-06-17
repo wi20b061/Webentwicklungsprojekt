@@ -28,18 +28,18 @@
 
                 </div>
                 <div class="col-md-4 mt-3 border-start">
-                    <div style="font-weight: bold;" class="row border-bottom">Order Summary</div>
+                    <h2 style="" class="border-bottom">Order Summary</h2>
                     <div class="row">
-                        <div class="col">Subtotal</div>
-                        <div class="col" id="subtotal"></div> 
+                        <div class="col" style="font-weight: bold;">Subtotal</div>
+                        <div class="col text-end" id="subtotal"></div> 
                     </div>
                     <div class="row">
                         <div class="col text-muted">Total excl. USt.</div>
-                        <div class="col text-muted" id="totalExcl"></div> 
+                        <div class="col text-muted text-end" id="totalExcl"></div> 
                     </div>
                     <div class="row">
                         <div class="col text-muted">USt.</div>
-                        <div class="col text-muted" id="ust"></div> 
+                        <div class="col text-muted text-end" id="ust"></div> 
                     </div>
                 </div>
             </div>

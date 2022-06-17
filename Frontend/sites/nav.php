@@ -1,6 +1,6 @@
 <?php
   include_once('../../Backend/logic/session.php')
-
+  
 ?>
 
 <!--Session userID mittels Ajax call abfragen-->
@@ -34,7 +34,7 @@
             //Überprüfung ob der User bereits eingeloggt ist, sollte das der fall sein, wird das if statement ausgeführt
             //und der User sieht die tickets, profile Page und den Logout button.
           if(isset($_SESSION["userID"])){
-            echo "<li class='nav-item mt-1'><a class='nav-link' href='login.php'>Logout</a></li>";
+            echo "<li class='nav-item mt-1'><a class='nav-link' href='?logout=true'>Logout</a></li>";
 
             //Neben einem kleinen Warenkorbsymbol auf der Seite wird die aktuelle
             //Anzahl der sich gerade im Warenkorb befindlichen Produkte angezeigt
