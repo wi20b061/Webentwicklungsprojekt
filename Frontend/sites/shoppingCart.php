@@ -28,7 +28,19 @@
 
                 </div>
                 <div class="col-md-4 mt-3 border-start">
-                    <p style="font-weight: bold;">Order Summary</p>
+                    <div style="font-weight: bold;" class="row border-bottom">Order Summary</div>
+                    <div class="row">
+                        <div class="col">Subtotal</div>
+                        <div class="col" id="subtotal"></div> 
+                    </div>
+                    <div class="row">
+                        <div class="col text-muted">Total excl. USt.</div>
+                        <div class="col text-muted" id="totalExcl"></div> 
+                    </div>
+                    <div class="row">
+                        <div class="col text-muted">USt.</div>
+                        <div class="col text-muted" id="ust"></div> 
+                    </div>
                 </div>
             </div>
         </main>

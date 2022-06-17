@@ -24,6 +24,12 @@
           <li class="nav-item mt-1">
             <a class="nav-link" href="products.php">Products</a>
           </li>
+          <li class="nav-item mt-1">
+            <a class="nav-link" href="products.php"><?php echo $_SESSION['adminUser'] ?></a>
+          </li>
+          <li class="nav-item mt-1">
+            <a class="nav-link" href="products.php"><?php echo $_SESSION['userID'] ?></a>
+          </li>
           <?php
             //Überprüfung ob der User bereits eingeloggt ist, sollte das der fall sein, wird das if statement ausgeführt
             //und der User sieht die tickets, profile Page und den Logout button.
