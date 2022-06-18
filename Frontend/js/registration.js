@@ -242,20 +242,13 @@ function sendData(methodToExecute, salutation, fname, lname, streetname, streetn
         dataType: "json",
         success: function (response) { 
 
-           console.log("ajax call success")
+            window.location.assign('../sites/login.php')
         },
         error: function(xhr){
-            console.log("ajax call error")
+            
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
             
-        },
-        beforeSend: function(){
-            console.log("befor ajax call")
-        },
-        statusCode: {404: function() {
-                alert( "page not found" );
-        }}
-        
+        }
 
     })
 
