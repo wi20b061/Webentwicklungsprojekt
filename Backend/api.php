@@ -107,6 +107,15 @@ class Api{
         if(!isset($_POST["orderRequest"]) || empty($_POST["orderRequest"])){
             $this->error(400, [], "Bad Request - orderRequest-type required!");
         }
+        //delete salesline
+        if($_POST["orderRequest"] == "deleteSalesline"){
+            //VALIDATION
+            if(!isset($_POST["saleslineID"]) || empty($_POST["saleslineID"])){
+                $this->error(400, [], "Bad Request - saleslineID are required!");
+            }
+            $saleslineID = $this->test_input($_POST["saleslineID"], "i");
+            return $this->orderService->deleteSalesLine($saleslineID);
+        }
         //add new product to cart
         if($_POST["orderRequest"] == "addProduct"){
             //VALIDATION

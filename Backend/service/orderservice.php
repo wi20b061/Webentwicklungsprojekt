@@ -20,6 +20,18 @@ class OrderService{
         return $db_obj;
     }
 
+    //remove a line/product from the order
+    public function deleteSalesLine($salesLineID){
+        $db_obj = $this->dbConnection();
+        $sql = "DELETE FROM `salesline` WHERE saleslineID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $salesLineID);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+
     //add product to shooping cart
     public function addProductToCart($userID, $productID, $quantity){
         $db_obj = $this->dbConnection();
