@@ -22,17 +22,32 @@ class UserService{
         return $db_obj;
     }
     
-    public function deactivateUser($userID){
+    public function deActivateUser($userID, $active){
         $db_obj = $this->dbConnection();
-        $sql = "UPDATE user SET active = 0 WHERE userID = ?";
+        $sql = "UPDATE user SET active = ? WHERE userID = ?";
         $stmt = $db_obj->prepare($sql);
-        $stmt->bind_param("i", $userID);
+        $stmt->bind_param("ii", $active,$userID);
         if($stmt->execute()){
             return true;
         }
         return false;
     }
+    //get user details for user profile
+    public function getUserDetails($userID){
+        $db_obj = $this->dbConnection();
+        $sql = "SELECT userID, salutation, fname, lname, streetName, streetNr, zip, `location`, country, email, username, paymentOption FROM `user` WHERE userID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        $stmt->bind_result($userID, $salutation, $fname, $lname, $streetname, $streetNr, $zip, $location, $country, $email, $username, $paymentOption);
+        $stmt->fetch();
+        $stmt->close();
+        $user = new User($salutation, $fname, $lname, $streetname, $streetNr, $zip, $location, $country, $email, $username, "", $paymentOption, 1);
+        $user->set_userID($userID);
+        return $user;
+    }
 
+    //get information of all users (as array)
     public function getAllUsers(){
         $db_obj = $this->dbConnection();
         $sql = "SELECT * FROM user WHERE adminUser = 0";

@@ -60,40 +60,53 @@ class Api{
                 $result = $this->getAllUsers();
             }
             if(isset($_GET["userID"]) && isset($_GET["request"]) && $_GET["request"] == "orders"){
-                $result = $this->getOrdersByUserId();
+                $result = $this->getOrdersByUserIdAdmin();
             }
             if(isset($_GET["category"])){
                 $result = $this->getProductByType();
+            }
+            if(isset($_GET["userProfile"])){
+                $result = $this->getUserDetails();
+            }
+            if(isset($_GET["request"]) && $_GET["request"] == "orders"){
+                $result = $this->getOrdersByUserId();
             }
         }
         return $result;
     }
 
     /***** USER ******/
-
     private function processUserRequests(){
         if(!isset($_POST["userRequest"]) || empty($_POST["userRequest"])){
             $this->error(400, [], "Bad Request - userRequest-type required!");
         }
-        //add new product to cart
         if($_POST["userRequest"] == "deactivateUser" && isset($_POST["userID"]) && !empty($_POST["userID"])){
             $userID = $this->test_input($_POST["userID"], "i");
-            return $this->userService->deactivateUser($userID);
+            return $this->userService->deActivateUser($userID, 0);
+        }
+        if($_POST["userRequest"] == "activateUser" && isset($_POST["userID"]) && !empty($_POST["userID"])){
+            $userID = $this->test_input($_POST["userID"], "i");
+            return $this->userService->deActivateUser($userID, 1);
         }
     }
+    //Get Information for userprofile
+    private function getUserDetails(){
+        if(empty($_SESSION["userID"])){
+            $this->error(400, [], "Bad Request - userID is required!");
+        }
+        return $this->userService->getUserDetails($_SESSION["userID"]);
+    }
     private function getAllUsers(){
-        $users = $this->userService->getAllUsers();
-        return $users;
+        return $this->userService->getAllUsers();
     }
 
-    private function getOrdersByUserId(){
+    private function getOrdersByUserIdAdmin(){
         if(empty($_GET["userID"])){
             $this->error(400, [], "Bad Request - userID is required!");
         }
         //validation of userID
         $userID = $this->test_input($_GET["userID"], "i");
-        $orders = $this->userService->getOrdersByUserId($userID);
-        return $orders;
+        return $this->userService->getOrdersByUserId($userID);
     }
     /***** ORDER ******/
     private function processOrder(){
@@ -104,6 +117,15 @@ class Api{
         //neue salesline hinzufügen
         if(!isset($_POST["orderRequest"]) || empty($_POST["orderRequest"])){
             $this->error(400, [], "Bad Request - orderRequest-type required!");
+        }
+        //delete salesline
+        if($_POST["orderRequest"] == "deleteSalesline"){
+            //VALIDATION
+            if(!isset($_POST["saleslineID"]) || empty($_POST["saleslineID"])){
+                $this->error(400, [], "Bad Request - saleslineID are required!");
+            }
+            $saleslineID = $this->test_input($_POST["saleslineID"], "i");
+            return $this->orderService->deleteSalesLine($saleslineID);
         }
         //add new product to cart
         if($_POST["orderRequest"] == "addProduct"){
@@ -116,7 +138,7 @@ class Api{
             $productID =    $this->test_input($_POST["productID"], "i");
             $quantity =     $this->test_input($_POST["quantity"], "i");
             
-            return $this->orderService->addProduct($userID, $productID, $quantity);
+            return $this->orderService->addProductToCart($userID, $productID, $quantity);
         }
         //update quantiy of a product in the cart
         if($_POST["orderRequest"] == "updateQty"){
@@ -137,14 +159,51 @@ class Api{
         $userID = $this->test_input($_SESSION["userID"], "i");
         return $this->orderService->getCart($userID); //List of products in Cart & sumprice of order
     }
+    private function getOrdersByUserId(){
+        if(!isset($_SESSION["userID"]) || empty($_SESSION["userID"])){
+            $this->error(400, [], "Bad Request - userID is empty");
+        }
+        return $this->userService->getOrdersByUserId($_SESSION["userID"]);
+    }
 
     /***** PRODUCTS ******/
-    //NOT DONE! - do we need POST Requests for products?
     private function processProducts(){ //request says what to do
         if(!isset($_POST["productsrequest"]) || empty($_POST["productsrequest"]) ){
             $this->error(400, [], "Bad Request - products request type is required!");
         }
-        //possible post requests
+        //POST-Requests for products:
+        //update Product
+        if($_POST["productsrequest"] == "update" && isset($_POST["productID"]) && !empty($_POST["productID"]) && isset($_POST["name"]) && !empty($_POST["name"])
+        && isset($_POST["productID"]) && !empty($_POST["productID"]) && isset($_POST["description"]) && !empty($_POST["description"])
+        && isset($_POST["img"]) && !empty($_POST["img"]) && isset($_POST["type"]) && !empty($_POST["type"])
+        && isset($_POST["price"]) && !empty($_POST["price"])){
+            $productID =    $this->test_input($_POST["productID"], "i");
+            $name =         $this->test_input($_POST["name"], "s");
+            $description =  $this->test_input($_POST["description"], "s");
+            $type =         $this->test_input($_POST["type"], "s");
+            $price =        $this->test_input($_POST["price"], "f");
+            $img =          $_POST["img"];
+
+            return $this->productService->updateProduct($productID, $name, $description, $img, $type, $price);
+        }
+        //delete product
+        if($_POST["productsrequest"] == "delete" && isset($_POST["productID"]) && !empty($_POST["productID"])){
+            $productID = $this->test_input($_POST["productID"], "i");
+            return $this->productService->deleteProduct($productID);
+        }
+        //add new product (with upload for pic)
+        if($_POST["productsrequest"] == "newProduct" && isset($_POST["description"]) && !empty($_POST["description"])
+        && isset($_POST["img"]) && !empty($_POST["img"]) && isset($_POST["type"]) && !empty($_POST["type"])
+        && isset($_POST["price"]) && !empty($_POST["price"])){
+            $name =         $this->test_input($_POST["name"], "s");
+            $description =  $this->test_input($_POST["description"], "s");
+            $type =         $this->test_input($_POST["type"], "s");
+            $price =        $this->test_input($_POST["price"], "i");
+            $img =          $_POST["img"];
+            return $this->productService->newProduct($name, $description, $img, $type, $price);
+        }
+        
+        
     }
     //get product-details by the ID
     private function getProductByID(){
@@ -173,7 +232,8 @@ class Api{
     private function getProductByType(){
         if(empty($_GET["category"])){
             $this->error(400, [], "Bad Request - category is required!");
-        }else if($_GET["category"] != "shelf" && $_GET["category"] != "table" && $_GET["category"] != "chair"){
+        }else if($_GET["category"] != "shelf" && $_GET["category"] != "table" && $_GET["category"] != "chair" &&
+        $_GET["category"] != "plant" && $_GET["category"] != "decoration" && $_GET["category"] != "couch"){
             $this->error(400, [], "Bad Request - category doesnt exist!");
         }
         $productList = $this->productService->getProductByType($_GET["category"]);
@@ -185,16 +245,13 @@ class Api{
         if(!isset($_POST["username"]) || !isset($_POST["pw"]) || empty($_POST["username"]) || empty($_POST["pw"])){
             $this->error(400, [], "Bad Request - username & pw are required!");
         }
-
         //Validation
         $username =     $this->test_input($_POST["username"], "u");
         $pw =           $_POST["pw"];
-
         if(!$result = $this->loginService->login($username, $pw)){
             $this->error(401, [], "Bad Request - username and pw dont match");
         }
         $this->success(201, $result);
-
     }
 
     /***** REGISTRATION ******/
@@ -263,7 +320,7 @@ class Api{
     }
 
     private function test_string($data){
-        if(!preg_match("/^[a-zA-Z\s]+$/", $data)){
+        if(!preg_match("/^[a-zA-Z0-9\s]+$/", $data)){
             $this->error(402, [], "<br>Bad Request - invalid input: text"); 
         }
         return $data;
@@ -293,7 +350,6 @@ class Api{
         $pw = password_hash($pw, PASSWORD_DEFAULT);
         return $pw;          
     }
-    
 
      /** format success response and exit
      * @param int $code HTTP code (2xx)
