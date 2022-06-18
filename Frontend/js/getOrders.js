@@ -19,13 +19,13 @@ function loadOrders(userID){
             var rows= ""
 
             response.forEach(saleshead => {
-                rows+= "<div class='row'>"+ saleshead.salesheaderID +" "+ saleshead.customerID;
+                rows+= "<table class='table'><thead><tr><th scope='col'>Order ID</th><th scope='col'>Product and ID</th><th scope='col'>Quantity</th><th scope='col'>Image</th></tr></thead><tbody>";
                 saleshead.cartlineList.forEach(cartline =>{
-                    rows+= " " + cartline.saleslineID + " " + cartline.productID + " " + cartline.productName;
+                    rows+= "<tr><th scope='row'>"+cartline.saleslineID+"</th><td>"+cartline.productID+" "+cartline.productName+"</td><td>"+cartline.quantity+"</td><td><img src='../../Frontend/productpictures/bookshelf.p' alt='Bookshelf'></td></tr>";
                 })
             });
 
-            rows+= "</div>"
+            rows+= "</tbody></table>"
 
             $('#orders').append(rows)
            

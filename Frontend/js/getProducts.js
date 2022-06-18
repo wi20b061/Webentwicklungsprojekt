@@ -6,13 +6,16 @@ $(document).ready(function () {
     
     $('.dropdown-item').click(function () {
         var filter = $(this).text()
+        //filter = filter.slice(0, filter.length - 1)
         console.log(filter)
         $("#dropdownMenuButton1").html(filter)
+        
         loadProducts("category=" + filter.toLowerCase())
     })
 
     $('#search').keyup(function () {
         var searchField = $('#search').val();
+        $("#dropdownMenuButton1").html("Category")
         liveSearch(searchField)
     })
 })
@@ -67,15 +70,16 @@ function addToCart(productID) {
 
     $.ajax({
         type: "POST",
-        url: "../../Backend/ServiceHandler.php?",
+        url: "../../Backend/ServiceHandler.php",
         cache: false,
         dataType: "json",
-        // im Bakcend userID anforderung rausnehmen !!! oder auf login verweisen falls kein user eingeloggt ist
-        data: { request: "order", orderRequest: "addProduct", userID: "1", productID: productID, quantity: "1" },
+        //auf login verweisen falls kein user eingeloggt ist
+        data: { request: "order", orderRequest: "addProduct", productID: productID, quantity: "1" },
         success: function (response) {
             var productCount = parseInt($('#productCount').text())
             // produktcount um 1 erhöhen
             $('#productCount').html(productCount + 1)
+            
         },
         error: function (xhr) {
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);

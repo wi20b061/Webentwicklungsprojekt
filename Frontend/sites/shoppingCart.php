@@ -22,6 +22,28 @@
 
         <main class="pt-1 pb-1 ps-5 pe-5 mt-1">
             <h1 class="display-6">Shopping Cart</h1>
+
+            <div class="row m-4">
+                <div id="cart" class="col-md-8">
+
+                </div>
+                <div class="col-md-4 mt-3 border-start">
+                    <h2 style="" class="border-bottom">Order Summary</h2>
+                    <div class="row">
+                        <div class="col" style="font-weight: bold;">Subtotal</div>
+                        <div class="col text-end" id="subtotal"></div> 
+                    </div>
+                    <div class="row">
+                        <div class="col text-muted">Total excl. USt.</div>
+                        <div class="col text-muted text-end" id="totalExcl"></div> 
+                    </div>
+                    <div class="row">
+                        <div class="col text-muted">USt.</div>
+                        <div class="col text-muted text-end" id="ust"></div> 
+                    </div>
+                    <div class="row" id="checkOut"></div>
+                </div>
+            </div>
         </main>
     </div>
 </body>

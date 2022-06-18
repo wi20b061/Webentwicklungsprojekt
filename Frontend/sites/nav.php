@@ -1,4 +1,12 @@
+<?php
+  include_once('../../Backend/logic/session.php')
+  
+?>
 
+<!--Session userID mittels Ajax call abfragen-->
+<script>
+  
+</script>
 
 
 <nav class="navbar navbar-expand-lg navbar-light  sticky-top mb-2" style="background-color: #F0F2E6">
@@ -20,7 +28,7 @@
             //Überprüfung ob der User bereits eingeloggt ist, sollte das der fall sein, wird das if statement ausgeführt
             //und der User sieht die tickets, profile Page und den Logout button.
           if(isset($_SESSION["userID"])){
-            echo "<li class='nav-item mt-1'><a class='nav-link' href='login.php'>Logout</a></li>";
+            echo "<li class='nav-item mt-1'><a class='nav-link' href='?logout=true'>Logout</a></li>";
 
             //Neben einem kleinen Warenkorbsymbol auf der Seite wird die aktuelle
             //Anzahl der sich gerade im Warenkorb befindlichen Produkte angezeigt
@@ -35,18 +43,20 @@
           
             echo "<li class='nav-item mt-1'><a class='nav-link' href='registration.php'>Register</a></li>";
             echo "<li class='nav-item mt-1'><a class='nav-link' href='login.php'>Login</a></li>";
-            echo "<li class='nav-item ms-4' id='shoppingCart'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
-            echo "<li class='nav-item ms-1'><div class='' id='productCount' style='color: #365370; font-weight: bold;'>0</div></li>";
 
           }
+
+            //wenn der User ein Admin ist
+          if(isset($_SESSION["adminUser"])){
+            echo "<li class='nav-item mt-1'><a class='nav-link' href='userAdministration.php'>User Administration</a></li>";
+          
+          }
+          echo "<li class='nav-item ms-4' id='shoppingCart'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
+          echo "<li class='nav-item ms-1'><div class='' id='productCount' style='color: #365370; font-weight: bold;'>0</div></li>";
+
           ?>
         </ul>
-        <?php
-        //Es wird hierbei geschaut ob der User eingeloggt ist mithilfe von Sessions, sollte er eingeloggt sein wird sein Name angezeigt.
-          if(isset($_SESSION["usersID"])){
-                echo "Hallo ". $_SESSION["username"];
-          }
-        ?>
+        
       </div>
     </div>
   </div>
