@@ -159,11 +159,11 @@ class Api{
         //delete product
         if($_POST["productsrequest"] == "delete" && isset($_POST["productID"]) && !empty($_POST["productID"])){
             $productID = $this->test_input($_POST["productID"], "i");
-            $this->productService->deleteProduct($productID);
+            return $this->productService->deleteProduct($productID);
         }
         //add new product (with upload for pic)
         if($_POST["productsrequest"] == "newProduct"){
-            $this->productService->newProduct();
+            return $this->productService->newProduct();
         }
         
         

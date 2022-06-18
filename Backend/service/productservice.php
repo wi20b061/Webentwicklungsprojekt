@@ -23,6 +23,28 @@ class ProductService{
         }
         return false;
     }
+    public function deleteProduct($productID){
+        $db_obj = $this->dbConnection();
+        $sql = "DELETE FROM `product` WHERE productID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $productID);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+    public function newProduct(){
+        $db_obj = $this->dbConnection();
+        $sql = "INSERT INTO `product` (`name`,`description`,`img`,`type`,`price`) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("ssssi", $productID);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+
+
 
     public function getAllProducts(){
         $db_obj = $this->dbConnection();
