@@ -22,11 +22,11 @@ class UserService{
         return $db_obj;
     }
     
-    public function deactivateUser($userID){
+    public function deActivateUser($userID, $active){
         $db_obj = $this->dbConnection();
-        $sql = "UPDATE user SET active = 0 WHERE userID = ?";
+        $sql = "UPDATE user SET active = ? WHERE userID = ?";
         $stmt = $db_obj->prepare($sql);
-        $stmt->bind_param("i", $userID);
+        $stmt->bind_param("ii", $active,$userID);
         if($stmt->execute()){
             return true;
         }

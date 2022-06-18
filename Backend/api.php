@@ -74,9 +74,13 @@ class Api{
         if(!isset($_POST["userRequest"]) || empty($_POST["userRequest"])){
             $this->error(400, [], "Bad Request - userRequest-type required!");
         }
-        if($_POST["userRequest"] == "deactivateUser" && isset($_SESSION["userID"]) && !empty($_SESSION["userID"])){
-            $userID = $this->test_input($_SESSION["userID"], "i");
-            return $this->userService->deactivateUser($userID);
+        if($_POST["userRequest"] == "deactivateUser" && isset($_POST["userID"]) && !empty($_POST["userID"])){
+            $userID = $this->test_input($_POST["userID"], "i");
+            return $this->userService->deActivateUser($userID, 0);
+        }
+        if($_POST["userRequest"] == "activateUser" && isset($_POST["userID"]) && !empty($_POST["userID"])){
+            $userID = $this->test_input($_POST["userID"], "i");
+            return $this->userService->deActivateUser($userID, 1);
         }
     }
     private function getAllUsers(){
@@ -214,16 +218,13 @@ class Api{
         if(!isset($_POST["username"]) || !isset($_POST["pw"]) || empty($_POST["username"]) || empty($_POST["pw"])){
             $this->error(400, [], "Bad Request - username & pw are required!");
         }
-
         //Validation
         $username =     $this->test_input($_POST["username"], "u");
         $pw =           $_POST["pw"];
-
         if(!$result = $this->loginService->login($username, $pw)){
             $this->error(401, [], "Bad Request - username and pw dont match");
         }
         $this->success(201, $result);
-
     }
 
     /***** REGISTRATION ******/
