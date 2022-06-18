@@ -76,8 +76,8 @@ class Api{
             $this->error(400, [], "Bad Request - userRequest-type required!");
         }
         //add new product to cart
-        if($_POST["userRequest"] == "deactivateUser" && isset($_POST["userID"]) && !empty($_POST["userID"])){
-            $userID = $this->test_input($_POST["userID"], "i");
+        if($_POST["userRequest"] == "deactivateUser" && isset($_SESSION["userID"]) && !empty($_SESSION["userID"])){
+            $userID = $this->test_input($_SESSION["userID"], "i");
             return $this->userService->deactivateUser($userID);
         }
     }
@@ -87,11 +87,11 @@ class Api{
     }
 
     private function getOrdersByUserId(){
-        if(empty($_GET["userID"])){
+        if(empty($_SESSION["userID"])){
             $this->error(400, [], "Bad Request - userID is required!");
         }
         //validation of userID
-        $userID = $this->test_input($_GET["userID"], "i");
+        $userID = $this->test_input($_SESSION["userID"], "i");
         $orders = $this->userService->getOrdersByUserId($userID);
         return $orders;
     }
