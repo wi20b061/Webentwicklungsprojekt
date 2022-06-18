@@ -10,11 +10,11 @@ function loadPersonalData(){
     $('#content').empty()
     $.ajax({
         type: "GET",
-        url: "../../Backend/ServiceHandler.php?",
+        url: "../../Backend/ServiceHandler.php?userProfile",
         cache: false,
         dataType: "json",
         success: function (response) {
-            var personalData = "";
+            console.log(response)
             
         },
         error: function (xhr) {

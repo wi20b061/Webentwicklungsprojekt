@@ -19,22 +19,6 @@
         </header>
         <main class="pt-1 pb-1 ps-5 pe-5">
         
-            <?php
-                /*require_once ('../../Backend/db/dbaccess.php');
-
-                $db_obj = new mysqli(HOST, USER, PASSWORD, DATABASE);
-                if ($db_obj->connect_error) {
-                    echo "Connection Error: " . $db_obj->connect_error;
-                    exit();
-                }
-
-                $sql = "SELECT * FROM users WHERE userID='1'";
-                $stmt = $db_obj->prepare($sql);
-                $stmt->execute();
-                $stmt->bind_result($userId ,$salutation, $fname, $lname, $streetName, $streetNr, $zip, $location, $country, $email, $username, $password, $paymentOption, $status, $adminUser);
-                */
-            ?>
-
             <div class="row mt-3">
                 <div class="col-4 border-end">
                     <h1 class="display-6">Hello <span class="badge" style="background-color: #365370;">Username<span></h1>
@@ -51,9 +35,48 @@
                 </div>
                 
                 <div class="col-8">
-                    <!--<h3 class="border display-6">My Profile</h3>-->
+                    
                     <div id="content">
+                        <div class="row">
+                            <div class="col">
+                                Name
+                            </div>
+                            <div class="col" id="name">
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" >
+                                Address
+                            </div>
+                            <div class="col" id>
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
 
+                            </div>
+                            <div class="col">
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+
+                            </div>
+                            <div class="col">
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+
+                            </div>
+                            <div class="col">
+                                
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
