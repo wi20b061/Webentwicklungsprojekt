@@ -26,7 +26,7 @@ function response($method, $httpStatus, $data)
             http_response_code($httpStatus);
             echo (json_encode($data));
             break;
-        case "GET": //What different outputs can be here??
+        case "GET":
             http_response_code($httpStatus);
             echo (json_encode($data));
             break;

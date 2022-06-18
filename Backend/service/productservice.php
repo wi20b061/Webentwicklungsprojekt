@@ -13,6 +13,38 @@ class ProductService{
         return $db_obj;
     }
 
+    public function updateProduct($productID, $name, $description, $img, $type, $price){
+        $db_obj = $this->dbConnection();
+        $sql = "UPDATE `product` SET `name` = ?,`description` = ?,`img` = ?,`type` = ?,`price` = ?  WHERE productID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("ssssii", $name, $description, $img, $type, $price, $productID);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+    public function deleteProduct($productID){
+        $db_obj = $this->dbConnection();
+        $sql = "DELETE FROM `product` WHERE productID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $productID);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+    public function newProduct($name, $description, $img, $type, $price){
+        $db_obj = $this->dbConnection();
+        $sql = "INSERT INTO `product` (`name`,`description`,`img`,`type`,`price`) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("ssssi", $name, $description, $img, $type, $price);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+
+
 
     public function getAllProducts(){
         $db_obj = $this->dbConnection();
@@ -27,7 +59,6 @@ class ProductService{
         }
         //close the connection
         $db_obj->close();
-
         return $products;
     }
 
