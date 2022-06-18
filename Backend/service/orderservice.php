@@ -91,6 +91,7 @@ class OrderService{
         $db_obj->close();
         return $cart;
     }
+    //get List of all products/lines in this cart
     public function getCartlineList($salesHeaderID){
         $db_obj = $this->dbConnection();
         $sql = "SELECT saleslineID, productID, quantity FROM salesline WHERE salesheaderID = ?";

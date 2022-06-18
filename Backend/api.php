@@ -60,13 +60,16 @@ class Api{
                 $result = $this->getAllUsers();
             }
             if(isset($_GET["userID"]) && isset($_GET["request"]) && $_GET["request"] == "orders"){
-                $result = $this->getOrdersByUserId();
+                $result = $this->getOrdersByUserIdAdmin();
             }
             if(isset($_GET["category"])){
                 $result = $this->getProductByType();
             }
             if(isset($_GET["userProfile"])){
                 $result = $this->getUserDetails();
+            }
+            if(isset($_GET["request"]) && $_GET["request"] == "orders"){
+                $result = $this->getOrdersByUserId();
             }
         }
         return $result;
@@ -97,14 +100,13 @@ class Api{
         return $this->userService->getAllUsers();
     }
 
-    private function getOrdersByUserId(){
-        if(empty($_SESSION["userID"])){
+    private function getOrdersByUserIdAdmin(){
+        if(empty($_GET["userID"])){
             $this->error(400, [], "Bad Request - userID is required!");
         }
         //validation of userID
-        $userID = $this->test_input($_SESSION["userID"], "i");
-        $orders = $this->userService->getOrdersByUserId($userID);
-        return $orders;
+        $userID = $this->test_input($_GET["userID"], "i");
+        return $this->userService->getOrdersByUserId($userID);
     }
     /***** ORDER ******/
     private function processOrder(){
@@ -156,6 +158,12 @@ class Api{
         }
         $userID = $this->test_input($_SESSION["userID"], "i");
         return $this->orderService->getCart($userID); //List of products in Cart & sumprice of order
+    }
+    private function getOrdersByUserId(){
+        if(!isset($_SESSION["userID"]) || empty($_SESSION["userID"])){
+            $this->error(400, [], "Bad Request - userID is empty");
+        }
+        return $this->userService->getOrdersByUserId($_SESSION["userID"]);
     }
 
     /***** PRODUCTS ******/
