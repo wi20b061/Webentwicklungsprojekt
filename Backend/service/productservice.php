@@ -33,11 +33,11 @@ class ProductService{
         }
         return false;
     }
-    public function newProduct(){
+    public function newProduct($name, $description, $img, $type, $price){
         $db_obj = $this->dbConnection();
         $sql = "INSERT INTO `product` (`name`,`description`,`img`,`type`,`price`) VALUES (?, ?, ?, ?, ?)";
         $stmt = $db_obj->prepare($sql);
-        $stmt->bind_param("ssssi", $productID);
+        $stmt->bind_param("ssssi", $name, $description, $img, $type, $price);
         if($stmt->execute()){
             return true;
         }

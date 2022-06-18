@@ -162,8 +162,15 @@ class Api{
             return $this->productService->deleteProduct($productID);
         }
         //add new product (with upload for pic)
-        if($_POST["productsrequest"] == "newProduct"){
-            return $this->productService->newProduct();
+        if($_POST["productsrequest"] == "newProduct" && isset($_POST["description"]) && !empty($_POST["description"])
+        && isset($_POST["img"]) && !empty($_POST["img"]) && isset($_POST["type"]) && !empty($_POST["type"])
+        && isset($_POST["price"]) && !empty($_POST["price"])){
+            $name =         $this->test_input($_POST["name"], "s");
+            $description =  $this->test_input($_POST["description"], "s");
+            $type =         $this->test_input($_POST["type"], "s");
+            $price =        $this->test_input($_POST["price"], "i");
+            $img =          $_POST["img"];
+            return $this->productService->newProduct($name, $description, $img, $type, $price);
         }
         
         
@@ -280,8 +287,6 @@ class Api{
             $data = $this->test_username($data);
         }else if($type == "pw"){
             $data = $this->test_pw($data);
-        }else if($type == "f"){
-            $data = $this->test_float($data);
         }
         return $data;
     }
@@ -317,13 +322,6 @@ class Api{
         $pw = password_hash($pw, PASSWORD_DEFAULT);
         return $pw;          
     }
-    private function test_float($float){
-        if(!preg_match("/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/",$float)){
-            $this->error(402, [], "<br>Bad Request - invalid input: float number"); 
-        }
-        return $float;          
-    }
-    
 
      /** format success response and exit
      * @param int $code HTTP code (2xx)
