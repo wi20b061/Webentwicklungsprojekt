@@ -21,7 +21,7 @@ class OrderService{
     }
 
     //add product to shooping cart
-    public function addProduct($userID, $productID, $quantity){
+    public function addProductToCart($userID, $productID, $quantity){
         $db_obj = $this->dbConnection();
         $salesID = $this->getSalesHeaderID($userID, $db_obj, 0);
 

@@ -13,6 +13,16 @@ class ProductService{
         return $db_obj;
     }
 
+    public function updateProduct($productID, $name, $description, $img, $type, $price){
+        $db_obj = $this->dbConnection();
+        $sql = "UPDATE `product` SET `name` = ?,`description` = ?,`img` = ?,`type` = ?,`price` = ?  WHERE productID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("ssssii", $name, $description, $img, $type, $price, $productID);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
 
     public function getAllProducts(){
         $db_obj = $this->dbConnection();
@@ -27,7 +37,6 @@ class ProductService{
         }
         //close the connection
         $db_obj->close();
-
         return $products;
     }
 

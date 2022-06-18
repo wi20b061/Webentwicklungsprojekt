@@ -70,12 +70,10 @@ class Api{
     }
 
     /***** USER ******/
-
     private function processUserRequests(){
         if(!isset($_POST["userRequest"]) || empty($_POST["userRequest"])){
             $this->error(400, [], "Bad Request - userRequest-type required!");
         }
-        //add new product to cart
         if($_POST["userRequest"] == "deactivateUser" && isset($_SESSION["userID"]) && !empty($_SESSION["userID"])){
             $userID = $this->test_input($_SESSION["userID"], "i");
             return $this->userService->deactivateUser($userID);
@@ -116,7 +114,7 @@ class Api{
             $productID =    $this->test_input($_POST["productID"], "i");
             $quantity =     $this->test_input($_POST["quantity"], "i");
             
-            return $this->orderService->addProduct($userID, $productID, $quantity);
+            return $this->orderService->addProductToCart($userID, $productID, $quantity);
         }
         //update quantiy of a product in the cart
         if($_POST["orderRequest"] == "updateQty"){
@@ -139,12 +137,36 @@ class Api{
     }
 
     /***** PRODUCTS ******/
-    //NOT DONE! - do we need POST Requests for products?
     private function processProducts(){ //request says what to do
         if(!isset($_POST["productsrequest"]) || empty($_POST["productsrequest"]) ){
             $this->error(400, [], "Bad Request - products request type is required!");
         }
-        //possible post requests
+        //POST-Requests for products:
+        //update Product
+        if($_POST["productsrequest"] == "update" && isset($_POST["productID"]) && !empty($_POST["productID"]) && isset($_POST["name"]) && !empty($_POST["name"])
+        && isset($_POST["productID"]) && !empty($_POST["productID"]) && isset($_POST["description"]) && !empty($_POST["description"])
+        && isset($_POST["img"]) && !empty($_POST["img"]) && isset($_POST["type"]) && !empty($_POST["type"])
+        && isset($_POST["price"]) && !empty($_POST["price"])){
+            $productID =    $this->test_input($_POST["productID"], "i");
+            $name =         $this->test_input($_POST["name"], "s");
+            $description =  $this->test_input($_POST["description"], "s");
+            $type =         $this->test_input($_POST["type"], "s");
+            $price =        $this->test_input($_POST["price"], "f");
+            $img =          $_POST["img"];
+
+            return $this->productService->updateProduct($productID, $name, $description, $img, $type, $price);
+        }
+        //delete product
+        if($_POST["productsrequest"] == "delete" && isset($_POST["productID"]) && !empty($_POST["productID"])){
+            $productID = $this->test_input($_POST["productID"], "i");
+            $this->productService->deleteProduct($productID);
+        }
+        //add new product (with upload for pic)
+        if($_POST["productsrequest"] == "newProduct"){
+            $this->productService->newProduct();
+        }
+        
+        
     }
     //get product-details by the ID
     private function getProductByID(){
@@ -258,12 +280,14 @@ class Api{
             $data = $this->test_username($data);
         }else if($type == "pw"){
             $data = $this->test_pw($data);
+        }else if($type == "f"){
+            $data = $this->test_float($data);
         }
         return $data;
     }
 
     private function test_string($data){
-        if(!preg_match("/^[a-zA-Z\s]+$/", $data)){
+        if(!preg_match("/^[a-zA-Z0-9\s]+$/", $data)){
             $this->error(402, [], "<br>Bad Request - invalid input: text"); 
         }
         return $data;
@@ -292,6 +316,12 @@ class Api{
         }
         $pw = password_hash($pw, PASSWORD_DEFAULT);
         return $pw;          
+    }
+    private function test_float($float){
+        if(!preg_match("/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/",$float)){
+            $this->error(402, [], "<br>Bad Request - invalid input: float number"); 
+        }
+        return $float;          
     }
     
 
