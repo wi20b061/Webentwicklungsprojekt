@@ -36,47 +36,8 @@
                 
                 <div class="col-8">
                     
-                    <div id="content">
-                        <div class="row">
-                            <div class="col">
-                                Salutation
-                            </div>
-                            <div class="col" id="salutation">
-                                
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                Name
-                            </div>
-                            <div class="col" id="name">
-                                
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col" >
-                                Username
-                            </div>
-                            <div class="col" id="username">
-                                
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                E-Mail
-                            </div>
-                            <div class="col" id="email">
-                                
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                Password
-                            </div>
-                            <div class="col" id="">
-                                
-                            </div>
-                        </div>
+                    <div id="content" class="row m-3">
+                       
                     </div>
                 </div>
             </div>

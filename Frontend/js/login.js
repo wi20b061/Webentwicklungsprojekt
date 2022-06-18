@@ -69,8 +69,8 @@ function sendData(methodToExecute, username, pw){
         data: {request: methodToExecute, username: username, pw: pw},
         dataType: "json",
         success: function (response) { 
-
-           console.log("ajax call success")
+            
+            window.location.assign('../sites/products.php')
         },
         error: function(xhr){
             console.log("ajax call error")
