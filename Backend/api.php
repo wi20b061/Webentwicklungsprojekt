@@ -65,6 +65,9 @@ class Api{
             if(isset($_GET["category"])){
                 $result = $this->getProductByType();
             }
+            if(isset($_GET["userProfile"])){
+                $result = $this->getUserDetails();
+            }
         }
         return $result;
     }
@@ -83,9 +86,15 @@ class Api{
             return $this->userService->deActivateUser($userID, 1);
         }
     }
+    //Get Information for userprofile
+    private function getUserDetails(){
+        if(empty($_SESSION["userID"])){
+            $this->error(400, [], "Bad Request - userID is required!");
+        }
+        return $this->userService->getUserDetails($_SESSION["userID"]);
+    }
     private function getAllUsers(){
-        $users = $this->userService->getAllUsers();
-        return $users;
+        return $this->userService->getAllUsers();
     }
 
     private function getOrdersByUserId(){

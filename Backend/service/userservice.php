@@ -32,7 +32,22 @@ class UserService{
         }
         return false;
     }
+    //get user details for user profile
+    public function getUserDetails($userID){
+        $db_obj = $this->dbConnection();
+        $sql = "SELECT userID, salutation, fname, lname, streetName, streetNr, zip, `location`, country, email, username, paymentOption FROM `user` WHERE userID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        $stmt->bind_result($userID, $salutation, $fname, $lname, $streetname, $streetNr, $zip, $location, $country, $email, $username, $paymentOption);
+        $stmt->fetch();
+        $stmt->close();
+        $user = new User($salutation, $fname, $lname, $streetname, $streetNr, $zip, $location, $country, $email, $username, "", $paymentOption, 1);
+        $user->set_userID($userID);
+        return $user;
+    }
 
+    //get information of all users (as array)
     public function getAllUsers(){
         $db_obj = $this->dbConnection();
         $sql = "SELECT * FROM user WHERE adminUser = 0";
