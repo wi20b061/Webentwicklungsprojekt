@@ -47,10 +47,13 @@
           }
 
             //wenn der User ein Admin ist
-          if(isset($_SESSION["adminUser"])){
-            echo "<li class='nav-item mt-1'><a class='nav-link' href='userAdministration.php'>User Administration</a></li>";
-          
-          }
+            
+              if(isset($_SESSION["adminUser"])&&$_SESSION["adminUser"]== 1){
+                echo "<li class='nav-item mt-1'><a class='nav-link' href='userAdministration.php'>User Administration</a></li>";
+              
+              }
+            
+
           echo "<li class='nav-item ms-4' id='shoppingCart'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
           echo "<li class='nav-item ms-1'><div class='' id='productCount' style='color: #365370; font-weight: bold;'>0</div></li>";
 
