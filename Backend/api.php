@@ -232,7 +232,8 @@ class Api{
     private function getProductByType(){
         if(empty($_GET["category"])){
             $this->error(400, [], "Bad Request - category is required!");
-        }else if($_GET["category"] != "shelf" && $_GET["category"] != "table" && $_GET["category"] != "chair"){
+        }else if($_GET["category"] != "shelf" && $_GET["category"] != "table" && $_GET["category"] != "chair" &&
+        $_GET["category"] != "plant" && $_GET["category"] != "decoration" && $_GET["category"] != "couch"){
             $this->error(400, [], "Bad Request - category doesnt exist!");
         }
         $productList = $this->productService->getProductByType($_GET["category"]);
