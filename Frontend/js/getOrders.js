@@ -8,9 +8,10 @@ $(document).ready(function(){
 })  
 
 function loadOrders(userID){
+
     $.ajax({
         type: "GET",
-        url: "../../Backend/ServiceHandler.php?userID=" + userID + "&request=orders",
+        url: "../../Backend/ServiceHandler.php?userID=" + userID + "&request=adminOrders",
         cache: false,
         dataType: "json",
         success: function (response) { 

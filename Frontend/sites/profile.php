@@ -39,6 +39,14 @@
                     <div id="content">
                         <div class="row">
                             <div class="col">
+                                Salutation
+                            </div>
+                            <div class="col" id="salutation">
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
                                 Name
                             </div>
                             <div class="col" id="name">
@@ -47,33 +55,25 @@
                         </div>
                         <div class="row">
                             <div class="col" >
-                                Address
+                                Username
                             </div>
-                            <div class="col" id>
+                            <div class="col" id="username">
                                 
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-
+                                E-Mail
                             </div>
-                            <div class="col">
+                            <div class="col" id="email">
                                 
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-
+                                Password
                             </div>
-                            <div class="col">
-                                
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-
-                            </div>
-                            <div class="col">
+                            <div class="col" id="">
                                 
                             </div>
                         </div>

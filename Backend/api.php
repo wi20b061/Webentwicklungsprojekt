@@ -59,7 +59,7 @@ class Api{
             if(isset($_GET["allUsers"])){
                 $result = $this->getAllUsers();
             }
-            if(isset($_GET["userID"]) && isset($_GET["request"]) && $_GET["request"] == "orders"){
+            if(isset($_GET["userID"]) && isset($_GET["request"]) && $_GET["request"] == "adminOrders"){
                 $result = $this->getOrdersByUserIdAdmin();
             }
             if(isset($_GET["category"])){
