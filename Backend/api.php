@@ -88,6 +88,28 @@ class Api{
             $userID = $this->test_input($_POST["userID"], "i");
             return $this->userService->deActivateUser($userID, 1);
         }
+        //update Userdata (customer)
+        if($_POST["userRequest"] == "updateUserData"){
+            if(!isset($_SESSION["userID"]) ||!isset($_POST["salutation"]) || !isset($_POST["fname"]) || !isset($_POST["lname"]) || !isset($_POST["streetname"]) || !isset($_POST["streetnr"]) || !isset($_POST["zip"])
+            || !isset($_POST["location"]) || !isset($_POST["country"]) || !isset($_POST["email"]) ||
+            empty($_SESSION["userID"]) || empty($_POST["salutation"]) || empty($_POST["fname"]) || empty($_POST["lname"]) || empty($_POST["streetname"]) || empty($_POST["streetnr"]) || empty($_POST["zip"])
+            || empty($_POST["location"]) || empty($_POST["country"])  || empty($_POST["email"])){
+                $this->error(400, [], "Bad Request - userID (Session), salutation, fname, lname, streetname, streetnr, zip, location, country, username, email are required!");
+            }
+            //Validation of data
+            $userID =       $_SESSION["userID"];
+            $salutation =   $_POST["salutation"];
+            $fname =        $this->test_input($_POST["fname"], "s");
+            $lname =        $this->test_input($_POST["lname"], "s");
+            $streetname =   $this->test_input($_POST["streetname"], "s");
+            $streetnr =     $this->test_input($_POST["streetnr"], "i");
+            $zip =          $this->test_input($_POST["zip"], "i");
+            $location =     $this->test_input($_POST["location"], "s");
+            $country =      $this->test_input($_POST["country"], "s");
+            $email =        $this->test_input($_POST["email"], "e");
+            //pw, userID and username cannot be changed by the user
+            return $this->userService->updateUserData($userID, $salutation, $fname, $lname, $streetname, $streetnr, $zip, $location, $country, $email);
+        }
     }
     //Get Information for userprofile
     private function getUserDetails(){
@@ -108,6 +130,7 @@ class Api{
         $userID = $this->test_input($_GET["userID"], "i");
         return $this->userService->getOrdersByUserId($userID);
     }
+    
     /***** ORDER ******/
     private function processOrder(){
         /*neue Bestellung erstellen und Waren in Warenkorb hinzufügen*/
