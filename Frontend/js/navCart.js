@@ -1,8 +1,16 @@
 $(document).ready(function(){
     
+    var sessionIsSet = $('#sessionIsSet').html()
+    console.log(sessionIsSet)
+    
     
     $('#shoppingCart').click(function(){
-        window.location.assign('../sites/shoppingCart.php')
+        if(sessionIsSet == 'true'){
+            window.location.assign('../sites/shoppingCart.php')
+        }else{
+            window.location.assign('../sites/login.php')
+        }
+        
     })
 
     //get cart for current user to print total qty of products in cart

@@ -47,9 +47,7 @@ function loadProducts(getMethod) {
 
             $('#products').append(rows)
 
-            $('.bi').mouseenter(function () {
-
-            })
+            
             $('.product').click(function () {
                 console.log(this.id)
                 window.location.assign('../sites/productDetails.php?productID=' + this.id)
@@ -67,24 +65,31 @@ function loadProducts(getMethod) {
 function addToCart(productID) {
     console.log("addedToCart")
     console.log(productID)
+    var sessionIsSet = $('#sessionIsSet').html()
 
-    $.ajax({
-        type: "POST",
-        url: "../../Backend/ServiceHandler.php",
-        cache: false,
-        dataType: "json",
-        //auf login verweisen falls kein user eingeloggt ist
-        data: { request: "order", orderRequest: "addProduct", productID: productID, quantity: "1" },
-        success: function (response) {
-            var productCount = parseInt($('#productCount').text())
-            // produktcount um 1 erhöhen
-            $('#productCount').html(productCount + 1)
-            
-        },
-        error: function (xhr) {
-            console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
-        }
-    })
+    if(sessionIsSet == 'true'){
+        $.ajax({
+            type: "POST",
+            url: "../../Backend/ServiceHandler.php",
+            cache: false,
+            dataType: "json",
+            //auf login verweisen falls kein user eingeloggt ist
+            data: { request: "order", orderRequest: "addProduct", productID: productID, quantity: "1" },
+            success: function (response) {
+                var productCount = parseInt($('#productCount').text())
+                // produktcount um 1 erhöhen
+                $('#productCount').html(productCount + 1)
+                
+            },
+            error: function (xhr) {
+                console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            }
+        })
+    }else{
+        window.location.assign('../sites/login.php')
+    }
+
+    
 }
 
 function liveSearch(searchterm) {

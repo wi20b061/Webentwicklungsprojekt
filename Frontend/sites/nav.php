@@ -3,10 +3,7 @@
   
 ?>
 
-<!--Session userID mittels Ajax call abfragen-->
-<script>
-  
-</script>
+
 
 
 <nav class="navbar navbar-expand-lg navbar-light  sticky-top mb-2" style="background-color: #F0F2E6">
@@ -14,7 +11,7 @@
     <a class="navbar-brand" href="index.php">
       <img src="../../Frontend/pictures/FILARA.png" alt="" width="100" height="65" class="d-inline-block align-text-top">
     </a>
-
+    <div id="sessionIsSet"class="visually-hidden"><?php if(isset($_SESSION["userID"])){echo 'true';}?></div>
     <div class="justify-content-end me-3">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
