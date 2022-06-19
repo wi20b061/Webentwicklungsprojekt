@@ -69,10 +69,10 @@ function changeProductQty(saleslineID, newQty){
         url: "../../Backend/ServiceHandler.php",
         cache: false,
         dataType: "json",
-        //auf login verweisen falls kein user eingeloggt ist
+        
         data: { request: "order", orderRequest: "updateQty", newQty: newQty, salesLineID: saleslineID },
         success: function (response) {
-            
+            // product count erhöhen !
             
             $('#cart').empty()
             loadCart()
