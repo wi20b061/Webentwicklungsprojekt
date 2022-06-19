@@ -32,7 +32,10 @@
             //– diese Zahl wird ebenfalls via AJAX aktualisiert. Beim Stöbern durch
             //die Produkte und beim „Einkaufen“ soll der User nie die Seite verlassen
             //müssen.
-            echo "<li class='nav-item mt-1'><a class='nav-link' href='profile.php'>Profile</a></li>";
+            if(isset($_SESSION["adminUser"])&&$_SESSION["adminUser"]== 0){
+              echo "<li class='nav-item mt-1'><a class='nav-link' href='profile.php'>Profile</a></li>";
+
+            }
             
           }
             //Sollte User nicht eingeloggt sein, werden ihm nur Register und Login angezeigt.

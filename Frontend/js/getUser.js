@@ -16,7 +16,7 @@ function loadUsers(){
 
             var rows = ""
             var colCount
-
+            $("#userList").empty()
             
             
             response.forEach(user => {
@@ -51,18 +51,18 @@ function loadOrders(userID){
 }
 
 function deactivateUser(userID){
-
+    console.log(userID)
     $.ajax({
         type: "POST",
-        url: "../../Backend/ServiceHandler.php?allUsers",
+        url: "../../Backend/ServiceHandler.php",
         cache: false,
         dataType: "json",
-        data: {request:"user", userRequest:"deactivateUser", userID:"1"},
+        data: {request:"user", userRequest:"deactivateUser", userID: userID},
         success: function (response) { 
             console.log(response)
-            $("#btn"+userID).empty()
-            $("#btn"+userID).append("<button class='btn text-white deactivate'  style='background-color: #880808;' disabled type='link'>Deaktivate</button>")
-
+            
+            //$("#btn"+userID).append("<button class='btn text-white deactivate'  style='background-color: #880808;' disabled type='link'>Deaktivate</button>")
+            loadUsers()
         },
         error: function(xhr){
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);   
