@@ -21,7 +21,7 @@
         
             <div class="row mt-3">
                 <div class="col-4 border-end">
-                    <h1 class="display-6">Hello <span class="badge" style="background-color: #365370;">Username<span></h1>
+                    <h1 class="display-6">Hello <span class="badge" style="background-color: #365370;" id="helloUsername"><span></h1>
 
                     <div class="">
                         <!--onclick hinzufügen, dann wird im div #content der inhalt geladen-->
@@ -36,47 +36,8 @@
                 
                 <div class="col-8">
                     
-                    <div id="content">
-                        <div class="row">
-                            <div class="col">
-                                Name
-                            </div>
-                            <div class="col" id="name">
-                                
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col" >
-                                Address
-                            </div>
-                            <div class="col" id>
-                                
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-
-                            </div>
-                            <div class="col">
-                                
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-
-                            </div>
-                            <div class="col">
-                                
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-
-                            </div>
-                            <div class="col">
-                                
-                            </div>
-                        </div>
+                    <div id="content" class="row m-3">
+                       
                     </div>
                 </div>
             </div>

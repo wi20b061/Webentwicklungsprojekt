@@ -3,10 +3,7 @@
   
 ?>
 
-<!--Session userID mittels Ajax call abfragen-->
-<script>
-  
-</script>
+
 
 
 <nav class="navbar navbar-expand-lg navbar-light  sticky-top mb-2" style="background-color: #F0F2E6">
@@ -14,7 +11,7 @@
     <a class="navbar-brand" href="index.php">
       <img src="../../Frontend/pictures/FILARA.png" alt="" width="100" height="65" class="d-inline-block align-text-top">
     </a>
-
+    <div id="sessionIsSet"class="visually-hidden"><?php if(isset($_SESSION["userID"])){echo 'true';}?></div>
     <div class="justify-content-end me-3">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -32,7 +29,10 @@
             //– diese Zahl wird ebenfalls via AJAX aktualisiert. Beim Stöbern durch
             //die Produkte und beim „Einkaufen“ soll der User nie die Seite verlassen
             //müssen.
-            echo "<li class='nav-item mt-1'><a class='nav-link' href='profile.php'>Profile</a></li>";
+            if(isset($_SESSION["adminUser"])&&$_SESSION["adminUser"]== 0){
+              echo "<li class='nav-item mt-1'><a class='nav-link' href='profile.php'>Profile</a></li>";
+
+            }
             
           }
             //Sollte User nicht eingeloggt sein, werden ihm nur Register und Login angezeigt.
@@ -51,7 +51,7 @@
               }else{
                 echo "<li class='nav-item mt-1'><a class='nav-link' href='products.php'>Products</a></li>";
                 echo "<li class='nav-item ms-4' id='shoppingCart'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
-                echo "<li class='nav-item ms-1'><div class='' id='productCount' style='color: #365370; font-weight: bold;'>0</div></li>";
+                echo "<li class='nav-item ms-1'><div class='' id='productCount' style='color: #365370; font-weight: bold;'></div></li>";
               }
 
           ?>

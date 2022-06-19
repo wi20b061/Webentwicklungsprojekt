@@ -20,7 +20,7 @@ class OrderService{
         return $db_obj;
     }
 
-    //remove a line/product from the order
+    //remove a line/product from the order (admin)
     public function deleteSalesLine($salesLineID){
         $db_obj = $this->dbConnection();
         $sql = "DELETE FROM `salesline` WHERE saleslineID = ?";
@@ -32,7 +32,7 @@ class OrderService{
         return false;
     }
 
-    //add product to shooping cart
+    //add product to shooping cart (customer)
     public function addProductToCart($userID, $productID, $quantity){
         $db_obj = $this->dbConnection();
         $salesID = $this->getSalesHeaderID($userID, $db_obj, 0);
@@ -79,7 +79,7 @@ class OrderService{
     }
 
     
-    //get shopping cart of user
+    //get shopping cart of user (customer)
     public function getCart($userID){
         $db_obj = $this->dbConnection();
         $salesHeaderID = $this->getSalesHeaderID($userID, $db_obj, 0);
@@ -91,7 +91,7 @@ class OrderService{
         $db_obj->close();
         return $cart;
     }
-    //get List of all products/lines in this cart
+    //get List of all products/saleslines in this cart (customer)
     public function getCartlineList($salesHeaderID){
         $db_obj = $this->dbConnection();
         $sql = "SELECT saleslineID, productID, quantity FROM salesline WHERE salesheaderID = ?";
@@ -113,13 +113,7 @@ class OrderService{
         return $returnArr;
     }
 
-    //delete product from cart - NOT DONE!
-    public function deleteProduct($userID, $productID){
-        $db_obj = $this->dbConnection();
-        $salesID = $this->getSalesHeaderID($userID, $db_obj,0);  
-    }
-
-    //change qty of product in cart 
+    //change qty of product in cart (customer)
     public function updateProductQty($newQty, $salesLineID){
         $db_obj = $this->dbConnection();
         $sql = "UPDATE salesline SET quantity = ? WHERE saleslineID = ?";
@@ -131,7 +125,7 @@ class OrderService{
         return false;
     }
     
-    //to get current sales header (warenkorb) of this user
+    //to get current sales header (warenkorb) of this user (all)
     public function getSalesHeaderID($userID, $db_obj, $done){
         $sql = "SELECT salesID FROM salesheader WHERE customerID = ? AND done = ?";
         $stmt = $db_obj->prepare($sql);

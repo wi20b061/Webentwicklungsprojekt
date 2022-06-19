@@ -12,7 +12,7 @@ class ProductService{
         }
         return $db_obj;
     }
-
+    //edit product details (admin)
     public function updateProduct($productID, $name, $description, $img, $type, $price){
         $db_obj = $this->dbConnection();
         $sql = "UPDATE `product` SET `name` = ?,`description` = ?,`img` = ?,`type` = ?,`price` = ?  WHERE productID = ?";
@@ -23,6 +23,7 @@ class ProductService{
         }
         return false;
     }
+    //delete a product from catalog (admin)
     public function deleteProduct($productID){
         $db_obj = $this->dbConnection();
         $sql = "DELETE FROM `product` WHERE productID = ?";
@@ -33,6 +34,7 @@ class ProductService{
         }
         return false;
     }
+    //add a new product (admin)
     public function newProduct($name, $description, $img, $type, $price){
         $db_obj = $this->dbConnection();
         $sql = "INSERT INTO `product` (`name`,`description`,`img`,`type`,`price`) VALUES (?, ?, ?, ?, ?)";
