@@ -79,17 +79,15 @@ class Api{
     private function processUserRequests(){
         if(!isset($_POST["userRequest"]) || empty($_POST["userRequest"])){
             $this->error(400, [], "Bad Request - userRequest-type required!");
-        }
-        if($_POST["userRequest"] == "deactivateUser" && isset($_POST["userID"]) && !empty($_POST["userID"])){
+        }else if($_POST["userRequest"] == "deactivateUser" && isset($_POST["userID"]) && !empty($_POST["userID"])){
             $userID = $this->test_input($_POST["userID"], "i");
             return $this->userService->deActivateUser($userID, 0);
-        }
-        if($_POST["userRequest"] == "activateUser" && isset($_POST["userID"]) && !empty($_POST["userID"])){
+        }else if($_POST["userRequest"] == "activateUser" && isset($_POST["userID"]) && !empty($_POST["userID"])){
             $userID = $this->test_input($_POST["userID"], "i");
             return $this->userService->deActivateUser($userID, 1);
         }
         //update Userdata (customer)
-        if($_POST["userRequest"] == "updateUserData"){
+        else if($_POST["userRequest"] == "updateUserData"){
             if(!isset($_SESSION["userID"]) ||!isset($_POST["salutation"]) || !isset($_POST["fname"]) || !isset($_POST["lname"]) || !isset($_POST["streetname"]) || !isset($_POST["streetnr"]) || !isset($_POST["zip"])
             || !isset($_POST["location"]) || !isset($_POST["country"]) || !isset($_POST["email"]) ||
             empty($_SESSION["userID"]) || empty($_POST["salutation"]) || empty($_POST["fname"]) || empty($_POST["lname"]) || empty($_POST["streetname"]) || empty($_POST["streetnr"]) || empty($_POST["zip"])
@@ -109,6 +107,11 @@ class Api{
             $email =        $this->test_input($_POST["email"], "e");
             //pw, userID and username cannot be changed by the user
             return $this->userService->updateUserData($userID, $salutation, $fname, $lname, $streetname, $streetnr, $zip, $location, $country, $email);
+        }
+        //Check if password is valid to proceed with edit on user profile
+        else if($_POST["userRequest"] == "checkPw" && isset($_SESSION["userID"]) && !empty($_SESSION["userID"])
+        && isset($_POST["pw"]) && !empty($_POST["pw"])){
+            return $this->userService->checkPassword($_SESSION["userID"], $_POST["pw"]);
         }
     }
     //Get Information for userprofile
@@ -133,24 +136,23 @@ class Api{
     
     /***** ORDER ******/
     private function processOrder(){
-        /*neue Bestellung erstellen und Waren in Warenkorb hinzufügen*/
-        //Benötigte Infos: userID, productID, quantity
-        //1.) Prüfen ob für diese Person salesheader (mit done = 0) existiert
-        //2.) Wenn nicht -> neuen sales Header anlegen, ansonsten zum current hinzufügen
-        //neue salesline hinzufügen
         if(!isset($_POST["orderRequest"]) || empty($_POST["orderRequest"])){
             $this->error(400, [], "Bad Request - orderRequest-type required!");
         }
-        //delete salesline
+        //delete product from cart (customer)
         if($_POST["orderRequest"] == "deleteSalesline"){
             //VALIDATION
             if(!isset($_POST["saleslineID"]) || empty($_POST["saleslineID"])){
-                $this->error(400, [], "Bad Request - saleslineID are required!");
+                $this->error(400, [], "Bad Request - saleslineID is required!");
             }
             $saleslineID = $this->test_input($_POST["saleslineID"], "i");
             return $this->orderService->deleteSalesLine($saleslineID);
         }
-        //add new product to cart
+        //add new product to cart (customer)
+        //Benötigte Infos: userID, productID, quantity
+        //1.) Prüfen ob für diese Person salesheader (mit done = 0) existiert
+        //2.) Wenn nicht -> neuen sales Header anlegen, ansonsten zum current hinzufügen
+        //neue salesline hinzufügen
         if($_POST["orderRequest"] == "addProduct"){
             //VALIDATION
             if(!isset($_SESSION["userID"]) || !isset($_POST["productID"]) || !isset($_POST["quantity"]) || 

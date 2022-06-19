@@ -113,12 +113,6 @@ class OrderService{
         return $returnArr;
     }
 
-    //delete product from cart (customer) - NOT DONE!
-    public function deleteProduct($userID, $productID){
-        $db_obj = $this->dbConnection();
-        $salesID = $this->getSalesHeaderID($userID, $db_obj,0);  
-    }
-
     //change qty of product in cart (customer)
     public function updateProductQty($newQty, $salesLineID){
         $db_obj = $this->dbConnection();
