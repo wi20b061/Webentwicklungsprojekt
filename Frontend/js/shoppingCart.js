@@ -34,7 +34,7 @@ function loadCart(){
             var ust = response.sumprice * 0.2
             $('#ust').empty()
             $('#ust').append(ust.toFixed(2))
-            $('#checkOut').append('<button type="button" onclick="checkOut()" class="btn btn-dark m-2" style="background-color: #365370;">Checkout <i class="bi bi-cart-check-fill ms-1" style="font-size: 1.5rem; color: white;"></i></button>')
+            
         },
         error: function (xhr) {
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
@@ -69,10 +69,10 @@ function changeProductQty(saleslineID, newQty){
         url: "../../Backend/ServiceHandler.php",
         cache: false,
         dataType: "json",
-        //auf login verweisen falls kein user eingeloggt ist
+        
         data: { request: "order", orderRequest: "updateQty", newQty: newQty, salesLineID: saleslineID },
         success: function (response) {
-            
+            // product count erhöhen !
             
             $('#cart').empty()
             loadCart()

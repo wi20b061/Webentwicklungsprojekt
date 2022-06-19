@@ -14,7 +14,7 @@ $(document).ready(function(){
             $('#name').append('<h1 class="display-6">' +response.name +'</h1>')
             $('#price').append('<p class="text-muted" >'+ response.price.toFixed(2) +'€</p>')
             $('#description').append('<p>'+ response.description +'</p>')
-            $('#addToCart').append('<button type="button" class="btn btn-dark" style="background-color: #365370;">Add to cart <i class="bi bi-basket-fill ms-1" style="font-size: 1.5rem; color: white;"></i></button>')
+            $('#addToCart').append('<button type="button" onclick="addToCart('+response.id+')" class="btn btn-dark" style="background-color: #365370;">Add to cart <i class="bi bi-basket-fill ms-1" style="font-size: 1.5rem; color: white;"></i></button>')
         },
         error: function(xhr){
             console.log("ajax call error")
@@ -28,6 +28,36 @@ $(document).ready(function(){
     })
 
 })  
+
+function addToCart(productID) {
+    console.log("addedToCart")
+    console.log(productID)
+    var sessionIsSet = $('#sessionIsSet').html()
+
+    if(sessionIsSet == 'true'){
+        $.ajax({
+            type: "POST",
+            url: "../../Backend/ServiceHandler.php",
+            cache: false,
+            dataType: "json",
+            
+            data: { request: "order", orderRequest: "addProduct", productID: productID, quantity: "1" },
+            success: function (response) {
+                var productCount = parseInt($('#productCount').text())
+                // produktcount um 1 erhöhen
+                $('#productCount').html(productCount + 1)
+                
+            },
+            error: function (xhr) {
+                console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            }
+        })
+    }else{
+        window.location.assign('../sites/login.php')
+    }
+
+    
+}
 
 
 // https://newbedev.com/get-querystring-from-url-using-jquery

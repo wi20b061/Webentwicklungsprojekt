@@ -18,9 +18,6 @@
     </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item mt-1">
-            <a class="nav-link" href="products.php">Products</a>
-          </li>
           <?php
             //Überprüfung ob der User bereits eingeloggt ist, sollte das der fall sein, wird das if statement ausgeführt
             //und der User sieht die tickets, profile Page und den Logout button.
@@ -49,9 +46,10 @@
             //wenn der User ein Admin ist
             
               if(isset($_SESSION["adminUser"])&&$_SESSION["adminUser"]== 1){
+                echo "<li class='nav-item mt-1'><a class='nav-link' href='productProcessing.php'>Product Processing</a></li>";
                 echo "<li class='nav-item mt-1'><a class='nav-link' href='userAdministration.php'>User Administration</a></li>";
-                
               }else{
+                echo "<li class='nav-item mt-1'><a class='nav-link' href='products.php'>Products</a></li>";
                 echo "<li class='nav-item ms-4' id='shoppingCart'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
                 echo "<li class='nav-item ms-1'><div class='' id='productCount' style='color: #365370; font-weight: bold;'></div></li>";
               }
