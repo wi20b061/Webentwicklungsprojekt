@@ -23,6 +23,9 @@ class Cartline{
     function get_productID(){
         return $this->productID;
     }
+    function get_productName(){
+        return $this->productName;
+    }
     function get_quantity(){
         return $this->quantity;
     }

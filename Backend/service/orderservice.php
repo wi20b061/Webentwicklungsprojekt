@@ -86,6 +86,9 @@ class OrderService{
         $returnArr = $this->getCartlineList($salesHeaderID);
         $cartlineList = $returnArr[0];
         $sumprice = $returnArr[1];
+        if(empty($salesHeaderID)){
+            return null;
+        }
         $cart = new Cart($salesHeaderID[0], $userID, $cartlineList, $sumprice);
         //close the connection
         $db_obj->close();
@@ -101,6 +104,9 @@ class OrderService{
         $cartlineList = array();
         $i = $sumprice = 0;
         $result = $stmt->get_result();
+        if(empty($result)){
+            return null;
+        }
         while($row = $result->fetch_row()){
             $curproduct = $this->productService->getProductById($row[1]);
             //hier können auch noch mehr variablen ausgelesen werden für die Sales Line
