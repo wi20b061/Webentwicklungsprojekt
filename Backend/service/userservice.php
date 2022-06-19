@@ -22,6 +22,19 @@ class UserService{
         return $db_obj;
     }
     
+    //update userdata (customer)
+    public function updateUserData($userID, $salutation, $fname, $lname, $streetname, $streetnr, $zip, $location, $country, $email){
+        $db_obj = $this->dbConnection();
+        $sql = "UPDATE `user` SET `salutation` = ?,`fname` = ?,`lname` = ?,`streetname` = ?,`streetnr` = ?, `zip` = ?,`location` = ?,`country` = ?,`email` = ?  WHERE userID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("ssssiisssi", $salutation, $fname, $lname, $streetname, $streetnr, $zip, $location, $country, $email, $userID);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+
+    //activate or deactivate a user (admin)
     public function deActivateUser($userID, $active){
         $db_obj = $this->dbConnection();
         $sql = "UPDATE user SET active = ? WHERE userID = ?";
@@ -32,7 +45,7 @@ class UserService{
         }
         return false;
     }
-    //get user details for user profile
+    //get user details (for user profile)
     public function getUserDetails($userID){
         $db_obj = $this->dbConnection();
         $sql = "SELECT userID, salutation, fname, lname, streetName, streetNr, zip, `location`, country, email, username, paymentOption FROM `user` WHERE userID = ?";
@@ -47,7 +60,7 @@ class UserService{
         return $user;
     }
 
-    //get information of all users (as array)
+    //get information of all users (as array) (admin)
     public function getAllUsers(){
         $db_obj = $this->dbConnection();
         $sql = "SELECT * FROM user WHERE adminUser = 0";
@@ -65,6 +78,7 @@ class UserService{
         return $users;
     }
 
+    //get all orders that a user has (for user profile)
     public function getOrdersByUserId($userID){
         $db_obj = $this->dbConnection();
         $salesHeaderIDs = $this->orderService->getSalesHeaderID($userID, $db_obj, 1);
@@ -81,6 +95,7 @@ class UserService{
         return $orders;
     }
 
+    //get the date of an specific order
     public function getOrderDate($salesHeaderID){
         $db_obj = $this->dbConnection();
         $sql = "SELECT orderDate FROM salesheader WHERE salesID = ?";
