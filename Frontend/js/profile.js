@@ -15,18 +15,38 @@ function loadPersonalData(){
         dataType: "json",
         success: function (response) {
             console.log(response)
+            $('#content').append('<div class="col"><div class="row" style="font-weight: bold;">Salutation</div><div class="row">'+ response.salutation.toUpperCase() +'</div><div class="row" style="font-weight: bold;">Name</div><div class="row">'+ response.fname +' '+response.lname+'</div><div class="row" style="font-weight: bold;">E-Mail</div><div class="row">'+response.email +'</div></div><div class="col"><div class="row" style="font-weight: bold;">Address</div><div class="row">'+ response.streetname+' '+response.streetnr+'</div><div class="row">'+ response.zip+' ' +response.location +'</div><div class="row">'+response.country+'</div></div><div class="col"><button type="button" onclick="loadOrders()" class="btn btn-dark m-2" style="background-color: #365370;">Edit Profile<i class="bi bi-pencil-square" style="font-size: 1rem; color: white;"></i></button></div>')
+
             
         },
         error: function (xhr) {
             console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
         }
     })
-    $('#content').append('<div>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</div>')
 }
 
 function loadOrders(){
     // Ajax call machen
     $('#content').empty()
-    $('#content').append('<div>Sit amet, consetetur Lorem ipsum dolorsadipsod tempor invidunt ucing elitr, sed diam nonumy eirmt labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</div>')
+
+
+    $.ajax({
+        type: "GET",
+        url: "../../Backend/ServiceHandler.php?request=orders",
+        cache: false,
+        dataType: "json",
+        success: function (response) {
+            console.log(response)
+            $('#content').append('')
+
+            
+        },
+        error: function (xhr) {
+            console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+        }
+    })
+
+
+
 
 }

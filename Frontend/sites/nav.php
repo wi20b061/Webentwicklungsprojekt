@@ -53,7 +53,7 @@
                 
               }else{
                 echo "<li class='nav-item ms-4' id='shoppingCart'><i class='bi bi-basket-fill' style='font-size: 2rem; color: #365370;'></i></li>";
-                echo "<li class='nav-item ms-1'><div class='' id='productCount' style='color: #365370; font-weight: bold;'>0</div></li>";
+                echo "<li class='nav-item ms-1'><div class='' id='productCount' style='color: #365370; font-weight: bold;'></div></li>";
               }
 
           ?>
