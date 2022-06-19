@@ -1,7 +1,7 @@
 $(document).ready(function(){
    
     loadSummary()
-   // loadUserAddress()
+    loadUserAddress()
     
 })  
 
@@ -39,12 +39,12 @@ function loadSummary(){
 function loadUserAddress(){
     $.ajax({
         type: "GET",
-        url: "../../Backend/ServiceHandler.php?userID=",
+        url: "../../Backend/ServiceHandler.php?userProfile",
         cache: false,
         dataType: "json",
         success: function (response) { 
             console.log(response)
-            $('#shippingAddress').append('<div class="row">')
+            $('#shippingAddress').append('<div class="row"><div class="col">'+response.streetname+' '+response.streetnr+'<br>'+response.zip+' '+response.location+'<br>'+response.country+'</div></div>')
 
         },
         error: function(xhr){
