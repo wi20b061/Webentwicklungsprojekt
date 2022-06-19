@@ -59,6 +59,22 @@ class UserService{
         $user->set_userID($userID);
         return $user;
     }
+    //for changes in user profile the logged-in user needs the password
+    public function checkPassword($userID, $pw){
+        $db_obj = $this->dbConnection();
+        $sql = "SELECT `password` FROM `user` WHERE userID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        $stmt->bind_result($pwDB);
+        $stmt->fetch();
+        if(!empty($pwDB) && password_verify($pw, $pwDB)){         
+            return true;
+        }
+        //close the connection
+        $db_obj->close();
+        return false;
+    }
 
     //get information of all users (as array) (admin)
     public function getAllUsers(){
