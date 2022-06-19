@@ -7,6 +7,7 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'true'){
 
     session_unset();
     session_destroy();
-    header('../../Frontend/sites/products.php');
+    
+    header('Location: ../../Frontend/sites/products.php');
     die();
 }
