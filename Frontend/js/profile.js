@@ -85,7 +85,9 @@ function loadOrders(){
                 rows += '<div class="row border-bottom pb-1 mb-1 mt-2" style="font-weight: bold;" ><div class="col">Order Nr. ' + order.salesheaderID +'</div><div class="col text-end"><a href="../../Backend/ServiceHandler.php?request=invoice&salesheaderID='+order.salesheaderID+'" class="btn btn-dark btn-sm" style="background-color: #365370;" target="_blank" rel="noopener noreferrer">View invoice</a></div></div>'
                 order.cartlineList.forEach(product=>{
 
-                    rows += '<div class="row mb-1"><div class="col img'+product.saleslineID+'"></div><div class="col">'+product.quantity+'</div><div class="col">'+product.productName+'</div><div class="col">'+product.productprice+'</div></div>'
+                    var price = product.productprice/100
+                    console.log(price)
+                    rows += '<div class="row mb-1"><div class="col img'+product.saleslineID+'"></div><div class="col">'+product.quantity+'</div><div class="col">'+product.productName+'</div><div class="col">'+price.toFixed(2)+'</div></div>'
                     loadProductPic(product.productID, product.saleslineID)
                 })
                 rows += '</div>'

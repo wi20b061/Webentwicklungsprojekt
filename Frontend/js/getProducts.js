@@ -2,6 +2,8 @@
 
 $(document).ready(function () {
 
+
+    
     loadProducts("products")
     
     $('.dropdown-item').click(function () {
@@ -37,8 +39,9 @@ function loadProducts(getMethod) {
             response.forEach(product => {
                 colCount += 1;
 
+                var price = product.price /100
 
-                rows += '<div class="col m-2 border-bottom"><div class="product" id="' + colCount + '"><div class="row"><img class="img-fluid mx-auto d-block " src="' + product.path + '"></div><div class="row"><div class="col"><strong>' + product.name + '</strong><br>' + product.description.substr(0, 20) + '...<br>' + product.price.toFixed(2) + ' €</div></div></div><div  class="row text-end mt-1 mb-1"><button onclick="addToCart(' + colCount + ')" type="button" class="btn text-white btn-sm" style="background-color: #365370; border-color:#365370;">Add to cart <i class="bi bi-basket-fill ms-1"  style=" color: white;"></i></button></div></div>';
+                rows += '<div class="col m-2 border-bottom"><div class="product" id="' + colCount + '"><div class="row"><img class="img-fluid mx-auto d-block " src="' + product.path + '"></div><div class="row"><div class="col"><strong>' + product.name + '</strong><br>' + product.description.substr(0, 20) + '...<br>' + price.toFixed(2) + ' €</div></div></div><div  class="row text-end mt-1 mb-1"><button onclick="addToCart(' + colCount + ')" type="button" class="btn text-white btn-sm" style="background-color: #365370; border-color:#365370;">Add to cart <i class="bi bi-basket-fill ms-1"  style=" color: white;"></i></button></div></div>';
 
                 if (colCount % 4 == 0) {
 
@@ -67,7 +70,7 @@ function addToCart(productID) {
     console.log("addedToCart")
     console.log(productID)
     var sessionIsSet = $('#sessionIsSet').html()
-
+    console.log($('#productCount').html())
     if(sessionIsSet == 'true'){
         $.ajax({
             type: "POST",
@@ -79,6 +82,8 @@ function addToCart(productID) {
             success: function (response) {
                 var productCount = parseInt($('#productCount').text())
                 // produktcount um 1 erhöhen
+
+                $('#productCount').empty()
                 $('#productCount').html(productCount + 1)
                 
             },

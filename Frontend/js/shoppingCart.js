@@ -20,8 +20,8 @@ function loadCart(){
                 // ajax call to get product pic and description
                 loadProductDetails(item.productID)
                 
-                var priceQty = item.productprice*item.quantity
-                rows += '<div class="row mt-3 border-bottom pb-2 me-1"><div class="col-md-3 img'+ item.productID +'"></div><div class="col-md"><p style="font-weight: bold;">'+item.productName +'</p><p class="text-muted details'+ item.productID +'"></p><p class="text-muted">'+ item.productprice +' /piece</p><br><i  class="bi bi-dash-circle" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity-1) +',true)"></i> '+ item.quantity +' <i  class="bi bi-plus-circle-fill" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity+1) +', false)"></i></div><div class="col-md-auto">'+ priceQty.toFixed(2) +'</div><div class="col-auto"><buttontype="button" onclick="deleteProduct('+item.saleslineID+')" class="btn text-white btn-sm" style="background-color: #365370;"><i class="bi bi-trash3-fill" style=""></i></button></div></div>';
+                var priceQty = item.productprice/100 * item.quantity
+                rows += '<div class="row mt-3 border-bottom pb-2 me-1"><div class="col-md-3 img'+ item.productID +'"></div><div class="col-md"><p style="font-weight: bold;">'+item.productName +'</p><p class="text-muted details'+ item.productID +'"></p><p class="text-muted">'+ (item.productprice /100).toFixed(2) +' /piece</p><br><i  class="bi bi-dash-circle" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity-1) +',true)"></i> '+ item.quantity +' <i  class="bi bi-plus-circle-fill" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity+1) +', false)"></i></div><div class="col-md-auto">'+ priceQty.toFixed(2) +'</div><div class="col-auto"><buttontype="button" onclick="deleteProduct('+item.saleslineID+','+item.quantity+')" class="btn text-white btn-sm" style="background-color: #365370;"><i class="bi bi-trash3-fill" style=""></i></button></div></div>';
                 
                     
                 
@@ -93,7 +93,7 @@ function changeProductQty(saleslineID, newQty, remove){
     })
 }
 
-function deleteProduct(saleslineID){
+function deleteProduct(saleslineID, itemQty){
     $.ajax({
         type: "POST",
         url: "../../Backend/ServiceHandler.php",
@@ -104,7 +104,9 @@ function deleteProduct(saleslineID){
         success: function (response) {
 
             console.log(response)
-
+            var productCount = parseInt($('#productCount').html())
+            $('#productCount').html(productCount - itemQty)
+            
             $('#cart').empty()
             loadCart()
         },

@@ -17,9 +17,13 @@ function loadSummary(){
             $('#btnOrder').click(function(){
                 order(response.salesheaderID)
             })
-            $('#product').append(response.sumprice.toFixed(2))
+
+            var sumprice = response.sumprice /100
+            console.log(sumprice)
+
+            $('#product').append(sumprice.toFixed(2))
             
-            var total = parseInt($('#shipping').html()) + response.sumprice
+            var total = parseInt($('#shipping').html()) + sumprice
            
             $('#total').append(total.toFixed(2))
 
