@@ -81,7 +81,7 @@
                         <div class="col text-muted text-end" id="ust"></div> 
                     </div>
                     <div class="row m-1">
-                        <button type="button" onclick="order()" class="btn btn-dark m-2" style="background-color: #365370;">Order <i class="bi bi-check-lg ms-1" style="font-size: 1.5rem; color: white;"></i></button>
+                        <button type="button" id="btnOrder" class="btn btn-dark m-2" style="background-color: #365370;">Order <i class="bi bi-check-lg ms-1" style="font-size: 1.5rem; color: white;"></i></button>
                     </div>
                 </div>
             </div>
