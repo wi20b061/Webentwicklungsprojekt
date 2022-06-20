@@ -21,7 +21,7 @@ function loadCart(){
                 loadProductDetails(item.productID)
                 
                 var priceQty = item.productprice*item.quantity
-                rows += '<div class="row mt-3 border-bottom pb-2 me-1"><div class="col-md-3 img'+ item.productID +'"></div><div class="col-md"><p style="font-weight: bold;">'+item.productName +'</p><p class="text-muted details'+ item.productID +'"></p><p class="text-muted">'+ item.productprice +' /piece</p><br><i  class="bi bi-dash-circle" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity-1) +',true)"></i> '+ item.quantity +' <i  class="bi bi-plus-circle-fill" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity+1) +', false)"></i></div><div class="col-md-auto">'+ priceQty.toFixed(2) +'</div></div>';
+                rows += '<div class="row mt-3 border-bottom pb-2 me-1"><div class="col-md-3 img'+ item.productID +'"></div><div class="col-md"><p style="font-weight: bold;">'+item.productName +'</p><p class="text-muted details'+ item.productID +'"></p><p class="text-muted">'+ item.productprice +' /piece</p><br><i  class="bi bi-dash-circle" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity-1) +',true)"></i> '+ item.quantity +' <i  class="bi bi-plus-circle-fill" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity+1) +', false)"></i></div><div class="col-md-auto">'+ priceQty.toFixed(2) +'</div><div class="col-auto"><buttontype="button" onclick="deleteProduct('+item.saleslineID+')" class="btn text-white btn-sm" style="background-color: #365370;"><i class="bi bi-trash3-fill" style=""></i></button></div></div>';
                 
                     
                 
@@ -91,31 +91,27 @@ function changeProductQty(saleslineID, newQty, remove){
         }
     })
 }
-/*
-function addToCart(productID, qty) {
-    console.log("addedToCart")
-    console.log(productID)
-    
-        $.ajax({
-            type: "POST",
-            url: "../../Backend/ServiceHandler.php",
-            cache: false,
-            dataType: "json",
-            
-            data: { request: "order", orderRequest: "addProduct", productID: productID, quantity: qty },
-            success: function (response) {
-                var productCount = parseInt($('#productCount').text())
-                // produktcount um 1 erhöhen
-                $('#productCount').html(productCount + qty)
-                $('#cart').empty()
-                loadCart()
-            },
-            error: function (xhr) {
-                console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
-            }
-        })
-   
-}*/
+
+function deleteProduct(saleslineID){
+    $.ajax({
+        type: "POST",
+        url: "../../Backend/ServiceHandler.php",
+        cache: false,
+        dataType: "json",
+        
+        data: { request: "order", orderRequest: "deleteSalesline", saleslineID: saleslineID },
+        success: function (response) {
+
+            console.log(response)
+
+            $('#cart').empty()
+            loadCart()
+        },
+        error: function (xhr) {
+            console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+        }
+    })
+}
 
 function checkOut(){
     window.location.assign('../sites/checkout.php')
