@@ -20,6 +20,19 @@ class OrderService{
         return $db_obj;
     }
 
+    //complete order
+    public function completeOrder($userID){
+        $db_obj = $this->dbConnection();
+        $salesHeaderID = $this->getSalesHeaderID($userID, $db_obj, 0);
+        $sql = "UPDATE `salesheader` SET done = 1 WHERE salesID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $salesHeaderID[0]);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+
     //remove a line/product from the order (admin)
     public function deleteSalesLine($salesLineID){
         $db_obj = $this->dbConnection();
@@ -133,18 +146,20 @@ class OrderService{
     
     //to get current sales header (warenkorb) of this user (all)
     public function getSalesHeaderID($userID, $db_obj, $done){
-        if($done = 1){
+        if($done == 1){
             $sql = "SELECT salesID FROM salesheader WHERE customerID = ? AND done = ? ORDER BY orderDate DESC";
         }else{
             $sql = "SELECT salesID FROM salesheader WHERE customerID = ? AND done = ?";
         }
-        
         $stmt = $db_obj->prepare($sql);
         $stmt->bind_param("ii", $userID, $done);
         $stmt->execute();
         $salesIDs = array();
         $i = 0;
         $result = $stmt->get_result();
+        if(empty($result)){
+            return null;
+        }
         while($row = $result->fetch_row()){
             $salesIDs[$i] = $row[0];
             $i++;

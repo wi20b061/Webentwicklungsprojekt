@@ -151,6 +151,15 @@ class Api{
         if(!isset($_POST["orderRequest"]) || empty($_POST["orderRequest"])){
             $this->error(400, [], "Bad Request - orderRequest-type required!");
         }
+        //complete order (customer)
+        if($_POST["orderRequest"] == "completeOrder"){
+            if(!isset($_SESSION["userID"]) || empty($_SESSION["userID"])){
+                $this->error(400, [], "Bad Request - userID is not set in session!");
+            }
+            $userID = $this->test_input($_SESSION["userID"], "i");
+            return $this->orderService->completeOrder($userID);
+        }
+        
         //delete product from cart (customer)
         if($_POST["orderRequest"] == "deleteSalesline"){
             //VALIDATION
