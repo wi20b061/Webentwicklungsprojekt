@@ -50,7 +50,7 @@ class OrderService{
     public function addProductToCart($userID, $productID, $quantity){
         $db_obj = $this->dbConnection();
         $tmp = $this->getSalesHeaderID($userID, $db_obj, 0);
-        $saledID = $tmp[0];
+        $salesID = $tmp[0];
 
         //if customer doesn't have a shopping cart yet, create new one
         if(empty($salesID)){
