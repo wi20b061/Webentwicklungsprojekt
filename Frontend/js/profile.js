@@ -65,7 +65,7 @@ function saveChanges(){
     })
 }
 
-
+//orders get loaded
 function loadOrders(){
     
     $('#content').empty()
@@ -103,7 +103,7 @@ function loadOrders(){
 
 
 }
-
+//product Pictures get loaded
 function loadProductPic(productID, saleslineID){
     $.ajax({
         type: "GET",

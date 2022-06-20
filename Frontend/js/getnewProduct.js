@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 
 
-
+//send data to create a new Product in database
 function sendData(){
     console.log("before code ajax")
 

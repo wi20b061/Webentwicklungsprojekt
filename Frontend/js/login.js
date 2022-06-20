@@ -64,6 +64,9 @@ function printError(elemErrId, elemInputId, message){
     }
 }
 
+
+//infos with username, cookies etc get sent to backend
+//user gets rederected to products.php
 function sendData(methodToExecute, username, pw){
     var rememberMe = $('#setCookie').val()
     console.log(rememberMe)

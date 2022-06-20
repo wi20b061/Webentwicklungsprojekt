@@ -28,7 +28,7 @@ $(document).ready(function(){
     })
 
 })  
-
+//add product to cart if the user is not logged in, he gets rederected to login instead
 function addToCart(productID) {
     console.log("addedToCart")
     console.log(productID)
