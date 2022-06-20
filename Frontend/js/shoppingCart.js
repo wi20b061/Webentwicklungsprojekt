@@ -15,16 +15,18 @@ function loadCart(){
             console.log(response)
             var rows =""
             
+            console.log($('#productCount').html())
             response.cartlineList.forEach(item=>{
                 // ajax call to get product pic and description
                 loadProductDetails(item.productID)
+                
                 var priceQty = item.productprice*item.quantity
-                rows += '<div class="row mt-3 border-bottom pb-2 me-1"><div class="col-md-3 img'+ item.productID +'"></div><div class="col-md"><p style="font-weight: bold;">'+item.productName +'</p><p class="text-muted details'+ item.productID +'"></p><p class="text-muted">'+ item.productprice +' /piece</p><br><i  class="bi bi-dash-circle" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity-1) +')"></i> '+ item.quantity +' <i  class="bi bi-plus-circle-fill" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity+1) +')"></i></div><div class="col-md-auto">'+ priceQty.toFixed(2) +'</div></div>';
+                rows += '<div class="row mt-3 border-bottom pb-2 me-1"><div class="col-md-3 img'+ item.productID +'"></div><div class="col-md"><p style="font-weight: bold;">'+item.productName +'</p><p class="text-muted details'+ item.productID +'"></p><p class="text-muted">'+ item.productprice +' /piece</p><br><i  class="bi bi-dash-circle" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity-1) +',true)"></i> '+ item.quantity +' <i  class="bi bi-plus-circle-fill" onclick="changeProductQty('+ item.saleslineID+', '+ parseInt(item.quantity+1) +', false)"></i></div><div class="col-md-auto">'+ priceQty.toFixed(2) +'</div></div>';
                 
                     
                 
             })
-            
+            $('#cart').empty()
             $('#cart').append(rows)
             $('#subtotal').empty()
             $('#subtotal').append(response.sumprice.toFixed(2))
@@ -62,18 +64,25 @@ function loadProductDetails(productID){
     })
 }
 
-function changeProductQty(saleslineID, newQty){
+
+function changeProductQty(saleslineID, newQty, remove){
     console.log('heyooo')
     $.ajax({
         type: "POST",
         url: "../../Backend/ServiceHandler.php",
         cache: false,
         dataType: "json",
-        //auf login verweisen falls kein user eingeloggt ist
+        
         data: { request: "order", orderRequest: "updateQty", newQty: newQty, salesLineID: saleslineID },
         success: function (response) {
-            
-            
+            // product count erhöhen !
+            var productCount = parseInt($('#productCount').html())
+            if(remove == true){
+                $('#productCount').html(productCount - 1)
+            }else{
+                $('#productCount').html(productCount + 1)
+            }
+            console.log($('#productCount').html())
             $('#cart').empty()
             loadCart()
         },
@@ -82,6 +91,31 @@ function changeProductQty(saleslineID, newQty){
         }
     })
 }
+/*
+function addToCart(productID, qty) {
+    console.log("addedToCart")
+    console.log(productID)
+    
+        $.ajax({
+            type: "POST",
+            url: "../../Backend/ServiceHandler.php",
+            cache: false,
+            dataType: "json",
+            
+            data: { request: "order", orderRequest: "addProduct", productID: productID, quantity: qty },
+            success: function (response) {
+                var productCount = parseInt($('#productCount').text())
+                // produktcount um 1 erhöhen
+                $('#productCount').html(productCount + qty)
+                $('#cart').empty()
+                loadCart()
+            },
+            error: function (xhr) {
+                console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            }
+        })
+   
+}*/
 
 function checkOut(){
     window.location.assign('../sites/checkout.php')

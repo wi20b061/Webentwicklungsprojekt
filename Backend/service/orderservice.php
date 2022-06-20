@@ -20,6 +20,19 @@ class OrderService{
         return $db_obj;
     }
 
+    //complete order
+    public function completeOrder($userID){
+        $db_obj = $this->dbConnection();
+        $salesHeaderID = $this->getSalesHeaderID($userID, $db_obj, 0);
+        $sql = "UPDATE `salesheader` SET done = 1 WHERE salesID = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $salesHeaderID[0]);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+
     //remove a line/product from the order (admin)
     public function deleteSalesLine($salesLineID){
         $db_obj = $this->dbConnection();
@@ -86,6 +99,9 @@ class OrderService{
         $returnArr = $this->getCartlineList($salesHeaderID);
         $cartlineList = $returnArr[0];
         $sumprice = $returnArr[1];
+        if(empty($salesHeaderID)){
+            return null;
+        }
         $cart = new Cart($salesHeaderID[0], $userID, $cartlineList, $sumprice);
         //close the connection
         $db_obj->close();
@@ -101,6 +117,9 @@ class OrderService{
         $cartlineList = array();
         $i = $sumprice = 0;
         $result = $stmt->get_result();
+        if(empty($result)){
+            return null;
+        }
         while($row = $result->fetch_row()){
             $curproduct = $this->productService->getProductById($row[1]);
             //hier können auch noch mehr variablen ausgelesen werden für die Sales Line
@@ -127,13 +146,20 @@ class OrderService{
     
     //to get current sales header (warenkorb) of this user (all)
     public function getSalesHeaderID($userID, $db_obj, $done){
-        $sql = "SELECT salesID FROM salesheader WHERE customerID = ? AND done = ?";
+        if($done == 1){
+            $sql = "SELECT salesID FROM salesheader WHERE customerID = ? AND done = ? ORDER BY orderDate DESC";
+        }else{
+            $sql = "SELECT salesID FROM salesheader WHERE customerID = ? AND done = ?";
+        }
         $stmt = $db_obj->prepare($sql);
         $stmt->bind_param("ii", $userID, $done);
         $stmt->execute();
         $salesIDs = array();
         $i = 0;
         $result = $stmt->get_result();
+        if(empty($result)){
+            return null;
+        }
         while($row = $result->fetch_row()){
             $salesIDs[$i] = $row[0];
             $i++;

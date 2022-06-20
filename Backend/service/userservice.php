@@ -4,12 +4,14 @@ include_once "model/cartline.php";
 include_once "model/order.php";
 include_once "service/productservice.php";
 include_once "service/orderservice.php";
+include_once "logic/invoiceGenerator.php";
 
 class UserService{
 
     public function __construct(){
         $this->productService = new ProductService(); 
         $this->orderService = new OrderService(); 
+        $this->invoiceGenerator = new InvoiceGenerator();
     }
 
     //Connection to Database
@@ -20,6 +22,17 @@ class UserService{
             exit();
         }
         return $db_obj;
+    }
+
+    //Generate Invoice & give back path to invoice
+    public function getInvoicePath($userID, $salesheaderID){
+        $db_obj = $this->dbConnection();
+        $user = $this->getUserDetails($userID);
+        $tmp = $this->orderService->getCartlineList($salesheaderID);
+        $saleslineList = $tmp[0];
+        $sumamount = $tmp[1];
+        $orderDate = $this->getOrderDate($salesheaderID);
+        return $this->invoiceGenerator->generateInvoice($user, $saleslineList, $sumamount, $orderDate, $salesheaderID); //gives back path of invoice pdf
     }
     
     //update userdata (customer)

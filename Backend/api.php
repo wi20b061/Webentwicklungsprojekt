@@ -47,29 +47,32 @@ class Api{
             if(isset($_GET["productID"])){
                 $result = $this->getProductByID();
             }
-            if(isset($_SESSION["userID"]) && isset($_GET["request"]) && $_GET["request"] == "cart"){
+            else if(isset($_SESSION["userID"]) && isset($_GET["request"]) && $_GET["request"] == "cart"){
                 $result = $this->getShoppinCart();
             }
-            if(isset($_GET["products"])){
+            else if(isset($_GET["products"])){
                 $result = $this->getAllProducts();
             }
-            if(isset($_GET["search"])){
+            else if(isset($_GET["search"])){
                 $result = $this->search();
             }
-            if(isset($_GET["allUsers"])){
+            else if(isset($_GET["allUsers"])){
                 $result = $this->getAllUsers();
             }
-            if(isset($_GET["userID"]) && isset($_GET["request"]) && $_GET["request"] == "adminOrders"){
+            else if(isset($_GET["userID"]) && isset($_GET["request"]) && $_GET["request"] == "adminOrders"){
                 $result = $this->getOrdersByUserIdAdmin();
             }
-            if(isset($_GET["category"])){
+            else if(isset($_GET["category"])){
                 $result = $this->getProductByType();
             }
-            if(isset($_GET["userProfile"])){
+            else if(isset($_GET["userProfile"])){
                 $result = $this->getUserDetails();
             }
-            if(isset($_GET["request"]) && $_GET["request"] == "orders"){
+            else if(isset($_GET["request"]) && $_GET["request"] == "orders"){
                 $result = $this->getOrdersByUserId();
+            }
+            else if(isset($_GET["request"]) && $_GET["request"] == "invoice"){
+                $result = $this->getInvoicePath();
             }
         }
         return $result;
@@ -114,6 +117,14 @@ class Api{
             return $this->userService->checkPassword($_SESSION["userID"], $_POST["pw"]);
         }
     }
+    private function getInvoicePath(){
+        if(!isset($_SESSION["userID"]) || !isset($_GET["salesheaderID"]) || empty($_SESSION["userID"]) || empty($_GET["salesheaderID"])){
+            $this->error(400, [], "Bad Request - userID and salesheaderID are required!");
+        }
+        $userID = $_SESSION["userID"];
+        $salesheaderID = $this->test_input($_GET["salesheaderID"], "i");
+        return $this->userService->getInvoicePath($userID, $salesheaderID);
+    }
     //Get Information for userprofile
     private function getUserDetails(){
         if(empty($_SESSION["userID"])){
@@ -121,10 +132,11 @@ class Api{
         }
         return $this->userService->getUserDetails($_SESSION["userID"]);
     }
+    //get a list of all customers
     private function getAllUsers(){
         return $this->userService->getAllUsers();
     }
-
+    //get all finished orders of a user
     private function getOrdersByUserIdAdmin(){
         if(empty($_GET["userID"])){
             $this->error(400, [], "Bad Request - userID is required!");
@@ -139,6 +151,15 @@ class Api{
         if(!isset($_POST["orderRequest"]) || empty($_POST["orderRequest"])){
             $this->error(400, [], "Bad Request - orderRequest-type required!");
         }
+        //complete order (customer)
+        if($_POST["orderRequest"] == "completeOrder"){
+            if(!isset($_SESSION["userID"]) || empty($_SESSION["userID"])){
+                $this->error(400, [], "Bad Request - userID is not set in session!");
+            }
+            $userID = $this->test_input($_SESSION["userID"], "i");
+            return $this->orderService->completeOrder($userID);
+        }
+        
         //delete product from cart (customer)
         if($_POST["orderRequest"] == "deleteSalesline"){
             //VALIDATION
