@@ -12,7 +12,7 @@ function sendData(){
     console.log("before code ajax")
 
 
-    var img = "../productpictures/bookshelf.png"
+    var img = "../productpictures/vase2.jpg"
     var productName = $('#productName').val();
     var price = $('#price').val();
     var description = $('#description').val();
