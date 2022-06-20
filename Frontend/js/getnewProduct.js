@@ -3,7 +3,9 @@ $(document).ready(function(){
     
 
     $('#save').click(function(){
-        sendData(img, productname, price, description, type)
+
+        var img = "../productpictures/bookshelf.png"
+        sendData(productName, price, description, type, img)
     })
 
 })
@@ -11,7 +13,7 @@ $(document).ready(function(){
 
 
 
-function sendData(img, productName, price, description, type){
+function sendData(productName, price, description, type, img){
     console.log("before code ajax")
 
     $.ajax({
@@ -19,11 +21,11 @@ function sendData(img, productName, price, description, type){
         type: "POST",
         url: "../../Backend/ServiceHandler.php",
         cache: false,
-        data: {img: img, productName: productName, price: price, description: description, type: type},
+        data: {request: "products", productsrequest: "newProduct", name: productName, description: description, type: type, price: price, img: img},
         dataType: "json",
         success: function (response) { 
 
-            window.location.assign('../sites/login.php')
+            window.location.assign('../sites/productProcessing.php')
         },
         error: function(xhr){
             

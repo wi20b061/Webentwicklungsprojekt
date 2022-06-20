@@ -17,7 +17,7 @@ $(document).ready(function () {
         liveSearch(searchField)
     })
 
-    $('#newProduct').onklick(function () {
+    $('#newProduct').click(function () {
         window.location.assign('../sites/newProduct.php')
     })
 })

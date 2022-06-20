@@ -19,10 +19,6 @@
             ?>
         </header>
         <main class="pt-1 pb-1 ps-5 pe-5 ">
-            <div class="row mt-3 ">
-                <div class="col border border-primary me-1 rounded">
-                    <div id="img"></div>
-                </div>
                 <div class="col">
                     <div class="row"> 
                         <div class="col display-6">
@@ -61,7 +57,7 @@
                     </div>
 
                 </div>
-            </div>   
+ 
         </main>
         <?php include("footer.php")?>
     </div>
