@@ -10,10 +10,16 @@ $(document).ready(function(){
 
 function sendData(){
     console.log("before code ajax")
-    var img = "../productpictures/bookshelf.png"
-    
 
-    var productName = $('#')
+
+    var img = "../productpictures/bookshelf.png"
+    var productName = $('#productName').val();
+    var price = $('#price').val();
+    var description = $('#description').val();
+    var select = document.getElementById('type1');
+    var type = select.options[select.selectedIndex].value
+
+    console.log(type)
 
     $.ajax({
         
