@@ -23,10 +23,11 @@ class OrderService{
     //complete order
     public function completeOrder($userID){
         $db_obj = $this->dbConnection();
-        $salesHeaderID = $this->getSalesHeaderID($userID, $db_obj, 0);
+        $tmp = $this->getSalesHeaderID($userID, $db_obj, 0);
+        $salesHeaderID = $tmp[0];
         $sql = "UPDATE `salesheader` SET done = 1 WHERE salesID = ?";
         $stmt = $db_obj->prepare($sql);
-        $stmt->bind_param("i", $salesHeaderID[0]);
+        $stmt->bind_param("i", $salesHeaderID);
         if($stmt->execute()){
             return true;
         }
@@ -48,7 +49,8 @@ class OrderService{
     //add product to shooping cart (customer)
     public function addProductToCart($userID, $productID, $quantity){
         $db_obj = $this->dbConnection();
-        $salesID = $this->getSalesHeaderID($userID, $db_obj, 0);
+        $tmp = $this->getSalesHeaderID($userID, $db_obj, 0);
+        $salesID = $tmp[0];
 
         //if customer doesn't have a shopping cart yet, create new one
         if(empty($salesID)){
@@ -58,7 +60,8 @@ class OrderService{
             $done = 0;
             $stmt->bind_param("ii", $userID, $done);
             $stmt->execute();
-            $salesID = $this->getSalesHeaderID($userID, $db_obj, 0);
+            $tmp = $this->getSalesHeaderID($userID, $db_obj, 0);
+            $salesID = $tmp[0];
         }
         //check if product is already in shopping cart of this customer
         $sql = "SELECT saleslineID, quantity FROM salesline WHERE productID = ? AND salesheaderID = ?";
@@ -95,14 +98,15 @@ class OrderService{
     //get shopping cart of user (customer)
     public function getCart($userID){
         $db_obj = $this->dbConnection();
-        $salesHeaderID = $this->getSalesHeaderID($userID, $db_obj, 0);
-        $returnArr = $this->getCartlineList($salesHeaderID);
-        $cartlineList = $returnArr[0];
-        $sumprice = $returnArr[1];
+        $tmp = $this->getSalesHeaderID($userID, $db_obj, 0);
+        $salesHeaderID = $tmp[0];
         if(empty($salesHeaderID)){
             return null;
         }
-        $cart = new Cart($salesHeaderID[0], $userID, $cartlineList, $sumprice);
+        $returnArr = $this->getCartlineList($salesHeaderID);
+        $cartlineList = $returnArr[0];
+        $sumprice = $returnArr[1];
+        $cart = new Cart($salesHeaderID, $userID, $cartlineList, $sumprice);
         //close the connection
         $db_obj->close();
         return $cart;
