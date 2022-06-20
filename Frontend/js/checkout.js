@@ -14,7 +14,9 @@ function loadSummary(){
         success: function (response) {
             console.log(response)
             
-            
+            $('#btnOrder').click(function(){
+                order(response.salesheaderID)
+            })
             $('#product').append(response.sumprice.toFixed(2))
             
             var total = parseInt($('#shipping').html()) + response.sumprice
@@ -53,6 +55,20 @@ function loadUserAddress(){
     })
 }
 
-function order(){
-    
+function order(salesheaderID){
+    $.ajax({
+        type: "POST",
+        url: "../../Backend/ServiceHandler.php",
+        cache: false,
+        dataType: "json",
+        data: {request: 'order', orderRequest: 'completeOrder'},
+        success: function (response) { 
+            console.log(response)
+            window.location.assign('../sites/orderFinished.php?salesheaderID='+salesheaderID)
+        },
+        error: function(xhr){
+            console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);   
+        },
+    })
+
 }
