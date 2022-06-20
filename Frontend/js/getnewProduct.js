@@ -8,9 +8,13 @@ $(document).ready(function(){
 
 
 
-function sendData(productName, price, description, type, img){
+function sendData(){
     console.log("before code ajax")
     var img = "../productpictures/bookshelf.png"
+    
+
+    var productName = $('#')
+
     $.ajax({
         
         type: "POST",

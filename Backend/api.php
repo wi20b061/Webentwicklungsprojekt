@@ -240,7 +240,7 @@ class Api{
         //add new product (with upload for pic)
         if($_POST["productsrequest"] == "newProduct" && isset($_POST["description"]) && !empty($_POST["description"])
         && isset($_POST["img"]) && !empty($_POST["img"]) && isset($_POST["type"]) && !empty($_POST["type"])
-        && isset($_POST["price"]) && !empty($_POST["price"])){
+        && isset($_POST["price"]) && !empty($_POST["price"])&& isset($_POST["name"]) && !empty($_POST["name"])){
             $name =         $this->test_input($_POST["name"], "s");
             $description =  $this->test_input($_POST["description"], "s");
             $type =         $this->test_input($_POST["type"], "s");
