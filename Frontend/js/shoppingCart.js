@@ -66,7 +66,7 @@ function loadProductDetails(productID){
 
 
 function changeProductQty(saleslineID, newQty, remove){
-    console.log('heyooo')
+    
     $.ajax({
         type: "POST",
         url: "../../Backend/ServiceHandler.php",
@@ -77,6 +77,7 @@ function changeProductQty(saleslineID, newQty, remove){
         success: function (response) {
             // product count erhöhen !
             var productCount = parseInt($('#productCount').html())
+            
             if(remove == true){
                 $('#productCount').html(productCount - 1)
             }else{

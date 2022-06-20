@@ -68,6 +68,7 @@ function sendData(methodToExecute, username, pw){
         cache: false,
         data: {request: methodToExecute, username: username, pw: pw},
         dataType: "json",
+        xhrFields:{withCredentials: true},
         success: function (response) { 
             
             window.location.assign('../sites/products.php')

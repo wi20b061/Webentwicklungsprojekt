@@ -59,7 +59,7 @@
 
 
                     <div class="col-auto text-end">
-                        <span class="psw">Forgot <a href="#">password?</a></span>
+                        <span class="psw">No account yet? <a href="registration.php">Register here!</a></span>
                     </div>
                 </div>
 
