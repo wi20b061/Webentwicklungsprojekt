@@ -65,7 +65,7 @@ $(document).ready(function(){
 })
 
 
-function sendData(productID, productName, description, type, price, path){
+function sendData(productID, productName, price, description, type, path){
     console.log("before code ajax")
 
     $.ajax({

@@ -37,7 +37,7 @@
                     <input type="text" id="description" name="description" class="form-control" >
                     </div>
                     </div>
-
+                    <!--Select for limited selections-->
                     <div class="row"> 
                         <div class="col" id="type">
                         <label class="form-label" for="type1" >Type</label>
