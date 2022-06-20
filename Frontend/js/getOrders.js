@@ -27,7 +27,7 @@ function loadOrders(userID){
             });
 
             rows+= "</tbody></table>"
-
+            $('#orders').empty()
             $('#orders').append(rows)
            
         },
