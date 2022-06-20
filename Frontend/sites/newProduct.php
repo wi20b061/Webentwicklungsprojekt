@@ -44,12 +44,12 @@
 
                     <div class="row"> 
                         <div class="col" id="type">
-                        <label class="form-label" for="type" >Type</label>
-                        <select class="form-select" id="type" name="type">
-                        <option value="mr">Shelf</option>
-                        <option value="ms">Couch</option>
-                        <option value="various">Plants</option>
-                        <option value="mr">Decoration</option>
+                        <label class="form-label" for="type1" >Type</label>
+                        <select class="form-select" id="type1" name="type1">
+                        <option value="shelf">Shelf</option>
+                        <option value="couch">Couch</option>
+                        <option value="plants">Plants</option>
+                        <option value="decoration">Decoration</option>
                         </select>
 
                         </div>

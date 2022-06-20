@@ -24,10 +24,14 @@ class OrderService{
     public function completeOrder($userID){
         $db_obj = $this->dbConnection();
         $tmp = $this->getSalesHeaderID($userID, $db_obj, 0);
+        $curDate = date("Y-m-d");
+        if(empty($tmp[0])){
+            return false;
+        }
         $salesHeaderID = $tmp[0];
-        $sql = "UPDATE `salesheader` SET done = 1 WHERE salesID = ?";
+        $sql = "UPDATE `salesheader` SET done = 1, orderDate = ? WHERE salesID = ?";
         $stmt = $db_obj->prepare($sql);
-        $stmt->bind_param("i", $salesHeaderID);
+        $stmt->bind_param("si",$curDate, $salesHeaderID);
         if($stmt->execute()){
             return true;
         }
