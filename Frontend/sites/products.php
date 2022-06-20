@@ -35,7 +35,7 @@
                             <li class="dropdown-item">Shelf</li>
                             <li class="dropdown-item">Chair</li>
                             <li class="dropdown-item">Couch</li>
-                            <li class="dropdown-item">Plants</li>
+                            <li class="dropdown-item">Plant</li>
                             <li class="dropdown-item">Decoration</li>
                         </ul>
                     </div>
