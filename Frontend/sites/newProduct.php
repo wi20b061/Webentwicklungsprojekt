@@ -46,6 +46,8 @@
                         <option value="couch">Couch</option>
                         <option value="plants">Plants</option>
                         <option value="decoration">Decoration</option>
+                        <option value="decoration">Table</option>
+                        <option value="decoration">Chair</option>
                         </select>
 
                         </div>

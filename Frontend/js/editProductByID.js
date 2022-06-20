@@ -28,12 +28,23 @@ $(document).ready(function(){
 
     $('#save').click(function(){
 
+
+        
+
         $.ajax({
             type: "GET",
             url: "../../Backend/ServiceHandler.php?productID=" +productID , //productID="+ productID[0]
             cache: false,
             dataType: "json",
-            success: function (response) { 
+            success: function (response) {
+                
+                var productName = $('#productName').val();
+                var price = $('#price').val();
+                var description = $('#description').val();
+                var select = document.getElementById('type1');
+                var type = select.options[select.selectedIndex].value
+
+
                 console.log(response)
                 sendData(productID, productName, price, description, type, response.path)
     
