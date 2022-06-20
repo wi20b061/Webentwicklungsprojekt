@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
-    
+    if(getCookie('username')!= ""){
+        $('#username').val(getCookie('username'))
+    }
 
     $('#submit').click(function(){
         validateForm()
@@ -11,7 +13,8 @@ function validateForm() {
     console.log("validation")
     var username = $('#username').val().trim()
     var pw = $('#pw').val().trim()
-
+    
+    
 
     var userErr = pwErr = true
 
@@ -62,6 +65,9 @@ function printError(elemErrId, elemInputId, message){
 }
 
 function sendData(methodToExecute, username, pw){
+    var rememberMe = $('#setCookie').val()
+    console.log(rememberMe)
+    
     $.ajax({
         type: "POST",
         url: "../../Backend/ServiceHandler.php",
@@ -70,7 +76,11 @@ function sendData(methodToExecute, username, pw){
         dataType: "json",
         xhrFields:{withCredentials: true},
         success: function (response) { 
-            
+            if(rememberMe == 'checked'){
+                document.cookie = setCookie('username', username, 7)
+                console.log(getCookie('username'))
+                console.log(document.cookie)
+            }
             window.location.assign('../sites/products.php')
         },
         error: function(xhr){
@@ -81,4 +91,27 @@ function sendData(methodToExecute, username, pw){
     })
 
    
+}
+
+function setCookie(cname, cvalue, exdays){
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
 }

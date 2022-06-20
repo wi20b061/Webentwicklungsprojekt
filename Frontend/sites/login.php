@@ -51,8 +51,8 @@
 
                     <div class="col pt-3">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" style="background-color: #365370;" checked>
-                            <label class="form-check-label" for="flexCheckChecked">Remember me</label>
+                            <input class="form-check-input" type="checkbox" value="" id="setCookie" style="background-color: #365370;" checked>
+                            <label class="form-check-label" for="setCookie">Remember me</label>
                         </div>
                     </div>
 
