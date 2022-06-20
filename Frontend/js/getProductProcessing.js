@@ -23,7 +23,7 @@ $(document).ready(function () {
 })
 
 
-
+//products get dynamically loaded, for each product a div gets created up to 4 div boxes - then next line
 function loadProducts(getMethod) {
     $.ajax({
         type: "GET",
@@ -54,6 +54,8 @@ function loadProducts(getMethod) {
             $('.bi').mouseenter(function () {
 
             })
+
+            //on click the detailed product info gets shown
             $('.product').click(function () {
                 console.log(this.id)
                 window.location.assign('../sites/productDetailsProcessing.php?productID=' + this.id)

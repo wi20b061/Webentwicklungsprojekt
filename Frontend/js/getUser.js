@@ -3,8 +3,10 @@ $(document).ready(function(){
     loadUsers()
 
 
-})  
+})
 
+//users get loaded for each user a seperate line gets created
+//if the user is not active he still gets listed, but is button is changed
 function loadUsers(){
     $.ajax({
         type: "GET",
@@ -50,6 +52,8 @@ function loadOrders(userID){
     window.location.assign('../sites/orders.php?userID=' + userID)
 }
 
+
+//when a user gets deactivated his button changes and load users gets refreshed
 function deactivateUser(userID){
     console.log(userID)
     $.ajax({

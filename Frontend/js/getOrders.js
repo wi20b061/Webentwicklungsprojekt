@@ -6,7 +6,7 @@ $(document).ready(function(){
 
 
 })  
-
+//load orders, for each order an extra line is created in table
 function loadOrders(userID){
 
     $.ajax({
@@ -51,8 +51,9 @@ function getUrlVars(){
     return vars;
 }
 
+
+//delete order from table
 function deleteProduct(saleslineID,userID){
-//todo
 console.log('jaman')
 
     $.ajax({

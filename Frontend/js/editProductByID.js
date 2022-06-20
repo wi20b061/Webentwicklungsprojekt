@@ -31,6 +31,7 @@ $(document).ready(function(){
 
         
 
+        //second ajax call to get Picture path
         $.ajax({
             type: "GET",
             url: "../../Backend/ServiceHandler.php?productID=" +productID , //productID="+ productID[0]
@@ -64,7 +65,7 @@ $(document).ready(function(){
 
 })
 
-
+//send Data to uptate product
 function sendData(productID, productName, price, description, type, path){
     console.log("before code ajax")
 
@@ -89,7 +90,7 @@ function sendData(productID, productName, price, description, type, path){
 
 }
 
-
+//delete Product from Database, if Product is already in use, send error message
 function delet(productID) {
     console.log("delete")
 

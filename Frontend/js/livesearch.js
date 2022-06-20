@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-
+//at each keyup an ajax call is submitted which gets the right infos 
 $('#search').keyup(function()
 {
     var searchField=$('#search').val();
