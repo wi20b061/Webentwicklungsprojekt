@@ -20,9 +20,9 @@ function loadOrders(userID){
             var rows= ""
 
             response.forEach(saleshead => {
-                rows+= "<table class='table'><thead><tr><th scope='col'>Order ID</th><th scope='col'>Product and ID</th><th scope='col'>Quantity</th><th scope='col'>Image</th><th scope='col'></th></tr></thead><tbody>";
+                rows+= "<table class='table'><thead><tr><th scope='col'>Order ID</th><th scope='col'>Product and ID</th><th scope='col'>Quantity</th><th scope='col'></th></tr></thead><tbody>";
                 saleshead.cartlineList.forEach(cartline =>{
-                    rows+= "<tr><th scope='row'>"+saleshead.salesheaderID+"</th><td>"+cartline.productID+" "+cartline.productName+"</td><td>"+cartline.quantity+"</td><td><img src='../../Frontend/productpictures/bookshelf.p' alt='Bookshelf'></td><td><i class='bi bi-trash' onclick='deleteProduct("+cartline.saleslineID+","+userID+")'></i></td></tr>";
+                    rows+= "<tr><th scope='row'>"+saleshead.salesheaderID+"</th><td>"+cartline.productID+" "+cartline.productName+"</td><td>"+cartline.quantity+"</td><td><i class='bi bi-trash' onclick='deleteProduct("+cartline.saleslineID+","+userID+")'></i></td></tr>";
                 })
             });
 

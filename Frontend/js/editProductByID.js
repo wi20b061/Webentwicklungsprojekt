@@ -11,12 +11,12 @@ $(document).ready(function(){
         success: function (response) { 
             console.log(response)
             $('#img').append('<img class="img-fluid mx-auto d-block " src="' + response.path + '">')
-            $('#name').append('<h1 class="display-6">' +response.name +'</h1>')
+            $('#productname').append('<h1 class="display-6">' +response.name +'</h1>')
             $('#price').append('<p class="text-muted" >'+ response.price.toFixed(2) +'€</p>')
             $('#description').append('<p>'+ response.description +'</p>')
-            $('#type').append('<div class="dropdown"><button class="btn text-white dropdown-toggle" disabled style="background-color: #365370;" type="button" data-bs-toggle="dropdown" aria-expanded="false">' +response.type +'</button></div>')
+            $('#type').append('<select class="form-select" disabled name="type1"><option value="current">'+response.type+'</option>')
             //$('#ID').append('<h3 class="display-6">' +response.productID +'</h3>')
-            $('#edit').append('<button type="button" onclick="edit('+response.name+', '+response.name+')" class="btn btn-dark mt-1" style="background-color: #365370;">Edit <i class="bi bi-pencil ms-1" style="font-size: 1.5rem; color: white;"></i></button>')
+            $('#edit').append('<button type="button" onclick="edit(\''+response.name+'\', \''+response.price+'\', \''+response.description+'\', \''+response.type+'\')" class="btn btn-dark mt-1" style="background-color: #365370;">Edit <i class="bi bi-pencil ms-1" style="font-size: 1.5rem; color: white;"></i></button>')
             $('#delet').append('<button type="button" onclick="delet('+response.id+')" class="btn btn-dark mt-1" style="background-color: #880808;">Delete <i class="bi bi-trash ms-1" style="font-size: 1.5rem; color: white;"></i></button>')
         },
         error: function(xhr){
@@ -32,26 +32,28 @@ $(document).ready(function(){
 
 })  
 
-function edit(response) {
+function edit(productName, price, description, type) {
 
-    console.log(response)
-    $("#name").empty()
-    $('#name').append('<input type="text" class="form-control display-6" id="name" value=" '+response.name +'">')
+    console.log($("#productname").val())
+
+    $("#productname").empty()
+    $('#productname').append('<input type="text" class="form-control display-6" id="name1" value=" '+ productName +'">')
     $("#price").empty()
-    $('#price').append('<input type="text" class="form-control" id="price" value="' + response.price.toFixed(2) +'">')
+    $('#price').append('<input type="text" class="form-control" id="price1" value="' + price +'">')
     $("#description").empty()
-    $('#description').append('<input type="text" class="form-control" id="description" value="' + response.description +'">')
+    $('#description').append('<textarea class="mt-1" id="description1" rows="6" cols="50">"' + description +'"</textarea>')
     $("#type").empty()
-    $('#type').append('<label class="form-label" for="type1" >'+response.type+'</label><select class="form-select" id="type1" name="type1"><option value="shelf">Shelf</option><option value="couch">Couch</option><option value="plants">Plants</option><option value="decoration">Decoration</option></select>')
+    $('#type').append('<select class="form-select mt-1" id="type1" name="type1"><option value="shelf">Shelf</option><option value="couch">Couch</option><option value="plants">Plants</option><option value="decoration">Decoration</option></select>')
     $("#edit").empty()
-    $('#edit').append('<button type="button" onclick="saveEdit('+document.getElementByID("name").innerText()+','+document.getElementByID("price").innerText()+', '+document.getElementByID("description").innerText()+', '+document.getElementByID("type").innerText()+')" class="btn btn-dark" style="background-color: #365370;">Save <i class="bi bi-pencil ms-1" style="font-size: 1.5rem; color: white;"></i></button>')
-
+    $('#edit').append('<button type="button" onclick="saveEdit('+$("#productname").val()+')" class="btn btn-dark mt-1" style="background-color: #365370;">Save <i class="bi bi-pencil ms-1" style="font-size: 1.5rem; color: white;"></i></button>')
     
-
     
 }
 
-function saveEdit(name, price, description, type){
+function saveEdit(productName){
+
+    console.log(productName)
+
 
     $.ajax({
         type: "POST",
