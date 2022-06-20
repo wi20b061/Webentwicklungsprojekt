@@ -53,7 +53,6 @@
                         </select>
 
                         </div>
-                        <div class="col" id="ID">
 
                         </div>
                     </div>
