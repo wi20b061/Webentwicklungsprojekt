@@ -1,12 +1,7 @@
 $(document).ready(function(){
    
-    
+    console.log('document loaded')
 
-    $('#save').click(function(){
-
-        var img = "../productpictures/bookshelf.png"
-        sendData(productName, price, description, type, img)
-    })
 
 })
 
@@ -15,7 +10,7 @@ $(document).ready(function(){
 
 function sendData(productName, price, description, type, img){
     console.log("before code ajax")
-
+    var img = "../productpictures/bookshelf.png"
     $.ajax({
         
         type: "POST",

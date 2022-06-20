@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="row">
-                    <button class="btn text-white mt-2 mb-2"  name="save" id="save" style="background-color: #365370;">Save</button>
+                    <button class="btn text-white mt-2 mb-2"  onclick="sendData()" name="save" id="save" type="submit" style="background-color: #365370;">Save</button>
                     </div>
 
                 </div>
