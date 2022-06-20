@@ -76,7 +76,7 @@ function delet(productID) {
             cache: false,
             dataType: "json",
             
-            data: { request: "products", orderRequest: "delete", productID: productID},
+            data: { request: "products", productsrequest: "delete", productID: productID},
             success: function (response) {
       
                 window.location.assign('../sites/productProcessing.php')
