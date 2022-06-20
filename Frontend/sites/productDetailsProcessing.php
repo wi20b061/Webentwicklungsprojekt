@@ -18,25 +18,46 @@
                 include('nav.php')
             ?>
         </header>
-        <main class="pt-1 pb-1 ps-5 pe-5">
-            <div class="row mt-3">
-                <div class="col">
-                    <div id="img"></div>
-                </div>
+        <main class="pt-1 pb-1 ps-5 pe-5 ">
                 <div class="col">
                     <div class="row"> 
-                        <div class="col" id="name"></div>
-                        <div class="col display-6" id="price"></div>
+                        <div class="col display-6">
+                        <label for="productName" class="form-label">Productname</label>
+                        <input type="text" id="productName" name="productName" class="form-control" >
+                        </div>
+
+                        <div class="col display-6">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="text" id="price" name="price" class="form-control" >
+                        </div>
                     </div>
-                    <div class="row" id="description"></div>
+                    <div class="row">
+                    <div class="col">
+                    <label for="description" class="form-label">Description</label>
+                    <input type="text" id="description" name="description" class="form-control" >
+                    </div>
+                    </div>
+
                     <div class="row"> 
-                        <div class="col" id="type"></div>
-                        <div class="col" id="ID"></div>
+                        <div class="col" id="type">
+                        <label class="form-label" for="type1" >Type</label>
+                        <select class="form-select" id="type1" name="type1">
+                        <option value="shelf">Shelf</option>
+                        <option value="couch">Couch</option>
+                        <option value="plants">Plants</option>
+                        <option value="decoration">Decoration</option>
+                        </select>
+
+                        </div>
+
+                        </div>
                     </div>
-                    <div class="row" id="edit"></div>
-                    <div class="row" id="delet"></div>
+                    <div class="row" id="delet">
+                    <button class="btn text-white mt-2 mb-2"  name="save" id="save" style="background-color: #365370;">Save</button>
+                    </div>
+
                 </div>
-            </div>   
+  
         </main>
         <?php include("footer.php")?>
     </div>
