@@ -61,13 +61,20 @@ function loadOrders(){
         dataType: "json",
         success: function (response) {
             console.log(response)
-
-            var rows=""
+            
+            var rows="<div class='col'"
             response.forEach(order =>{
                 console.log(order)
-                rows += '<div class="row">'+ order. +'</div>'
+                var salesheaderID = order.salesheaderID
+                rows += '<div class="row border-bottom pb-1" >Order Nr. ' + order.salesheaderID +'</div>'
+                order.cartlineList.forEach(product=>{
+
+                    rows += '<div class="row"><div class="col img'+product.saleslineID+'"></div><div class="col">'+product.quantity+'</div><div class="col">'+product.productName+'</div><div class="col">'+product.productprice+'</div></div>'
+                    loadProductPic(product.productID, product.saleslineID)
+                })
+                rows += '</div>'
             })
-            $('#content').append('')
+            $('#content').append(rows)
 
             
         },
@@ -79,4 +86,24 @@ function loadOrders(){
 
 
 
+}
+
+function loadProductPic(productID, saleslineID){
+    $.ajax({
+        type: "GET",
+        url: "../../Backend/ServiceHandler.php?productID=" +productID ,
+        cache: false,
+        dataType: "json",
+        success: function (response) { 
+            console.log(response)
+            
+            
+            $('.img' + saleslineID).append("<img class='img-fluid' style='max-width: 40%;' src='"+ response.path +"'>")
+            
+        },
+        error: function(xhr){
+            console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            
+        }
+    })
 }
