@@ -22,7 +22,7 @@ function loadOrders(userID){
             response.forEach(saleshead => {
                 rows+= "<table class='table'><thead><tr><th scope='col'>Order ID</th><th scope='col'>Product and ID</th><th scope='col'>Quantity</th><th scope='col'>Image</th><th scope='col'></th></tr></thead><tbody>";
                 saleshead.cartlineList.forEach(cartline =>{
-                    rows+= "<tr><th scope='row'>"+cartline.saleslineID+"</th><td>"+cartline.productID+" "+cartline.productName+"</td><td>"+cartline.quantity+"</td><td><img src='../../Frontend/productpictures/bookshelf.p' alt='Bookshelf'></td><td id='btn"+cartline.saleslineID+"'><i class='bi bi-trash' onclick='deleteProduct("+ saleshead.customerID +", "+cartline.productID+")' type='link'></i></td></tr>";
+                    rows+= "<tr><th scope='row'>"+saleshead.salesheaderID+"</th><td>"+cartline.productID+" "+cartline.productName+"</td><td>"+cartline.quantity+"</td><td><img src='../../Frontend/productpictures/bookshelf.p' alt='Bookshelf'></td><td><i class='bi bi-trash' onclick='deleteProduct("+cartline.saleslineID+")' type='link'></i></td></tr>";
                 })
             });
 
@@ -51,7 +51,7 @@ function getUrlVars(){
     return vars;
 }
 
-function deleteProduct(userID, productID){
+function deleteProduct(saleslineID){
 //todo
 console.log('jaman')
 
@@ -60,11 +60,11 @@ console.log('jaman')
         url: "../../Backend/ServiceHandler.php",
         cache: false,
         dataType: "json",
-        data: {request:"user", userRequest:"deactivateUser", userID:"1"},
+        data: {request:"order", orderRequest:"deleteSalesLine", saleslineID: saleslineID},
         success: function (response) { 
-            console.log(response)
-            $("#btn"+userID).empty()
-            $("#btn"+userID).append("<button class='btn text-white deactivate' onclick='deactivateUser("+ user.userID +")' style='background-color: #880808;' disabled type='link'>Deaktivate</button>")
+            console.log('profi')
+
+            loadOrders(userID)
     
         },
         error: function(xhr){
