@@ -8,7 +8,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light  sticky-top mb-2" style="background-color: #F0F2E6">
   <div class="container-fluid">
-    <a class="navbar-brand" href="index.php">
+    <a class="navbar-brand" href="products.php">
       <img src="../../Frontend/pictures/FILARA.png" alt="" width="100" height="65" class="d-inline-block align-text-top">
     </a>
     <div id="sessionIsSet"class="visually-hidden"><?php if(isset($_SESSION["userID"])){echo 'true';}?></div>
