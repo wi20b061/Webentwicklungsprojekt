@@ -304,7 +304,7 @@ function addNumTVA($tva)
     $this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2-$y1), 2.5, 'D');
     $this->Line( $r1, $mid, $r2, $mid);
     $this->SetXY( $r1 + 16 , $y1+1 );
-    $this->Cell(40, 4, "UID", '', '', "C");
+    $this->Cell(40, 4, "Invoice No.", '', '', "C");
     $this->SetFont( "Arial", "", 10);
     $this->SetXY( $r1 + 16 , $y1+5 );
     $this->Cell(40, 5, $tva, '', '', "C");
