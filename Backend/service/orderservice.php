@@ -133,7 +133,12 @@ class OrderService{
     
     //to get current sales header (warenkorb) of this user (all)
     public function getSalesHeaderID($userID, $db_obj, $done){
-        $sql = "SELECT salesID FROM salesheader WHERE customerID = ? AND done = ?";
+        if($done = 1){
+            $sql = "SELECT salesID FROM salesheader WHERE customerID = ? AND done = ? ORDER BY orderDate DESC";
+        }else{
+            $sql = "SELECT salesID FROM salesheader WHERE customerID = ? AND done = ?";
+        }
+        
         $stmt = $db_obj->prepare($sql);
         $stmt->bind_param("ii", $userID, $done);
         $stmt->execute();
